@@ -1,43 +1,43 @@
 require_relative '../aoc_defaults'
+require 'matrix'
 
 def part1
   puts 'Part 1:'
   input = get_input
 
-  east, north = 0, 0
-  direction = [1, 0]
+  ship_pos = Vector[0, 0]
+  direction = Vector[1, 0]
 
   input.each do |line|
     action = line[0]
     amount = line[1..].to_i
     case action
     when 'N'
-      north += amount
+      ship_pos[1] += amount
     when 'S'
-      north -= amount
+      ship_pos[1] -= amount
     when 'E'
-      east += amount
+      ship_pos[0] += amount
     when 'W'
-      east -= amount
+      ship_pos[0] -= amount
     when 'L'
       direction = rotate_direction(direction, amount)
     when 'R'
       direction = rotate_direction(direction, -amount)
     when 'F'
-      east += amount * direction[0]
-      north += amount * direction[1]
+      ship_pos += amount * direction
     end
   end
 
-  puts east.abs + north.abs
+  puts ship_pos.map(&:abs).sum.to_i
 end
 
 def part2
   puts 'Part 2:'
   input = get_input
 
-  east, north = 0, 0
-  direction = [10, 1]
+  ship_pos = Vector[0, 0]
+  direction = Vector[10, 1]
 
   input.each do |line|
     action = line[0]
@@ -56,25 +56,16 @@ def part2
     when 'R'
       direction = rotate_direction(direction, -amount)
     when 'F'
-      east += amount * direction[0]
-      north += amount * direction[1]
+      ship_pos += amount * direction
     end
   end
-  
-  puts east.abs + north.abs
+
+  puts ship_pos.map(&:abs).sum.to_i
 end
 
 def rotate_direction(direction, amount)
-  case amount % 360
-  when 0
-    direction
-  when 90
-    [-direction[1], direction[0]]
-  when 180
-    [-direction[0], -direction[1]]
-  when 270
-    [direction[1], -direction[0]]
-  end
+  rotation = Matrix[[0, -1], [1, 0]]
+  (rotation ** (amount / 90)) * direction
 end
 
 def get_input(test=false)
