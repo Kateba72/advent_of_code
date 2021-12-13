@@ -13,11 +13,11 @@ def part2
 end
 
 def get_input(test=false)
-  input = test ? get_test_input : get_aoc_input(%year%, %day%)
+  input = test ? get_test_input(test) : get_aoc_input(%year%, %day%)
   input.split("\n")
 end
 
-def get_test_input
+def get_test_input(number)
   <<~TEST
   TEST
 end
