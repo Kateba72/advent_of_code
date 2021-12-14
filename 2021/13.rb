@@ -17,8 +17,10 @@ def part2
   instructions.each do |instruction|
     points = execute_instruction(points, instruction)
   end
+  max_row = points.map(&:last).max + 1
+  max_col = points.map(&:first).max + 1
 
-  output = (1..6).map { |_| ' ' * 40 }
+  output = (1..max_row).map { |_| ' ' * max_col }
   points.each do |point|
     output[point[1]][point[0]] = '#'
   end
@@ -35,8 +37,8 @@ def get_input(test=false)
   instructions = instructions.split("\n").map do |line|
     /fold along ([xy])=(\d+)/.match line do |m|
       {
-        value_x: m[1] == 'x' ? m[2].to_i : 10000,
-        value_y: m[1] == 'y' ? m[2].to_i : 10000,
+        value_x: m[1] == 'x' ? m[2].to_i : nil,
+        value_y: m[1] == 'y' ? m[2].to_i : nil,
       }
     end
   end
@@ -45,8 +47,8 @@ end
 
 def execute_instruction(points, instruction)
   points = points.map do |point|
-    new_x = point[0] > instruction[:value_x] ? 2 * instruction[:value_x] - point[0] : point[0]
-    new_y = point[1] > instruction[:value_y] ? 2 * instruction[:value_y] - point[1] : point[1]
+    new_x = instruction[:value_x] && point[0] > instruction[:value_x] ? 2 * instruction[:value_x] - point[0] : point[0]
+    new_y = instruction[:value_y] && point[1] > instruction[:value_y] ? 2 * instruction[:value_y] - point[1] : point[1]
     [new_x, new_y]
   end.uniq
 end
