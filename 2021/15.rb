@@ -96,7 +96,7 @@ def calculate_distance_estimates(map)
         @distance_estimates[row + 1]&.at(column) || Float::INFINITY,
         diagonal_value + 2
       ].min + map[row][column]
-      diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 2 : this_point_estimate
+      diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 1 : this_point_estimate
     end
 
     diagonal_value = Float::INFINITY
@@ -106,7 +106,7 @@ def calculate_distance_estimates(map)
         @distance_estimates[row][column],
         diagonal_value + 2 + map[row][column]
       ].min
-      diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 2 : this_point_estimate
+      diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 1 : this_point_estimate
     end
   end
 end
