@@ -1,30 +1,47 @@
 require_relative '../aoc_defaults'
 # require 'matrix'
 
-def part1
-  puts 'Part 1:'
-  input = get_input
+class Day💙day💙
+  include Memoized
 
-end
+  def part1
+    input = get_input
 
-def part2
-  puts 'Part 2:'
-  input = get_input
+  end
 
-end
+  def part2
+    input = get_input
 
-def get_input(test=false)
-  input = test ? get_test_input(test) : get_aoc_input(%year%, %day%)
-  input.split("\n")
-end
+  end
 
-def get_test_input(number)
-  <<~TEST
-  TEST
+  def initialize(test: false, test_input: nil)
+    @test = test
+    @test_input = test_input
+  end
+
+  private
+
+  memoize def get_input
+    if @test_input.present?
+      @test_input
+    elsif @test
+      get_test_input(@test)
+    else
+      get_aoc_input(💙year💙, 💙day💙)
+    end
+  end
+
+  def get_test_input(number)
+    <<~TEST
+    TEST
+  end
 end
 
 if __FILE__ == $0
-  part1
+  today = Day💙day💙.new
+  puts 'Part 1:'
+  puts today.part1
   puts
-  part2
+  puts 'Part 2:'
+  puts today.part2
 end

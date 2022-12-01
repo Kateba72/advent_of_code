@@ -2,6 +2,7 @@ require 'net/http'
 require 'active_support'
 require 'active_support/core_ext'
 require 'byebug'
+require 'memoized'
 
 def get_aoc_input(year, day)
   filename = File.join(File.dirname(__FILE__), "#{year}/input-#{day}.txt")
