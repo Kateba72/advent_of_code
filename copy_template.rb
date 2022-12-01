@@ -5,7 +5,7 @@ day = ARGV[0] || now.day
 year = ARGV[1] || now.year
 
 template = File.read('template.rb')
-template_subbed = template.gsub('💙year💙', year.to_s).gsub('💙%day💙%', day.to_s)
+template_subbed = template.gsub('💙year💙', year.to_s).gsub('💙day💙', day.to_s)
 filename = "#{year}/day#{day}.rb"
 
 if File.exists? filename
@@ -17,7 +17,7 @@ end
 
 
 spec_template = File.read('spec_template.rb')
-spec_template_subbed = spec_template.gsub('💙year💙', year.to_s).gsub('💙%day💙%', day.to_s)
+spec_template_subbed = spec_template.gsub('💙year💙', year.to_s).gsub('💙day💙', day.to_s)
 spec_filename = "spec/#{year}/day#{day}_spec.rb"
 
 if File.exists? spec_filename
