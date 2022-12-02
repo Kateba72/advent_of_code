@@ -7,14 +7,14 @@ require 'memoized'
 def get_aoc_input(year, day)
   filename = File.join(File.dirname(__FILE__), "#{year}/input-#{day}.txt")
 
-  unless File.exists?(filename)
+  if File.exists?(filename)
+    File.read(filename)
+  else
     cookie = File.read(File.join(File.dirname(__FILE__), 'cookie.txt'))
     uri = URI.parse("https://adventofcode.com/#{year}/day/#{day}/input")
-    resp = Net::HTTP.get(uri, {Cookie: cookie})
+    resp = Net::HTTP.get(uri, { 'Cookie' => cookie, 'User-Agent' => 'kateba@posteo.de (github.com/Kateba72/advent_of_code)' })
     File.write(filename, resp)
     resp
-  else
-    File.read(filename)
   end
 end
 
