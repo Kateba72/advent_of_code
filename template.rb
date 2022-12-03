@@ -11,7 +11,7 @@ class Day💙day💙
 
   def part2
     input = get_input
-
+    ''
   end
 
   def initialize(test: false, test_input: nil)

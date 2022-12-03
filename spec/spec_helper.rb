@@ -89,3 +89,5 @@ config.order = :random
 # as the one that triggered the failure.
 Kernel.srand config.seed
 end
+
+Dir[File.join(__dir__, 'support', '*.rb')].each { |file| require file }
