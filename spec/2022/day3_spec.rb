@@ -1,7 +1,7 @@
 require_relative '../../2022/day3'
 
 RSpec.describe Day3 do
-  TEST_INPUT = <<~TEST_INPUT
+  let(:test_input) { <<~TEST_INPUT }
     vJrwpWtwJgWrhcsFMMfFFhFp
     jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
     PmmdzqPrVvPwwTWBwg
@@ -10,7 +10,7 @@ RSpec.describe Day3 do
     CrZsJsPPZsGzwwsLwLmpwMDw
   TEST_INPUT
 
-  subject { described_class.new(test_input: TEST_INPUT) }
+  subject { described_class.new(test_input: test_input) }
 
   describe '#part1' do
     it 'sums the priorities of all shared items' do
@@ -32,7 +32,7 @@ RSpec.describe Day3 do
 
   describe '#shared_item' do
     it 'gets the letter that is in both halves' do
-      expect(TEST_INPUT.split("\n")).to be_mapped_by(subject, :shared_item).to %w[p L P v t s]
+      expect(test_input.split("\n")).to be_mapped_by(subject, :shared_item).to %w[p L P v t s]
     end
   end
 

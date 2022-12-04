@@ -1,10 +1,10 @@
 require_relative '../../💙year💙/day💙day💙'
 
 RSpec.describe Day💙day💙 do
-  TEST_INPUT = <<~TEST_INPUT
+  let(:test_input) { <<~TEST_INPUT }
   TEST_INPUT
 
-  subject { described_class.new(test_input: TEST_INPUT) }
+  subject { described_class.new(test_input: test_input) }
 
   describe '#part1' do
     it '' do

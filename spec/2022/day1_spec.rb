@@ -1,7 +1,7 @@
 require_relative '../../2022/day1'
 
 RSpec.describe Day1 do
-  TEST_INPUT = <<~TEST_INPUT
+  let(:test_input) { <<~TEST_INPUT }
     1000
     2000
     3000
@@ -18,7 +18,7 @@ RSpec.describe Day1 do
     10000
   TEST_INPUT
 
-  subject { described_class.new(test_input: TEST_INPUT) }
+  subject { described_class.new(test_input: test_input) }
 
   describe '#elves' do
     it 'sums all elves together' do
