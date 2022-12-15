@@ -1,4 +1,5 @@
 require_relative '../aoc_defaults'
+require 'benchmark'
 # require 'matrix'
 
 class Day💙day💙
@@ -38,10 +39,18 @@ class Day💙day💙
 end
 
 if __FILE__ == $0
-  today = Day💙day💙.new
+  today, part1, part2 = [nil, nil, nil]
+  puts 'Day 💙day💙'
+  Benchmark.bm(12) do |benchmark|
+    benchmark.report('Setup') { today = Day💙day💙.new; today.send(:get_input) }
+    benchmark.report('Input parsing') { today.send(:get_input) }
+    benchmark.report('Part 1') { part1 = today.part1 }
+    benchmark.report('Part 2') { part2 = today.part2 }
+  end
+  puts
   puts 'Part 1:'
-  puts today.part1
+  puts part1
   puts
   puts 'Part 2:'
-  puts today.part2
+  puts part2
 end

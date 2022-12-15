@@ -67,11 +67,21 @@ end
 
 module VectorMixins
   def p_norm_to_p(v, p)
-    Vector.Raise ErrDimensionMismatch if size != v.size
+    raise ExceptionForMatrix::ErrDimensionMismatch if size != v.size
 
     d = 0
     each2(v) do |v1, v2|
       d += (v1 - v2).abs ** p
+    end
+    d
+  end
+
+  def manhattan(v)
+    raise ExceptionForMatrix::ErrDimensionMismatch if size != v.size
+
+    d = 0
+    each2(v) do |v1, v2|
+      d += (v1 - v2).abs
     end
     d
   end
@@ -92,7 +102,7 @@ module RangeMixins
   def union(other)
     return self unless other.max
     return other unless self.max # Deal with empty ranges
-    raise ArgumentError("Intersection of disjunct ranges") if self.max < other.min - 1 || other.max < self.min - 1
+    raise "Union of disjunct ranges" if self.max < other.min - 1 || other.max < self.min - 1
     [self.min, other.min].min .. [self.max, other.max].max
   end
   alias_method :|, :union
