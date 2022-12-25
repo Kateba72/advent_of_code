@@ -37,7 +37,7 @@ module ArrayMixins
     a.compact
   end
 
-  def neighbors_with_indexes(x, y, include_diagonal=false)
+  def neighbors_with_indexes(x, y, include_diagonal: false, include_self: false)
     indexes = [
       [x-1, y],
       [x, y-1],
@@ -51,6 +51,8 @@ module ArrayMixins
       indexes << [x+1, y-1]
       indexes << [x+1, y+1]
     end
+
+    indexes << [x, y] if include_self
 
     indexes.map do |nx, ny|
       next unless nx >= 0 && ny >= 0

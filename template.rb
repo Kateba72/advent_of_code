@@ -42,7 +42,7 @@ if __FILE__ == $0
   today, part1, part2 = [nil, nil, nil]
   puts 'Day 💙day💙'
   Benchmark.bm(12) do |benchmark|
-    benchmark.report('Setup') { today = Day💙day💙.new; today.send(:get_input) }
+    benchmark.report('Setup') { today = Day💙day💙.new }
     benchmark.report('Input parsing') { today.send(:get_input) }
     benchmark.report('Part 1') { part1 = today.part1 }
     benchmark.report('Part 2') { part2 = today.part2 }
