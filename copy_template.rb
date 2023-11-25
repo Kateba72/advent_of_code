@@ -6,7 +6,7 @@ year = ARGV[1] || now.year
 
 template = File.read('template.rb')
 template_subbed = template.gsub('💙year💙', year.to_s).gsub('💙day💙', day.to_s)
-filename = "#{year}/day#{day}.rb"
+filename = "#{year}/day#{year}#{day}.rb"
 
 if File.exists? filename
   puts "File #{filename} already exists"
@@ -18,7 +18,7 @@ end
 
 spec_template = File.read('spec_template.rb')
 spec_template_subbed = spec_template.gsub('💙year💙', year.to_s).gsub('💙day💙', day.to_s)
-spec_filename = "spec/#{year}/day#{day}_spec.rb"
+spec_filename = "spec/#{year}/day#{year}#{day}_spec.rb"
 
 if File.exists? spec_filename
   puts "File #{filename} already exists"

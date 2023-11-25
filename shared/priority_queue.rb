@@ -37,7 +37,7 @@ class PriorityQueue
     target = @elements[index]
     loop do
       parent_index = index / 2
-      if parent_index < 1 || (@elements[parent_index] <=> target) >= 0
+      if parent_index < 1 || ((@elements[parent_index] <=> target) || 0) >= 0
         @elements[index] = target
         return
       end
@@ -65,7 +65,7 @@ class PriorityQueue
       right_element = @elements[child_index + 1]
       child_index += 1 if not_the_last_element && (right_element <=> left_element) == 1
 
-      if (target <=> @elements[child_index]) >= 0
+      if ((target <=> @elements[child_index]) || 0) >= 0
         @elements[index] = target
         return
       end

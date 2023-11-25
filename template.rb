@@ -2,7 +2,7 @@ require_relative '../aoc_defaults'
 require 'benchmark'
 # require 'matrix'
 
-class Day💙day💙
+class Day💙year💙💙day💙
   include Memoized
 
   def part1
@@ -42,7 +42,7 @@ if __FILE__ == $0
   today, part1, part2 = [nil, nil, nil]
   puts 'Day 💙day💙'
   Benchmark.bm(12) do |benchmark|
-    benchmark.report('Setup') { today = Day💙day💙.new }
+    benchmark.report('Setup') { today = Day💙year💙💙day💙.new }
     benchmark.report('Input parsing') { today.send(:get_input) }
     benchmark.report('Part 1') { part1 = today.part1 }
     benchmark.report('Part 2') { part2 = today.part2 }

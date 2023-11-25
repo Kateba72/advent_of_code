@@ -1,6 +1,6 @@
-require_relative '../../💙year💙/day💙day💙'
+require_relative '../../💙year💙/day💙year💙💙day💙'
 
-RSpec.describe Day💙day💙 do
+RSpec.describe Day💙year💙💙day💙 do
   let(:test_input) { <<~TEST_INPUT }
   TEST_INPUT
 
