@@ -13,6 +13,7 @@ if File.exists? filename
 else
   File.write(filename, template_subbed)
   puts "Template copied. Visit https://adventofcode.com/#{year}/day/#{day} for the task"
+  %x( git add #{filename} )
 end
 
 
@@ -24,4 +25,5 @@ if File.exists? spec_filename
   puts "File #{filename} already exists"
 else
   File.write(spec_filename, spec_template_subbed)
+  %x( git add #{spec_filename} )
 end
