@@ -3,6 +3,8 @@
 class RangeGroup
   include Enumerable
 
+  attr_reader :ranges
+
   def initialize(*args, simplified: false)
     @ranges = args
     simplify args unless simplified
@@ -24,7 +26,7 @@ class RangeGroup
   end
 
   def intersection(other)
-    RangeGroup.new intersection_shared(other), simplified: true
+    RangeGroup.new *intersection_shared(other), simplified: true
   end
 
   def intersection!(other)
@@ -32,7 +34,7 @@ class RangeGroup
   end
 
   def union(other)
-    RangeGroup.new union_shared(other)
+    RangeGroup.new *union_shared(other)
   end
 
   def union!(other)
@@ -41,6 +43,18 @@ class RangeGroup
 
   def size
     @ranges.sum &:size
+  end
+
+  def min
+    @ranges.min do |range|
+      range.min
+    end.min
+  end
+
+  def max
+    @ranges.max do |range|
+      range.max
+    end.max
   end
 
   def dup
@@ -122,14 +136,12 @@ class RangeGroup
   def simplify(old_ranges)
     @ranges = []
     old_ranges.sort_by { |r| r.first }.each do |range|
-      if @ranges.last&.last&.>= range.begin
+      if @ranges.last&.max&.>= range.begin - 1
         @ranges[-1] = @ranges[-1] | range
       else
         @ranges << range
       end
     end
   end
-
-  attr_reader :ranges
 
 end
