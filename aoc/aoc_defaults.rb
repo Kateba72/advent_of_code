@@ -8,6 +8,17 @@ module Enumerable
   alias_method :in_chunks, :each_slice
 end
 
+module StringMixins
+  def integers
+    self.scan(/\d+/).map(&:to_i)
+  end
+  alias_method :ints, :integers
+end
+
+class String
+  prepend StringMixins
+end
+
 module ArrayMixins
   def neighbors(x, y, include_diagonal=false)
     a = [
