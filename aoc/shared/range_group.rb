@@ -136,7 +136,7 @@ class RangeGroup
   def simplify(old_ranges)
     @ranges = []
     old_ranges.sort_by { |r| r.first }.each do |range|
-      if @ranges.last&.max&.>= range.begin - 1
+      if @ranges.last&.max&.succ&.>= range.begin
         @ranges[-1] = @ranges[-1] | range
       else
         @ranges << range

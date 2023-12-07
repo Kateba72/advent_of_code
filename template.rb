@@ -1,56 +1,44 @@
-require_relative '../aoc_defaults'
-require 'benchmark'
 # require 'matrix'
+require_relative '../base_class'
 
-class Day💙year💙💙day💙
-  include Memoized
+module AoC
+  module Y💙year💙
+    class D💙day💙 < BaseClass
+      include Memoized
 
-  def part1
-    input = get_input
+      def part1
+        input = get_input
 
-  end
+      end
 
-  def part2
-    input = get_input
-    ''
-  end
+      def part2
+        input = get_input
+        'Not Implemented'
+      end
 
-  def initialize(test: false, test_input: nil)
-    @test = test
-    @test_input = test_input
-  end
+      def initialize(test: false, test_input: nil)
+        @test = test
+        @test_input = test_input
+      end
 
-  private
+      private
 
-  memoize def get_input
-    if @test_input.present?
-      @test_input
-    elsif @test
-      get_test_input(@test)
-    else
-      get_aoc_input(💙year💙, 💙day💙)
+      memoize def get_input
+        super.split("\n")
+      end
+
+      def get_test_input(number)
+        <<~TEST
+        TEST
+      end
+
+      AOC_YEAR = 💙year💙
+      AOC_DAY = 💙day💙
     end
-  end
-
-  def get_test_input(number)
-    <<~TEST
-    TEST
   end
 end
 
 if __FILE__ == $0
-  today, part1, part2 = [nil, nil, nil]
-  puts 'Day 💙day💙'
-  Benchmark.bm(12) do |benchmark|
-    benchmark.report('Setup') { today = Day💙year💙💙day💙.new }
-    benchmark.report('Input parsing') { today.send(:get_input) }
-    benchmark.report('Part 1') { part1 = today.part1 }
-    benchmark.report('Part 2') { part2 = today.part2 }
-  end
-  puts
-  puts 'Part 1:'
-  puts part1
-  puts
-  puts 'Part 2:'
-  puts part2
+  today = AoC::Y💙year💙::D💙day💙.new(test: false)
+  today.run
 end

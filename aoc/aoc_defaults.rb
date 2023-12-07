@@ -1,7 +1,7 @@
 require 'net/http'
 require 'active_support'
 require 'active_support/core_ext'
-require 'byebug'
+require 'debug'
 require 'memoized'
 
 def get_aoc_input(year, day)
@@ -16,6 +16,10 @@ def get_aoc_input(year, day)
     File.write(filename, resp)
     resp
   end
+end
+
+module Enumerable
+  alias_method :in_chunks, :each_slice
 end
 
 module ArrayMixins
@@ -104,7 +108,7 @@ module RangeMixins
   def union(other)
     return self unless other.max
     return other unless self.max # Deal with empty ranges
-    raise "Union of disjunct ranges" if self.max < other.min - 1 || other.max < self.min - 1
+    raise "Union of disjunct ranges" if self.max.succ < other.min || other.max.succ < self.min
     [self.min, other.min].min .. [self.max, other.max].max
   end
   alias_method :|, :union
