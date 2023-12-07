@@ -4,20 +4,6 @@ require 'active_support/core_ext'
 require 'debug'
 require 'memoized'
 
-def get_aoc_input(year, day)
-  filename = File.join(File.dirname(__FILE__), "#{year}/input-#{day}.txt")
-
-  if File.exists?(filename)
-    File.read(filename)
-  else
-    cookie = File.read(File.join(File.dirname(__FILE__), 'cookie.txt'))
-    uri = URI.parse("https://adventofcode.com/#{year}/day/#{day}/input")
-    resp = Net::HTTP.get(uri, { 'Cookie' => cookie, 'User-Agent' => 'kateba@posteo.de (github.com/Kateba72/advent_of_code)' })
-    File.write(filename, resp)
-    resp
-  end
-end
-
 module Enumerable
   alias_method :in_chunks, :each_slice
 end

@@ -4,7 +4,6 @@ require_relative '../base_class'
 module AoC
   module Y💙year💙
     class D💙day💙 < BaseClass
-      include Memoized
 
       def part1
         input = get_input
@@ -23,7 +22,7 @@ module AoC
 
       private
 
-      memoize def get_input
+      def get_input
         super.split("\n")
       end
 

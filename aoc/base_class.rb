@@ -46,9 +46,26 @@ module AoC
       elsif @test
         get_test_input(@test)
       else
-        get_aoc_input(self.class::AOC_YEAR, self.class::AOC_DAY)
+        get_aoc_input
       end
     end
+
+    def get_aoc_input
+      year = self.class::AOC_YEAR
+      day = self.class::AOC_DAY
+      filename = File.join(File.dirname(__FILE__), "y#{year}/input-#{day}.txt")
+
+      if File.exists?(filename)
+        File.read(filename)
+      else
+        cookie = File.read(File.join(File.dirname(__FILE__), '../cookie.txt'))
+        uri = URI.parse("https://adventofcode.com/#{year}/day/#{day}/input")
+        resp = Net::HTTP.get(uri, { 'Cookie' => cookie, 'User-Agent' => 'kateba@posteo.de (github.com/Kateba72/advent_of_code)' })
+        File.write(filename, resp)
+        resp
+      end
+    end
+
 
   end
 end
