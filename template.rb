@@ -32,7 +32,7 @@ module AoC
       end
 
       AOC_YEAR = 💙year💙
-      AOC_DAY = 💙day💙
+      AOC_DAY = 💙day_nlz💙
     end
   end
 end

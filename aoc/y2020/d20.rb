@@ -7,29 +7,15 @@ module AoC
 
       def part1
         input = get_input
-        edges = Hash.new
-
-        input.each do |tileno, tile|
-          [tile.row(0), tile.column(0), tile.row(tile.row_count - 1), tile.column(tile.column_count - 1)].each do |edge|
-            edge = edge.to_a
-            edge = edge.reverse if (edge <=> edge.reverse) == -1
-            edges[edge] ||= []
-            edges[edge] << tileno
-          end
-        end
-
-        edge_pieces = edges.values.filter_map do | tiles|
-          raise 'ambiguous' if tiles.count >= 3
-          tiles.count == 2 ? nil : tiles
-        end.compact.flatten
-
-        corner_pieces = edge_pieces.filter { |p| edge_pieces.count(p) > 1 }
+        edges = parse_edges(input)
+        corner_pieces = find_corners(input)
         corner_pieces.uniq.inject(&:*)
       end
 
       def part2
         input = get_input
-        'Not Implemented'
+        edges = parse_edges(input)
+        top_left = find_corners(edges).first # assign any corner as top left
       end
 
       def initialize(test: false, test_input: nil)
@@ -50,6 +36,33 @@ module AoC
           end
           [tileno, Matrix[*matrix]]
         end
+      end
+
+      memoize def parse_edges(input)
+        edges = {}
+
+        input.each do |tileno, tile|
+          [tile.row(0), tile.column(0), tile.row(tile.row_count - 1), tile.column(tile.column_count - 1)].each_with_index do |edge, index|
+            edge = edge.to_a
+            if (edge <=> edge.reverse) == -1
+              edge = edge.reverse
+              index = - index
+            end
+            edges[edge] ||= []
+            edges[edge] << [tileno, index]
+          end
+        end
+
+        edges
+      end
+
+      memoize def find_corners(edges)
+        edge_pieces = edges.values.filter_map do | tiles|
+          raise 'ambiguous' if tiles.count >= 3
+          tiles.count == 2 ? nil : tiles.map(&:first)
+        end.compact.flatten
+
+        edge_pieces.filter { |p| edge_pieces.count(p) > 1 }
       end
 
       def get_test_input(number)
