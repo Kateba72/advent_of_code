@@ -17,6 +17,6 @@ if File.exists? filename
   puts "File #{filename} already exists. Visit https://adventofcode.com/#{year}/day/#{day} for the task"
 else
   File.write(filename, template_subbed)
-  puts "Template copied. Visit https://adventofcode.com/#{year}/day/#{day} for the task"
+  puts "Template copied. Visit https://adventofcode.com/#{year}/day/#{day} for the task, solve the task at #{filename}"
   %x( git add #{filename} )
 end
