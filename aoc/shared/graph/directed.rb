@@ -59,7 +59,7 @@ class DirectedGraph < Graph
       node.outgoing_edges.each do |edge|
         score_until_next = score_until_now + edge.data[distance_label]
         edge_node = edge.nodes[1]
-        score_min_until_end = score_until_now + score_until_end_function.call(node)
+        score_min_until_end = score_until_next + score_until_end_function.call(edge_node)
         unless shortest_paths[edge_node]&.<= score_until_next
           next_nodes << [-score_min_until_end, score_until_next, edge_node]
           shortest_paths[edge_node] = score_until_next

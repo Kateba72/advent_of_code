@@ -1,9 +1,11 @@
 require 'matrix'
 require 'forwardable'
+require 'memoized'
 
 class Grid2d
   include Enumerable
   extend Forwardable
+  include Memoized
 
   OutOfBoundsError = Class.new(IndexError)
 
@@ -50,18 +52,34 @@ class Grid2d
     end
   end
 
+  def row(y)
+    @grid[y]
+  end
+
+  memoize def column(x)
+    @grid.map { |row| row[x] }
+  end
+
+  def with_coords
+    Enumerator.new(width * height) do |enum|
+      @grid.each_with_index do |line, y|
+        line.each_with_index do |elem, x|
+          enum << [elem, Vector[x, y]]
+        end
+      end
+    end
+  end
+
   def rot90_ccw
-    columns = (0...width).map do |i|
-      @grid.map { |row| row[i] }
-    end.reverse
-    Grid2d.new(columns, height: width, width: height)
+    columns = (0...width).map { |i| column(i) }
+    Grid2d.new(columns.reverse, height: width, width: height)
   end
 
   def rot90_cw
-    columns = (0...width).map do |i|
-      @grid.map { |row| row[i] }.reverse
+    reversed_columns = (0...width).map do |i|
+      column(i).reverse
     end
-    Grid2d.new(columns, height: width, width: height)
+    Grid2d.new(reversed_columns, height: width, width: height)
   end
 
   def rot180

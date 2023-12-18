@@ -73,4 +73,8 @@ class Edge
       graph.get_node(node)
     end
   end
+
+  def inspect
+    "<#{self.class.name} @nodes=#{nodes.inspect} @data=#{data.inspect}>"
+  end
 end

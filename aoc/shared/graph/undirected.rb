@@ -10,8 +10,8 @@ class UndirectedGraph < Graph
       nodes: directed_nodes.values,
       edges: edges.map do |edge|
         [
-          DirectedEdge.new([directed_nodes[edge.nodes.first.label], directed_nodes[edge.nodes.last.label]], data),
-          DirectedEdge.new([directed_nodes[edge.nodes.last.label], directed_nodes[edge.nodes.first.label]], data),
+          DirectedEdge.new([directed_nodes[edge.nodes.first.label], directed_nodes[edge.nodes.last.label]], edge.data),
+          DirectedEdge.new([directed_nodes[edge.nodes.last.label], directed_nodes[edge.nodes.first.label]], edge.data),
         ]
       end.flatten
     )

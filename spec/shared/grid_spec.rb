@@ -61,7 +61,7 @@ RSpec.describe Grid2d do
   end
 
   describe 'edges' do
-    it 'returns the coordinates and normal vectors of the edges of the grid' do
+    it 'returns the coordinates and normal directions of the edges of the grid' do
       expect(subject.edges.to_a).to contain_exactly(
         [Vector[0, 0], 4],
         [Vector[1, 0], 4],
@@ -78,6 +78,21 @@ RSpec.describe Grid2d do
 
     it 'returns the coordinates as an enumerator' do
       expect(subject.edges).to be_a Enumerator
+    end
+  end
+
+  describe '#row' do
+    it 'returns the nth row' do
+      expect(subject.row(0)).to eq [1, 2, 3]
+      expect(subject.row(1)).to eq [4, 5, 6]
+    end
+  end
+
+  describe '#column' do
+    it 'returns the nth column' do
+      expect(subject.column(0)).to eq [1, 4]
+      expect(subject.column(1)).to eq [2, 5]
+      expect(subject.column(2)).to eq [3, 6]
     end
   end
 
