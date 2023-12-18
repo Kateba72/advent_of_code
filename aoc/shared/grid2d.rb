@@ -31,6 +31,11 @@ class Grid2d
     @grid[vector[1]][vector[0]]
   end
 
+  def set_at(vector, value)
+    raise OutOfBoundsError unless in_bounds?(vector)
+    @grid[vector[1]][vector[0]] = value
+  end
+
   def in_bounds?(vector)
     vector[0] >= 0 && vector[0] < width && vector[1] >= 0 && vector[1] < height
   end
