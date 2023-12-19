@@ -1,5 +1,4 @@
 require_relative '../solution'
-require_relative '../shared/range_group'
 
 module AoC
   module Y2023
