@@ -1,4 +1,6 @@
 require_relative '../../aoc/shared/grid2d'
+require 'active_support'
+require 'active_support/core_ext/object/deep_dup'
 
 RSpec.describe Grid2d do
 
@@ -23,8 +25,21 @@ RSpec.describe Grid2d do
       expect(subject.at(Vector[0, 1])).to eq 4
     end
 
+    it 'returns the default value if the given position is invalid' do
+      expect(subject.at(Vector[4, 3])).to be nil
+      expect(subject.at(Vector[4, 3], 'default')).to eq 'default'
+    end
+  end
+
+  describe '#at!' do
+    it 'returns the element at the given position' do
+      expect(subject.at!(Vector[0, 0])).to eq 1
+      expect(subject.at!(Vector[1, 0])).to eq 2
+      expect(subject.at!(Vector[0, 1])).to eq 4
+    end
+
     it 'raises if the given position is invalid' do
-      expect { subject.at(Vector[4, 3]) }.to raise_error(Grid2d::OutOfBoundsError)
+      expect { subject.at!(Vector[4, 3]) }.to raise_error(Grid2d::OutOfBoundsError)
     end
   end
 
@@ -138,6 +153,29 @@ RSpec.describe Grid2d do
       expect(flipped.grid).to eq [[3, 2, 1], [6, 5, 4]]
       expect(flipped.height).to eq 2
       expect(flipped.width).to eq 3
+    end
+  end
+
+  describe '#add_border' do
+    it 'adds a border' do
+      with_border = subject.add_border(0)
+      expect(with_border.grid).to eq [[0, 0, 0, 0, 0], [0, 1, 2, 3, 0], [0, 4, 5, 6, 0], [0, 0, 0, 0, 0]]
+      expect(with_border.height).to eq 4
+      expect(with_border.width).to eq 5
+    end
+
+    it 'has configurable width and height' do
+      with_border = subject.add_border(0, border_width: 1, border_height: 2)
+      expect(with_border.grid).to eq [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 1, 2, 3, 0], [0, 4, 5, 6, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+      expect(with_border.height).to eq 6
+      expect(with_border.width).to eq 5
+    end
+
+    it 'uses the border width for both values if only one is given' do
+      with_border = subject.add_border(0, border_width: 2)
+      expect(with_border.grid).to eq [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 2, 3, 0, 0], [0, 0, 4, 5, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
+      expect(with_border.height).to eq 6
+      expect(with_border.width).to eq 7
     end
   end
 end

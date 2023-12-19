@@ -20,13 +20,36 @@ class Grid2d
     4 => Vector[0, 1],
   }
 
+  NEIGHBORS = [
+    Vector[-1, 0],
+    Vector[0, -1],
+    Vector[0, 1],
+    Vector[1, 1],
+  ]
+
+  NEIGHBORS_WITH_DIAGONALS = [
+    Vector[-1, -1],
+    Vector[-1, 0],
+    Vector[-1, 1],
+    Vector[0, -1],
+    Vector[0, 1],
+    Vector[1, -1],
+    Vector[1, 0],
+    Vector[1, 1],
+  ]
+
   def initialize(grid, height: nil, width: nil)
     @grid = grid
     @height = height || grid.size
     @width = width || grid[0].size
   end
 
-  def at(vector)
+  def at(vector, default = nil)
+    return default unless in_bounds?(vector)
+    @grid[vector[1]][vector[0]]
+  end
+
+  def at!(vector)
     raise OutOfBoundsError unless in_bounds?(vector)
     @grid[vector[1]][vector[0]]
   end
@@ -97,5 +120,14 @@ class Grid2d
 
   def flip_horizontal
     Grid2d.new(grid.map(&:reverse), height:, width:)
+  end
+
+  def add_border(element, border_width: 1, border_height: nil)
+    border_height ||= border_width
+    padding_rows = Array.new(border_height) { [element] * (2 * border_width + width) }
+    new_grid = padding_rows + @grid.map do |row|
+      [element] * border_width + row + [element] * border_width
+    end + padding_rows.deep_dup
+    Grid2d.new(new_grid, width: width + 2 * border_width, height: height + 2 * border_height)
   end
 end
