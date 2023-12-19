@@ -1,9 +1,9 @@
-require_relative '../base_class'
+require_relative '../solution'
 require_relative '../shared/grid2d'
 
 module AoC
   module Y2023
-    class D16 < BaseClass
+    class D16 < Solution
 
       DIRECTIONS = Grid2d::DIRECTIONS
 

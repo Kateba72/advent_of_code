@@ -1,9 +1,9 @@
 require 'matrix'
-require_relative '../base_class'
+require_relative '../solution'
 
 module AoC
   module Y2023
-    class D11 < BaseClass
+    class D11 < Solution
 
       def part1
         galaxies = get_input

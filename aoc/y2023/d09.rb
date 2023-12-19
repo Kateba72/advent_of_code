@@ -1,9 +1,9 @@
 # require 'matrix'
-require_relative '../base_class'
+require_relative '../solution'
 
 module AoC
   module Y2023
-    class D09 < BaseClass
+    class D09 < Solution
 
       def part1
         input = get_input

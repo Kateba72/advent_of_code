@@ -2,7 +2,7 @@ require 'benchmark'
 require_relative 'aoc_defaults'
 
 module AoC
-  class BaseClass
+  class Solution
     include Memoized
 
     AOC_YEAR = nil

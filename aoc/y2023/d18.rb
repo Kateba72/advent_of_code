@@ -1,9 +1,9 @@
-require_relative '../base_class'
+require_relative '../solution'
 require_relative '../shared/grid2d'
 
 module AoC
   module Y2023
-    class D18 < BaseClass
+    class D18 < Solution
 
       def part1
         input = get_input
