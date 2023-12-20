@@ -21,7 +21,7 @@ module AoC
       end
 
       def part2
-        [3733, 4091, 3911, 4093].reduce(1, :lcm)
+        [3733, 4091, 3911, 4093].lcm
       end
 
       def initial_state
