@@ -24,7 +24,7 @@ class Grid2d
     Vector[-1, 0],
     Vector[0, -1],
     Vector[0, 1],
-    Vector[1, 1],
+    Vector[1, 0],
   ]
 
   NEIGHBORS_WITH_DIAGONALS = [

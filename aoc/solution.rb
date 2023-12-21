@@ -25,7 +25,7 @@ module AoC
       part1_solution = ''
       part2_solution = ''
       puts "Day #{self.class::AOC_DAY}"
-      Benchmark.bm(12) do |benchmark|
+      Benchmark.bm(13) do |benchmark|
         benchmark.report('Input parsing') { get_input }
         benchmark.report('Part 1') { part1_solution = part1 }
         benchmark.report('Part 2') { part2_solution = part2 }
@@ -39,6 +39,10 @@ module AoC
     end
 
     private
+
+    def testing?
+      @test_input.present? || @test.present?
+    end
 
     memoize def get_input
       if @test_input.present?
