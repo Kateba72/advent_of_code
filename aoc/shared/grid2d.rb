@@ -44,6 +44,10 @@ class Grid2d
     @width = width || grid[0].size
   end
 
+  def self.from_string(str)
+    new(str.split("\n").map(&:chars))
+  end
+
   def at(vector, default = nil)
     return default unless in_bounds?(vector)
     @grid[vector[1]][vector[0]]
