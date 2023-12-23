@@ -68,6 +68,44 @@ class DirectedGraph < Graph
     end
 
   end
+
+  def simplify(start_nodes, &block)
+    q = Queue.new
+
+    kept_nodes = start_nodes.map do |node|
+      node = get_node(node)
+      q << node
+      node
+    end.to_set
+
+    new_edges = []
+
+    until q.empty?
+      node = q.pop
+      node.outgoing_edges.each do |first_edge|
+        traversed_edges = [first_edge]
+        visited_nodes = [node, first_edge.nodes[1]]
+        next_node = first_edge.nodes[1]
+        until (reachable_unvisited = next_node.outgoing_edges.filter { |edge| visited_nodes.exclude? edge.nodes[1] }).size != 1
+          next_node = reachable_unvisited.first.nodes[1]
+          visited_nodes << next_node
+          traversed_edges << reachable_unvisited.first
+        end
+        unless kept_nodes.include? next_node
+          kept_nodes << next_node
+          q << next_node
+        end
+        data = block.call(traversed_edges)
+        new_edges << DirectedEdge.new([node.label, next_node.label], data)
+      end
+    end
+
+    new_nodes = kept_nodes.map do |node|
+      DirectedNode.new(node.label, node.data.dup)
+    end
+
+    DirectedGraph.new(nodes: new_nodes, edges: new_edges)
+  end
 end
 
 class DirectedNode < Node
