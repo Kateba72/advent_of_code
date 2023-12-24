@@ -47,34 +47,46 @@ module AoC
 
         hs_a = input.pop
 
-        (0..1000).each do |proto_vel_x|
-          vel_x = proto_vel_x % 2 == 0 ? proto_vel_x / 2 : (- proto_vel_x / 2)
-          (-250..250).each do |vel_y|
-            vel = Vector[vel_x, vel_y, 0]
-            first_pos = nil
-            input.find do |hs_b|
-              intersection = intersect2d(hs_a[0], hs_a[1] - vel, hs_b[0], hs_b[1] - vel)
-              next true unless intersection # break this loop
-              next false if intersection == true # vectors on the same line
-              first_pos, _time = intersection
-              true
-            end
-            next false unless first_pos
+        (0..).each do |max|
+          (-max...max).each do |other|
 
-            times = []
-            next unless input.all? do |hs_b|
-              time = find_time(hs_b, vel, first_pos)
-              next false unless time
-              times << time
-            end
-            times << find_time(hs_a, vel, first_pos)
-            z = find_z(times)
-            if z
-              return first_pos[0] + first_pos[1] + z
+            result = check_vel(Vector[max, other, 0], hs_a, input) ||
+              check_vel(Vector[-other, max, 0], hs_a, input) ||
+              check_vel(Vector[-max, -other, 0], hs_a, input) ||
+              check_vel(Vector[other, -max, 0], hs_a, input)
+
+            if result
+              return result
             end
           end
         end
 
+      end
+
+      def check_vel(vel, hs_a, hailstones)
+        first_pos = nil
+        hailstones.find do |hs_b|
+          intersection = intersect2d(hs_a[0], hs_a[1] - vel, hs_b[0], hs_b[1] - vel)
+          next true unless intersection # break this loop
+          next false if intersection == true # vectors on the same line
+          first_pos, _time = intersection
+          true
+        end
+        return false unless first_pos
+
+        times = []
+        return false unless hailstones.all? do |hs_b|
+          time = find_time(hs_b, vel, first_pos)
+          next false unless time
+          times << time
+        end
+        times << find_time(hs_a, vel, first_pos)
+        z = find_z(times)
+        if z
+          return first_pos[0] + first_pos[1] + z
+        end
+
+        false
       end
 
       def find_time(hs_b, vel, first_pos)
