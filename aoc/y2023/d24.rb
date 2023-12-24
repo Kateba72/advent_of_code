@@ -15,9 +15,7 @@ module AoC
           hailstones.each_with_index do |hs_b, index_b|
             next if index_a >= index_b
             intersection = intersect2d(*hs_a, *hs_b)
-            next unless intersection
-            point, _times = intersection
-            if range.cover?(point[0]) && range.cover?(point[1])
+            if intersection && range.cover?(intersection[0]) && range.cover?(intersection[1])
               intersections += 1
             end
           end
@@ -32,13 +30,13 @@ module AoC
           invmat = Matrix[[vel_b[1], -vel_b[0]], [-vel_a[1], vel_a[0]]]
           times = invmat * Vector[pos_b[0] - pos_a[0], pos_b[1] - pos_a[1]]
           return false if (det > 0 ? times[0] < 0 || times[1] > 0 : times[0] > 0 || times[1] < 0)
-          [pos_a + times[0] * vel_a / det, times]
+          pos_a + times[0] * vel_a / det
         else
           diff_x = pos_b[0] - pos_a[0]
           time = diff_x / (vel_a[0] - vel_b[0])
           possible_intersection = pos_a + time * vel_a
           return false if possible_intersection[1] != pos_b[1] + time * vel_b[1]
-          true
+          'same_line'
         end
       end
 
@@ -65,28 +63,22 @@ module AoC
 
       def check_vel(vel, hs_a, hailstones)
         first_pos = nil
-        hailstones.find do |hs_b|
-          intersection = intersect2d(hs_a[0], hs_a[1] - vel, hs_b[0], hs_b[1] - vel)
-          next true unless intersection # break this loop
-          next false if intersection == true # vectors on the same line
-          first_pos, _time = intersection
-          true
+        hailstones.each do |hs_b|
+          first_pos = intersect2d(hs_a[0], hs_a[1] - vel, hs_b[0], hs_b[1] - vel)
+          return unless first_pos # no intersection => invalid velocity
+          break unless first_pos == 'same_line' # there is no one intersection point, search for another
         end
-        return false unless first_pos
 
-        times = []
-        return false unless hailstones.all? do |hs_b|
+        times = hailstones.map do |hs_b|
           time = find_time(hs_b, vel, first_pos)
-          next false unless time
-          times << time
+          return false unless time
+          time
         end
-        times << find_time(hs_a, vel, first_pos)
-        z = find_z(times)
-        if z
-          return first_pos[0] + first_pos[1] + z
-        end
+        time_a = find_time(hs_a, vel, first_pos)
 
-        false
+        if (z = find_z(times, time_a))
+          first_pos[0] + first_pos[1] + z
+        end
       end
 
       def find_time(hs_b, vel, first_pos)
@@ -106,8 +98,7 @@ module AoC
         [time, hs_b]
       end
 
-      def find_z(times)
-        time_a = times.pop
+      def find_z(times, time_a)
         time_b = times.find { |time| time[1][1][2] != time_a[1][1][2] && time[0] != time_a[0] }
 
         orig_a = time_a[1][0][2] + time_a[1][1][2] * time_a[0]
