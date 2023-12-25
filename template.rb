@@ -1,4 +1,3 @@
-# require 'matrix'
 require_relative '../solution'
 
 module AoC
@@ -6,12 +5,12 @@ module AoC
     class D💙day💙 < Solution
 
       def part1
-        input = get_input
+        input = parse_input
 
       end
 
       def part2
-        input = get_input
+        input = parse_input
         'Not Implemented'
       end
 
@@ -22,8 +21,8 @@ module AoC
 
       private
 
-      def get_input
-        super.split("\n")
+      def parse_input
+        get_input.split("\n")
       end
 
       def get_test_input(number)

@@ -28,14 +28,17 @@ module AoC
       Benchmark.bm(13) do |benchmark|
         benchmark.report('Input parsing') { get_input }
         benchmark.report('Part 1') { part1_solution = part1 }
-        benchmark.report('Part 2') { part2_solution = part2 }
+        benchmark.report('Part 2') { part2_solution = part2 } unless self.class::AOC_DAY == 25
       end
       puts
       puts 'Part 1:'
       puts part1_solution
-      puts
-      puts 'Part 2:'
-      puts part2_solution
+
+      unless self.class::AOC_DAY == 25
+        puts
+        puts 'Part 2:'
+        puts part2_solution
+      end
     end
 
     private
