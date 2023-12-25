@@ -14,14 +14,9 @@ module AoC
         'Not Implemented'
       end
 
-      def initialize(test: false, test_input: nil)
-        @test = test
-        @test_input = test_input
-      end
-
       private
 
-      def parse_input
+      memoize def parse_input
         get_input.split("\n")
       end
 

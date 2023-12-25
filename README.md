@@ -4,27 +4,27 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2023 - 36 ⭐
+  2023 - 50 ⭐
 </h1>
-<a href="None">
+<a href="aoc/y2023/d01.rb">
   <img src=".aoc_tiles/tiles/2023/01.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d02.rb">
   <img src=".aoc_tiles/tiles/2023/02.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d03.rb">
   <img src=".aoc_tiles/tiles/2023/03.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d04.rb">
   <img src=".aoc_tiles/tiles/2023/04.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d05.rb">
   <img src=".aoc_tiles/tiles/2023/05.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d06.rb">
   <img src=".aoc_tiles/tiles/2023/06.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2023/d07.rb">
   <img src=".aoc_tiles/tiles/2023/07.png" width="161px">
 </a>
 <a href="aoc/y2023/d08.rb">
