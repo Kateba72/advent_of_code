@@ -84,79 +84,79 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 <h1 align="center">
   2022 - 50 ⭐
 </h1>
-<a href="aoc/y2022/day1.rb">
+<a href="aoc/y2022/d01.rb">
   <img src=".aoc_tiles/tiles/2022/01.png" width="161px">
 </a>
-<a href="aoc/y2022/day2.rb">
+<a href="aoc/y2022/d02.rb">
   <img src=".aoc_tiles/tiles/2022/02.png" width="161px">
 </a>
-<a href="aoc/y2022/day3.rb">
+<a href="aoc/y2022/d03.rb">
   <img src=".aoc_tiles/tiles/2022/03.png" width="161px">
 </a>
-<a href="aoc/y2022/day4.rb">
+<a href="aoc/y2022/d04.rb">
   <img src=".aoc_tiles/tiles/2022/04.png" width="161px">
 </a>
-<a href="aoc/y2022/day5.rb">
+<a href="aoc/y2022/d05.rb">
   <img src=".aoc_tiles/tiles/2022/05.png" width="161px">
 </a>
-<a href="aoc/y2022/day6.rb">
+<a href="aoc/y2022/d06.rb">
   <img src=".aoc_tiles/tiles/2022/06.png" width="161px">
 </a>
-<a href="aoc/y2022/day7.rb">
+<a href="aoc/y2022/d07.rb">
   <img src=".aoc_tiles/tiles/2022/07.png" width="161px">
 </a>
-<a href="aoc/y2022/day8.rb">
+<a href="aoc/y2022/d08.rb">
   <img src=".aoc_tiles/tiles/2022/08.png" width="161px">
 </a>
-<a href="aoc/y2022/day9.rb">
+<a href="aoc/y2022/d09.rb">
   <img src=".aoc_tiles/tiles/2022/09.png" width="161px">
 </a>
-<a href="aoc/y2022/day10.rb">
+<a href="aoc/y2022/d10.rb">
   <img src=".aoc_tiles/tiles/2022/10.png" width="161px">
 </a>
-<a href="aoc/y2022/day11.rb">
+<a href="aoc/y2022/d11.rb">
   <img src=".aoc_tiles/tiles/2022/11.png" width="161px">
 </a>
-<a href="aoc/y2022/day12.rb">
+<a href="aoc/y2022/d12.rb">
   <img src=".aoc_tiles/tiles/2022/12.png" width="161px">
 </a>
-<a href="aoc/y2022/day13.rb">
+<a href="aoc/y2022/d13.rb">
   <img src=".aoc_tiles/tiles/2022/13.png" width="161px">
 </a>
-<a href="aoc/y2022/day14.rb">
+<a href="aoc/y2022/d14.rb">
   <img src=".aoc_tiles/tiles/2022/14.png" width="161px">
 </a>
-<a href="aoc/y2022/day15.rb">
+<a href="aoc/y2022/d15.rb">
   <img src=".aoc_tiles/tiles/2022/15.png" width="161px">
 </a>
-<a href="aoc/y2022/day16.rb">
+<a href="aoc/y2022/d16.rb">
   <img src=".aoc_tiles/tiles/2022/16.png" width="161px">
 </a>
-<a href="aoc/y2022/day17.rb">
+<a href="aoc/y2022/d17.rb">
   <img src=".aoc_tiles/tiles/2022/17.png" width="161px">
 </a>
-<a href="aoc/y2022/day18.rb">
+<a href="aoc/y2022/d18.rb">
   <img src=".aoc_tiles/tiles/2022/18.png" width="161px">
 </a>
-<a href="aoc/y2022/day19.rb">
+<a href="aoc/y2022/d19.rb">
   <img src=".aoc_tiles/tiles/2022/19.png" width="161px">
 </a>
-<a href="aoc/y2022/day20.rb">
+<a href="aoc/y2022/d20.rb">
   <img src=".aoc_tiles/tiles/2022/20.png" width="161px">
 </a>
-<a href="aoc/y2022/day21.rb">
+<a href="aoc/y2022/d21.rb">
   <img src=".aoc_tiles/tiles/2022/21.png" width="161px">
 </a>
-<a href="aoc/y2022/day22.rb">
+<a href="aoc/y2022/d22.rb">
   <img src=".aoc_tiles/tiles/2022/22.png" width="161px">
 </a>
-<a href="aoc/y2022/day23.rb">
+<a href="aoc/y2022/d23.rb">
   <img src=".aoc_tiles/tiles/2022/23.png" width="161px">
 </a>
-<a href="aoc/y2022/day24.rb">
+<a href="aoc/y2022/d24.rb">
   <img src=".aoc_tiles/tiles/2022/24.png" width="161px">
 </a>
-<a href="aoc/y2022/day25.rb">
+<a href="aoc/y2022/d25.rb">
   <img src=".aoc_tiles/tiles/2022/25.png" width="161px">
 </a>
 <h1 align="center">

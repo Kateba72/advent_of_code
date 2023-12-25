@@ -4,16 +4,6 @@ module AoC
   module Y💙year💙
     class D💙day💙 < Solution
 
-      def part1
-        input = parse_input
-
-      end
-
-      def part2
-        input = parse_input
-        'Not Implemented'
-      end
-
       private
 
       memoize def parse_input
