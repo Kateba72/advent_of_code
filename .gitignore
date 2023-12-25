@@ -4,3 +4,8 @@ cookie.txt
 input-*
 
 spec/examples.txt
+
+# aoc tiles
+/.aoc_tiles/**/*
+!/.aoc_tiles/tiles/
+!/.aoc_tiles/tiles/**/*

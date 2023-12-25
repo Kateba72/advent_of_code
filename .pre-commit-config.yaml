@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/LiquidFun/aoc_tiles
+    rev: 0.5.3
+    hooks:
+    - id: aoc-tiles
+      args:
+        - --auto-add-tiles-to-git=amend
+        - --exclude-patterns=spec/**/*,spec/*,aoc/shared/**/*,aoc/shared/*
+        - --verbose
