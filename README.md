@@ -198,43 +198,43 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 <a href="None">
   <img src=".aoc_tiles/tiles/2021/12.png" width="161px">
 </a>
-<a href="aoc/y2021/13.rb">
+<a href="aoc/y2021/d13.rb">
   <img src=".aoc_tiles/tiles/2021/13.png" width="161px">
 </a>
-<a href="aoc/y2021/14.rb">
+<a href="aoc/y2021/d14.rb">
   <img src=".aoc_tiles/tiles/2021/14.png" width="161px">
 </a>
-<a href="aoc/y2021/15.rb">
+<a href="aoc/y2021/d15.rb">
   <img src=".aoc_tiles/tiles/2021/15.png" width="161px">
 </a>
-<a href="aoc/y2021/16.rb">
+<a href="aoc/y2021/d16.rb">
   <img src=".aoc_tiles/tiles/2021/16.png" width="161px">
 </a>
-<a href="aoc/y2021/17.rb">
+<a href="aoc/y2021/d17.rb">
   <img src=".aoc_tiles/tiles/2021/17.png" width="161px">
 </a>
-<a href="aoc/y2021/18.rb">
+<a href="aoc/y2021/d18.rb">
   <img src=".aoc_tiles/tiles/2021/18.png" width="161px">
 </a>
-<a href="aoc/y2021/19.rb">
+<a href="aoc/y2021/d19.rb">
   <img src=".aoc_tiles/tiles/2021/19.png" width="161px">
 </a>
-<a href="aoc/y2021/20.rb">
+<a href="aoc/y2021/d20.rb">
   <img src=".aoc_tiles/tiles/2021/20.png" width="161px">
 </a>
-<a href="aoc/y2021/21.rb">
+<a href="aoc/y2021/d21.rb">
   <img src=".aoc_tiles/tiles/2021/21.png" width="161px">
 </a>
-<a href="aoc/y2021/22.rb">
+<a href="aoc/y2021/d22.rb">
   <img src=".aoc_tiles/tiles/2021/22.png" width="161px">
 </a>
-<a href="aoc/y2021/23.rb">
+<a href="aoc/y2021/d23.rb">
   <img src=".aoc_tiles/tiles/2021/23.png" width="161px">
 </a>
-<a href="aoc/y2021/24.rb">
+<a href="aoc/y2021/d24.rb">
   <img src=".aoc_tiles/tiles/2021/24.png" width="161px">
 </a>
-<a href="aoc/y2021/25.rb">
+<a href="aoc/y2021/d25.rb">
   <img src=".aoc_tiles/tiles/2021/25.png" width="161px">
 </a>
 <h1 align="center">
