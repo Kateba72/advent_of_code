@@ -160,7 +160,7 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
   <img src=".aoc_tiles/tiles/2022/25.png" width="161px">
 </a>
 <h1 align="center">
-  2021 - 26 ⭐
+  2021 - 30 ⭐
 </h1>
 <a href="None">
   <img src=".aoc_tiles/tiles/2021/01.png" width="161px">
@@ -192,10 +192,10 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 <a href="None">
   <img src=".aoc_tiles/tiles/2021/10.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2021/d11.rb">
   <img src=".aoc_tiles/tiles/2021/11.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2021/d12.rb">
   <img src=".aoc_tiles/tiles/2021/12.png" width="161px">
 </a>
 <a href="aoc/y2021/d13.rb">
@@ -238,7 +238,7 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
   <img src=".aoc_tiles/tiles/2021/25.png" width="161px">
 </a>
 <h1 align="center">
-  2020 - 13 ⭐
+  2020 - 19 ⭐
 </h1>
 <a href="None">
   <img src=".aoc_tiles/tiles/2020/01.png" width="161px">
@@ -270,31 +270,31 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 <a href="None">
   <img src=".aoc_tiles/tiles/2020/10.png" width="161px">
 </a>
-<a href="aoc/y2020/11.rb">
+<a href="aoc/y2020/d11.rb">
   <img src=".aoc_tiles/tiles/2020/11.png" width="161px">
 </a>
-<a href="aoc/y2020/12.rb">
+<a href="aoc/y2020/d12.rb">
   <img src=".aoc_tiles/tiles/2020/12.png" width="161px">
 </a>
-<a href="aoc/y2020/13.rb">
+<a href="aoc/y2020/d13.rb">
   <img src=".aoc_tiles/tiles/2020/13.png" width="161px">
 </a>
-<a href="aoc/y2020/14.rb">
+<a href="aoc/y2020/d14.rb">
   <img src=".aoc_tiles/tiles/2020/14.png" width="161px">
 </a>
-<a href="aoc/y2020/day15.rb">
+<a href="aoc/y2020/d15.rb">
   <img src=".aoc_tiles/tiles/2020/15.png" width="161px">
 </a>
-<a href="aoc/y2020/day16.rb">
+<a href="aoc/y2020/d16.rb">
   <img src=".aoc_tiles/tiles/2020/16.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2020/d17.rb">
   <img src=".aoc_tiles/tiles/2020/17.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2020/d18.rb">
   <img src=".aoc_tiles/tiles/2020/18.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2020/d19.rb">
   <img src=".aoc_tiles/tiles/2020/19.png" width="161px">
 </a>
 <a href="aoc/y2020/d20.rb">
