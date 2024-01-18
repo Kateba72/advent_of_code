@@ -1,6 +1,6 @@
 # My Advent of Code solutions
 Hi!
-I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solutions.
+I'm Niklas, a rubyist, and I solve Advent of Code each december. Here are my solutions.
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
@@ -160,18 +160,18 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
   <img src=".aoc_tiles/tiles/2022/25.png" width="161px">
 </a>
 <h1 align="center">
-  2021 - 30 ⭐
+  2021 - 38 ⭐
 </h1>
-<a href="None">
+<a href="aoc/y2021/d01.rb">
   <img src=".aoc_tiles/tiles/2021/01.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2021/d02.rb">
   <img src=".aoc_tiles/tiles/2021/02.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2021/d03.rb">
   <img src=".aoc_tiles/tiles/2021/03.png" width="161px">
 </a>
-<a href="None">
+<a href="aoc/y2021/d04.rb">
   <img src=".aoc_tiles/tiles/2021/04.png" width="161px">
 </a>
 <a href="None">
@@ -303,5 +303,3 @@ I'm Niklas, a rubyist and I solve Advent of Code each december. Here are my solu
 <!-- AOC TILES END -->
 
 *The above tiles are clickable, leading to the solution of the corresponding day.*
-
-I should probably, at some point, make the old solutions work again (some refactors in the repo may or may not have broken these).

@@ -9,7 +9,7 @@ class Grid2d
 
   OutOfBoundsError = Class.new(IndexError)
 
-  def_delegators :@grid, :size, :[], :each
+  def_delegators :grid, :size, :[], :each
 
   attr_reader :height, :width, :grid
 
@@ -90,6 +90,16 @@ class Grid2d
 
   memoize def column(x)
     @grid.map { |row| row[x] }
+  end
+
+  alias_method :rows, :grid
+
+  def columns
+    Enumerator.new(width) do |enum|
+      (0...width).each do |index|
+        enum << column(index)
+      end
+    end
   end
 
   def with_coords
