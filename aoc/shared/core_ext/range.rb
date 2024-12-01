@@ -13,8 +13,25 @@ module RangeMixins
     [self.min, other.min].min .. [self.max, other.max].max
   end
   alias_method :|, :union
+
+  def reverse
+    r = dup
+    def r.each(&block)
+      last.downto(first, &block)
+    end
+    r
+  end
 end
 
-class Range
-  prepend RangeMixins
+module RangeClassMixins
+  def reversible(x, y, exclude_end=false)
+    if x < y
+      new(x, y, exclude_end)
+    else
+      new(y, x, exclude_end).reverse
+    end
+  end
 end
+
+Range.prepend RangeMixins
+Range.singleton_class.prepend RangeClassMixins
