@@ -45,7 +45,13 @@ class Grid2d
   end
 
   def self.from_string(str)
-    new(str.split("\n").map(&:chars))
+    lines = str.split("\n")
+    arr = lines.map do |line|
+      chars = line.chars
+      next chars unless block_given?
+      chars.map { yield _1 }
+    end
+    new(arr)
   end
 
   def at(vector, default = nil)
