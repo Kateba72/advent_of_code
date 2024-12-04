@@ -37,6 +37,7 @@ module AoC
 end
 
 if __FILE__ == $0
-  today = AoC::Y💙year💙::D💙day💙.new(test: false)
+  test = ENV['TEST'] || ARGV.include?('--test') || ARGV.include?('-t') || ARGV.include?('test') || ARGV.include?('t')
+  today = AoC::Y💙year💙::D💙day💙.new(test: test)
   today.run
 end
