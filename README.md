@@ -4,7 +4,7 @@ I'm Niklas, a rubyist, and I solve Advent of Code each december. Here are my sol
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  Advent of Code - 201/462 ⭐
+  Advent of Code - 202/462 ⭐
 </h1>
 <h1 align="center">
   2024 - 12 ⭐ - Ruby
@@ -262,7 +262,7 @@ I'm Niklas, a rubyist, and I solve Advent of Code each december. Here are my sol
   <img src=".aoc_tiles/tiles/2021/25.png" width="161px">
 </a>
 <h1 align="center">
-  2020 - 39 ⭐ - Ruby
+  2020 - 40 ⭐ - Ruby
 </h1>
 <a href="aoc/y2020/d01.rb">
   <img src=".aoc_tiles/tiles/2020/01.png" width="161px">
