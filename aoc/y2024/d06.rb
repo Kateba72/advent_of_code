@@ -36,7 +36,7 @@ module AoC
         while input.in_bounds?(pos)
           next_pos = pos + direction
           if input.at(next_pos) == '.' && seen.exclude?(next_pos)
-            (loop_count += 1; p next_pos) if loop?(input, pos, direction, next_pos, visited)
+            loop_count += 1 if loop?(input, pos, direction, next_pos, visited)
           end
 
           seen << pos
@@ -56,11 +56,10 @@ module AoC
         visited = old_visited.dup
 
         while input.in_bounds?(pos)
-          return true if visited.include?([pos, direction])
-
-          visited << [pos, direction]
-
           while input.at(pos + direction) == '#' || (pos + direction) == additional
+            return true if visited.include?([pos, direction])
+            visited << [pos, direction]
+
             direction = Vector[-direction[1], direction[0]]
           end
 
