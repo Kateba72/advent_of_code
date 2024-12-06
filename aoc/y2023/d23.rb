@@ -17,7 +17,7 @@ module AoC
         nodes.each do |first_node|
           case first_node.data[:content]
           when '.'
-            Grid2d::DIRECTIONS.values.each do |dir|
+            Grid2d::NEIGHBORS.each do |dir|
               if @grid.at(first_node.label + dir).in? %w[. > v < ^]
                 edges << DirectedEdge.new([first_node, first_node.label + dir])
               end
@@ -69,7 +69,7 @@ module AoC
         end
         edges = []
         nodes.each do |first_node|
-          Grid2d::DIRECTIONS.values.each do |dir|
+          Grid2d::NEIGHBORS.each do |dir|
             if @grid.at(first_node.label + dir).in? %w[. > v < ^]
               edges << DirectedEdge.new([first_node, first_node.label + dir])
             end

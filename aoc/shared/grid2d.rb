@@ -14,10 +14,10 @@ class Grid2d
   attr_reader :height, :width, :grid
 
   DIRECTIONS = {
-    1 => Vector[0, -1],
-    2 => Vector[-1, 0],
-    3 => Vector[1, 0],
-    4 => Vector[0, 1],
+    1 => UP = Vector[0, -1],
+    2 => LEFT = Vector[-1, 0],
+    3 => RIGHT = Vector[1, 0],
+    4 => DOWN = Vector[0, 1],
   }
 
   NEIGHBORS = [
