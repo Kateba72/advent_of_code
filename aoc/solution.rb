@@ -47,6 +47,10 @@ module AoC
       @test_input.present? || @test.present?
     end
 
+    def debug(*args, force: false)
+      p args if force || testing?
+    end
+
     memoize def get_input
       if @test_input.present?
         @test_input
