@@ -7,39 +7,28 @@ module AoC
       def part1
         input = parse_input
         input.sum do |result, ints|
-          (0..2**(ints.count-1)).any? do |i|
-            r = ints.first
-            ints[1..].each_with_index do |int, index|
-              if i[index] == 1
-                r += int
-              else
-                r *= int
-              end
-            end
-            result == r
-          end ? result : 0
+          possible?(result, ints, ints.size - 1, false) ? result : 0
         end
       end
 
       def part2
         input = parse_input
         input.sum do |result, ints|
-          (0..3**(ints.count-1)).any? do |operands|
-            operands = operands.to_s 3
-            r = ints.first
-            ints[1..].each_with_index do |i, index|
-              if operands[-index-1] == '1'
-                r += i
-              elsif operands[-index-1] == '2'
-                r *= i
-              else
-                r = (r.to_s + i.to_s).to_i
-              end
-              next if r > result
-            end
-            result == r
-          end ? result : 0
+          part2_info = ints.map do |i|
+            [i.to_s, 10**i.to_s.size]
+          end
+          possible?(result, ints, ints.size - 1, part2_info) ? result : 0
         end
+      end
+
+      # To improve computation time for string concatenation, part2 is an array of [int[i].to_s, 10**int[i].to_s.size]
+      def possible?(result, ints, index, part2)
+        return result == ints.first if index == 0
+        return false if result < ints[index]
+
+        (part2 && result.to_s.end_with?(part2[index][0]) && possible?(result / part2[index][1], ints, index - 1, part2)) ||
+          (result % ints[index] == 0 && possible?(result / ints[index], ints, index - 1, part2)) ||
+          possible?(result - ints[index], ints, index - 1, part2)
       end
 
       def initialize(test: false, test_input: nil)
