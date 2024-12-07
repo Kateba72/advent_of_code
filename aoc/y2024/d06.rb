@@ -40,9 +40,9 @@ module AoC
           end
 
           seen << pos
-          visited << [pos, direction]
 
           if input.at(next_pos) == '#'
+            visited << [pos, direction]
             direction = Vector[-direction[1], direction[0]]
           else
             pos = next_pos
