@@ -13,9 +13,7 @@ module AoC
 
         while input.in_bounds?(pos)
           visited << pos
-          while input.at(pos + direction) == '#'
-            direction = Vector[-direction[1], direction[0]]
-          end
+          direction = Vector[-direction[1], direction[0]] while input.at(pos + direction) == '#'
 
           pos += direction
         end
@@ -35,9 +33,7 @@ module AoC
 
         while input.in_bounds?(pos)
           next_pos = pos + direction
-          if input.at(next_pos) == '.' && seen.exclude?(next_pos)
-            loop_count += 1 if loop?(input, pos, direction, next_pos, visited)
-          end
+          loop_count += 1 if input.at(next_pos) == '.' && seen.exclude?(next_pos) && loop?(input, pos, direction, next_pos, visited)
 
           seen << pos
 
@@ -58,6 +54,7 @@ module AoC
         while input.in_bounds?(pos)
           while input.at(pos + direction) == '#' || (pos + direction) == additional
             return true if visited.include?([pos, direction])
+
             visited << [pos, direction]
 
             direction = Vector[-direction[1], direction[0]]
@@ -96,6 +93,7 @@ module AoC
           ......##..
           ..........
         EDGECASES
+
         <<~TEST
           ....#.....
           .........#

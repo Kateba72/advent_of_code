@@ -26,7 +26,7 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
         TEST
       end

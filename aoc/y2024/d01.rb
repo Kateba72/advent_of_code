@@ -36,7 +36,7 @@ module AoC
         [firsts, seconds]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           3   4
           4   3

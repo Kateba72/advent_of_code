@@ -15,7 +15,7 @@ module AoC
         input = parse_input
         input.sum do |result, ints|
           part2_info = ints.map do |i|
-            [i.to_s, 10**i.to_s.size]
+            [(is = i.to_s), 10**is.size]
           end
           possible?(result, ints, ints.size - 1, part2_info) ? result : 0
         end
@@ -39,13 +39,13 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split("\n").map do
-          i = _1.ints
-          [i.shift, i]
+        get_input.split("\n").map do |line|
+          ints = line.ints
+          [ints.shift, ints]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           190: 10 19
           3267: 81 40 27

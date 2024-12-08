@@ -20,7 +20,7 @@ module AoC
           if Regexp.last_match[0].start_with? "don't"
             enabled = false
             0
-          elsif Regexp.last_match[0].start_with? "do"
+          elsif Regexp.last_match[0].start_with? 'do'
             enabled = true
             0
           else
@@ -40,7 +40,7 @@ module AoC
         get_input
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
         TEST

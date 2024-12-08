@@ -10,7 +10,7 @@ module AoC
           next 0 unless letter == 'X'
 
           Grid2d::NEIGHBORS_WITH_DIAGONALS.count do |dir|
-            input.at(pos+dir) == 'M' && input.at(pos+2*dir) == 'A' && input.at(pos+3*dir) == 'S'
+            input.at(pos + dir) == 'M' && input.at(pos + 2 * dir) == 'A' && input.at(pos + 3 * dir) == 'S'
           end
         end
       end
@@ -27,7 +27,7 @@ module AoC
           next 0 unless letter == 'A'
 
           diagonals.count do |dir, rot|
-            input.at(pos-dir) == 'M' && input.at(pos+dir) == 'S' && input.at(pos-rot) == 'M' && input.at(pos+rot) == 'S'
+            input.at(pos - dir) == 'M' && input.at(pos + dir) == 'S' && input.at(pos - rot) == 'M' && input.at(pos + rot) == 'S'
           end
         end
       end
@@ -43,7 +43,7 @@ module AoC
         Grid2d.from_string(get_input)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           MMMSXXMASM
           MSAMXMSMSA

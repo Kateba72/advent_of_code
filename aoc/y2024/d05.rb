@@ -7,14 +7,15 @@ module AoC
       def part1
         rules, lines = parse_input
 
-        lines.filter do |line|
+        correct_lines = lines.filter do |line|
           rules.all? do |rule|
             (line.index(rule[0]) || -1) < (line.index(rule[1]) || line.size)
           end
-        end.sum do |line|
-          line[line.size / 2].to_i
         end
 
+        correct_lines.sum do |line|
+          line[line.size / 2].to_i
+        end
       end
 
       def part2
@@ -22,11 +23,14 @@ module AoC
 
         assert_all_rules(rules)
 
-        lines.filter_map do |line|
+        correct_lines = lines.filter_map do |line|
           sorted = sort_line(line, rules)
           next if sorted == line
+
           sorted
-        end.sum do |line|
+        end
+
+        correct_lines.sum do |line|
           line[line.size / 2].to_i
         end
       end
@@ -55,12 +59,12 @@ module AoC
 
       memoize def parse_input
         rules, lines = get_input.split("\n\n")
-        rules = rules.split("\n").map { _1.split('|') }.to_set
+        rules = rules.split("\n").to_set { _1.split('|') }
         lines = lines.split("\n").map { _1.split ',' }
         [rules, lines]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           47|53
           97|13

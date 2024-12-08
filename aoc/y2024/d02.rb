@@ -10,7 +10,6 @@ module AoC
         input.count do |line|
           safe? line
         end
-
       end
 
       def part2
@@ -42,7 +41,7 @@ module AoC
         get_input.split("\n").map { _1.split.map(&:to_i) }
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           7 6 4 2 1
           1 2 7 8 9
