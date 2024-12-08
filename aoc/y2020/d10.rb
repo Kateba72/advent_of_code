@@ -45,12 +45,12 @@ module AoC
         real.sort!
         max = real.pop
 
-        (0..real.length).map do
-          real.combination(_1).to_a
-        end.flatten(1).filter do |comb|
+        combinations = (0..real.length).map { real.combination(_1).to_a }.flatten(1)
+        combinations.filter do |comb|
           comb << max
           next if comb.min > 3
-          next if comb.zip(comb[1..]).map { |a, b| b && b - a }.compact.any? { _1 > 3}
+          next if comb.zip(comb[1..]).map { |a, b| b && b - a }.compact.any? { _1 > 3 }
+
           true
         end.count
       end
@@ -61,8 +61,19 @@ module AoC
         get_input.split("\n").map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+                    16
+          10
+          15
+          5
+          1
+          11
+          7
+          19
+          6
+          12
+          4
         TEST
       end
 

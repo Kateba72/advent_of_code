@@ -27,6 +27,7 @@ module AoC
           next unless passport['hcl'] =~ /^#[0-9a-f]{6}$/
           next unless passport['ecl'].in? %w[amb blu brn gry grn hzl oth]
           next unless passport['pid'] =~ /^\d{9}$/
+
           true
         end
       end
@@ -46,7 +47,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
           hcl:#623a2f

@@ -42,10 +42,12 @@ module AoC
         end
 
         raise "rule #{rule} has lengths #{lengths}" if lengths.uniq.size >= 2
+
         lengths[0]
       end
 
       def part2
+        # rubocop:disable Naming/VariableNumber
         texts = parse_input
         # Rule 8 and 11 are only used in rule 0, which is "8 11"
         # So a match now roughly equals 42 [42 ...] 42 31 [31 ...]
@@ -53,16 +55,16 @@ module AoC
         # Both rules 42 and 31 have the same length
         chunk_size = get_length('42')
         raise unless get_length('31') == chunk_size
+
         texts.count do |text|
           next false unless text.size % chunk_size == 0
+
           forced_42_chunks = ((text.size / chunk_size) / 2 + 1).to_i
           switched_to_31 = false
           text.chars.in_chunks(chunk_size).with_index.all? do |chunk, index|
             if index < forced_42_chunks
               match(chunk, '42')
-            elsif switched_to_31
-              match(chunk, '31')
-            elsif index == text.size / chunk_size - 1
+            elsif switched_to_31 || index == text.size / chunk_size - 1
               match(chunk, '31')
             elsif match(chunk, '42')
               true
@@ -72,6 +74,7 @@ module AoC
             end
           end
         end
+        # rubocop:enable Naming/VariableNumber
       end
 
       def initialize(test: false, test_input: nil)
@@ -84,15 +87,27 @@ module AoC
       memoize def parse_input
         rules, texts = get_input.split("\n\n").map { |x| x.split("\n") }
         @rules = rules.to_h do |line|
-          no, parts = line.split(": ")
+          no, parts = line.split(': ')
           is_single = parts.match?(/^"[ab]"$/) ? parts[1] : false
-          [no, [is_single, parts.split(" | ").map { |part| part.split }]]
+          [no, [is_single, parts.split(' | ').map(&:split)]]
         end
         texts
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          0: 4 1 5
+          1: 2 3 | 3 2
+          2: 4 4 | 5 5
+          3: 4 5 | 5 4
+          4: "a"
+          5: "b"
+
+          ababbb
+          bababa
+          abbbab
+          aaabbb
+          aaaabbb
         TEST
       end
 

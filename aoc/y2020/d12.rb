@@ -66,7 +66,7 @@ module AoC
 
       def rotate_direction(direction, amount)
         rotation = Matrix[[0, -1], [1, 0]]
-        (rotation ** (amount / 90)) * direction
+        (rotation**(amount / 90)) * direction
       end
 
       def initialize(test: false, test_input: nil)
@@ -80,7 +80,7 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           F10
           N3

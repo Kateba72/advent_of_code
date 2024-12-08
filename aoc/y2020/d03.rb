@@ -47,7 +47,7 @@ module AoC
         Grid2d.from_string(get_input)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           ..##.......
           #...#...#..

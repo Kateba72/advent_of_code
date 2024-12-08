@@ -11,18 +11,17 @@ module AoC
         mask = {}
 
         instructions.each do |instruction|
-          if m = instruction.match(/^mask = ([10X]+)$/)
+          if (m = instruction.match(/^mask = ([10X]+)$/))
             mask = parse_mask(m[1])
-          elsif m = instruction.match(/^mem\[(\d+)\] = (\d+)$/)
+          elsif (m = instruction.match(/^mem\[(\d+)\] = (\d+)$/))
             value = apply_bitmask(m[2].to_i, mask)
             memory[m[1].to_i] = value
           else
-            puts "Unknown instruction:"
+            puts 'Unknown instruction:'
             puts instruction
           end
         end
-        memory.sum { |k, v| v }
-
+        memory.sum { |_k, v| v }
       end
 
       def part2
@@ -32,19 +31,19 @@ module AoC
         mask = {}
 
         instructions.each do |instruction|
-          if m = instruction.match(/^mask = ([10X]+)$/)
+          if (m = instruction.match(/^mask = ([10X]+)$/))
             mask = parse_mask(m[1])
-          elsif m = instruction.match(/^mem\[(\d+)\] = (\d+)$/)
+          elsif (m = instruction.match(/^mem\[(\d+)\] = (\d+)$/))
             value = m[2].to_i
             apply_floating_bitmask(m[1].to_i, mask).each do |address|
               memory[address] = value
             end
           else
-            puts "Unknown instruction:"
+            puts 'Unknown instruction:'
             puts instruction
           end
         end
-        memory.sum { |k, v| v }
+        memory.sum { |_k, v| v }
       end
 
       def initialize(test: false, test_input: nil)
@@ -59,16 +58,17 @@ module AoC
         mask_ones = 0
         mask_floating = []
         mask.chars.each_with_index do |char, index|
-          if char == '0'
-            mask_zeroes |= 2 ** (35 - index)
-          elsif char == '1'
-            mask_ones |= 2 ** (35 - index)
-          elsif char == 'X'
-            mask_floating << 2 ** (35 - index)
+          case char
+          when '0'
+            mask_zeroes |= 2**(35 - index)
+          when '1'
+            mask_ones |= 2**(35 - index)
+          when 'X'
+            mask_floating << 2**(35 - index)
           end
         end
         mask_zeroes = 2**36 - 1 - mask_zeroes
-        {zeroes: mask_zeroes, ones: mask_ones, floating: mask_floating}
+        { zeroes: mask_zeroes, ones: mask_ones, floating: mask_floating }
       end
 
       def apply_bitmask(int, mask)
@@ -76,10 +76,10 @@ module AoC
       end
 
       def apply_floating_bitmask(int, mask)
-        values = [ (int | mask[:ones]) ]
+        values = [(int | mask[:ones])]
         mask[:floating].each do |floating|
           values += values.map do |value|
-            value & floating != 0 ? value - floating : value + floating
+            value & floating == 0 ? value + floating : value - floating
           end
         end
         values
@@ -90,16 +90,16 @@ module AoC
       end
 
       def get_test_input(number)
-        {1 => <<~TEST1, 2 => <<~TEST2}[number]
-        mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
-        mem[8] = 11
-        mem[7] = 101
-        mem[8] = 0
+        { 1 => <<~TEST1, 2 => <<~TEST2 }[number]
+          mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+          mem[8] = 11
+          mem[7] = 101
+          mem[8] = 0
         TEST1
-        mask = 000000000000000000000000000000X1001X
-        mem[42] = 100
-        mask = 00000000000000000000000000000000X0XX
-        mem[26] = 1
+          mask = 000000000000000000000000000000X1001X
+          mem[42] = 100
+          mask = 00000000000000000000000000000000X0XX
+          mem[26] = 1
         TEST2
       end
 

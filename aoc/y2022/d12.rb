@@ -8,25 +8,28 @@ module AoC
         map, start, target = parse_input
 
         next_moves = PriorityQueue.new
-        lowest_scores = {}
-        next_moves << [0, 0, start[0], start[1]]
-        lowest_scores[[start[0], start[1]]] = 0
+        lowest_scores = { start => 0 }
+        next_moves << [0, 0, start]
 
         loop do
-          _, score_until_now, x, y = next_moves.pop
-          if [x, y] == target
-            return score_until_now
-          end
+          _, score_until_now, pos = next_moves.pop
+          break score_until_now if target == pos
 
-          next if lowest_scores[[x, y]]&.< score_until_now
+          next if lowest_scores[pos]&.< score_until_now
 
-          map.neighbors_with_indexes(x, y).each do |value, nx, ny|
-            next if value.ord > map[x][y].ord + 1
+          value = map.at(pos).ord
+          Grid2d::NEIGHBORS.each do |direction|
+            neighbor = pos + direction
+            next unless map.in_bounds?(neighbor)
+
+            value_neighbor = map.at(neighbor).ord
+            next if value_neighbor > value + 1
+
             score_until_next = score_until_now + 1
-            score_min_until_end = score_until_now + 'z'.ord - value.ord
-            unless lowest_scores[[nx, ny]]&.<= score_until_next
-              next_moves << [-score_min_until_end, score_until_next, nx, ny]
-              lowest_scores[[nx, ny]] = score_until_next
+            score_min_until_end = score_until_now + 'z'.ord - value_neighbor
+            unless lowest_scores[neighbor]&.<= score_until_next
+              next_moves << [-score_min_until_end, score_until_next, neighbor]
+              lowest_scores[neighbor] = score_until_next
             end
           end
         end
@@ -36,25 +39,28 @@ module AoC
         map, _start, target = parse_input
 
         next_moves = PriorityQueue.new
-        lowest_scores = {}
-        next_moves << [0, 0, target[0], target[1]]
-        lowest_scores[[target[0], target[1]]] = 0
+        lowest_scores = { target => 0 }
+        next_moves << [0, 0, target]
 
         loop do
-          _, score_until_now, x, y = next_moves.pop
-          if map[x][y] == 'a'
-            return score_until_now
-          end
+          _, score_until_now, pos = next_moves.pop
+          break score_until_now if map.at(pos) == 'a'
 
-          next if lowest_scores[[x, y]]&.< score_until_now
+          next if lowest_scores[pos]&.< score_until_now
 
-          map.neighbors_with_indexes(x, y).each do |value, nx, ny|
-            next if value.ord < map[x][y].ord - 1
+          value = map.at(pos).ord
+          Grid2d::NEIGHBORS.each do |direction|
+            neighbor = pos + direction
+            next unless map.in_bounds?(neighbor)
+
+            value_neighbor = map.at(neighbor).ord
+            next if value_neighbor.ord < value - 1
+
             score_until_next = score_until_now + 1
-            score_min_until_end = score_until_now + value.ord - 'a'.ord
-            unless lowest_scores[[nx, ny]]&.<= score_until_next
-              next_moves << [-score_min_until_end, score_until_next, nx, ny]
-              lowest_scores[[nx, ny]] = score_until_next
+            score_min_until_end = score_until_now + value_neighbor.ord - 'a'.ord
+            unless lowest_scores[neighbor]&.<= score_until_next
+              next_moves << [-score_min_until_end, score_until_next, neighbor]
+              lowest_scores[neighbor] = score_until_next
             end
           end
         end
@@ -63,18 +69,17 @@ module AoC
       private
 
       memoize def parse_input
-        map = get_input.split("\n").map(&:chars)
+        map = Grid2d.from_string(get_input)
 
-        start, target = nil, nil
-        map.each_with_index do |line, x|
-          line.each_with_index do |char, y|
-            if char == 'S'
-              map[x][y] = 'a'
-              start = [x, y]
-            elsif char == 'E'
-              map[x][y] = 'z'
-              target = [x, y]
-            end
+        start = nil
+        target = nil
+        map.with_coords.each do |char, coords|
+          if char == 'S'
+            map.set_at(coords, 'a')
+            start = coords
+          elsif char == 'E'
+            map.set_at(coords, 'z')
+            target = coords
           end
         end
 

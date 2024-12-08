@@ -8,11 +8,10 @@ module AoC
         input = parse_input
 
         input[@length..].each_with_index.find do |sum, is|
-          input[is...is+@length].each_with_index.none? do |s1, i1|
-            input[is+i1...is+@length].any? { |s2| s1 + s2 == sum }
+          input[is...is + @length].each_with_index.none? do |s1, i1|
+            input[is + i1...is + @length].any? { |s2| s1 + s2 == sum }
           end
         end[0]
-
       end
 
       def part2
@@ -45,7 +44,7 @@ module AoC
         get_input.split("\n").map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           35
           20

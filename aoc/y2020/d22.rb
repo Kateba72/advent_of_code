@@ -30,34 +30,35 @@ module AoC
         winning.zip(winning.size.downto(1)).sum { |card, multiplier| card * multiplier }
       end
 
-      def recursive_combat(p1, p2, recursion=0)
+      def recursive_combat(player1, player2, recursion = 0)
         seen_gamestates = Set.new
 
-        while p1.present? && p2.present?
-          return [true, p1] if seen_gamestates.include? [p1, p2]
-          seen_gamestates << [p1.dup, p2.dup]
+        while player1.present? && player2.present?
+          return [true, player1] if seen_gamestates.include? [player1, player2]
 
-          c1 = p1.shift
-          c2 = p2.shift
+          seen_gamestates << [player1.dup, player2.dup]
 
-          p1_wins = if c1 <= p1.size && c2 <= p2.size
-            p1_copy = p1[...c1]
-            p2_copy = p2[...c2]
-            recursive_combat(p1_copy, p2_copy, recursion + 1)[0]
+          c1 = player1.shift
+          c2 = player2.shift
+
+          player1_wins = if c1 <= player1.size && c2 <= player2.size
+            player1_copy = player1[...c1]
+            player2_copy = player2[...c2]
+            recursive_combat(player1_copy, player2_copy, recursion + 1)[0]
           else
             c1 > c2
           end
 
-          if p1_wins
-            p1 << c1
-            p1 << c2
+          if player1_wins
+            player1 << c1
+            player1 << c2
           else
-            p2 << c2
-            p2 << c1
+            player2 << c2
+            player2 << c1
           end
         end
 
-        return [p1.present?, p1.presence || p2]
+        [player1.present?, player1.presence || player2]
       end
 
       def initialize(test: false, test_input: nil)
@@ -69,12 +70,12 @@ module AoC
 
       memoize def parse_input
         players = get_input.split("\n\n")
-        players.map do
-          _1.split("\n")[1..].map(&:to_i)
+        players.map do |player|
+          player.split("\n")[1..].map(&:to_i)
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Player 1:
           9

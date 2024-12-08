@@ -11,6 +11,7 @@ module AoC
 
         options = departures.split(',').map do |bus|
           next if bus == 'x'
+
           wait_time = (-earliest_time) % bus.to_i
           [wait_time, bus.to_i]
         end.compact
@@ -23,6 +24,7 @@ module AoC
       def part2
         departures = parse_input[1].split(',').map.with_index do |bus, index|
           next if bus == 'x'
+
           [index, bus.to_i]
         end.compact
 
@@ -30,8 +32,10 @@ module AoC
         identities = departures.map do |departure|
           # solve s * bus + t * prod/bus = 1
           # and use t * (- index)
-          a, b = departure[1], prod / departure[1]
-          t, v = 0, 1
+          a = departure[1]
+          b = prod / departure[1]
+          t = 0
+          v = 1
 
           while b > 0
             q = a / b
@@ -56,7 +60,7 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           939
           7,13,x,x,59,x,31,19

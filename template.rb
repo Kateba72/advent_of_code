@@ -1,5 +1,6 @@
 require_relative '../solution'
 
+# https://adventofcode.com/💙year💙/day/💙day_nlz💙
 module AoC
   module Y💙year💙
     class D💙day💙 < Solution

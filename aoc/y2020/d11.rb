@@ -7,21 +7,23 @@ module AoC
       def part1
         input = parse_input
 
-        while true
-          after_step = model_step_1(input)
-          break if input.join('') == after_step.join('')
+        loop do
+          after_step = model_step1(input)
+          break if input.grid == after_step.grid
+
           input = after_step
         end
 
-        input.join.count '#'
+        input.count '#'
       end
 
       def part2
         input = parse_input
 
-        while true
-          after_step = model_step_2(input)
-          break if input.join('') == after_step.join('')
+        loop do
+          after_step = model_step2(input)
+          break if input.grid == after_step.grid
+
           input = after_step
         end
 
@@ -35,55 +37,60 @@ module AoC
 
       private
 
-      def model_step_1(lines)
-        after_step = lines.deep_dup
-        lines.each_with_index do |line, x|
-          line.chars.each_with_index do |ch, y|
-            if ch == '#'
-              after_step[x][y] = lines.neighbors(x,y, include_diagonals: true).count('#') >= 4 ? 'L' : '#'
-            elsif ch == 'L'
-              after_step[x][y] = lines.neighbors(x,y, include_diagonals: true).count('#') == 0 ? '#' : 'L'
-            end
+      def model_step1(grid)
+        after_step = grid.deep_dup
+        grid.with_coords.each do |ch, coords|
+          neighbors = Grid2d::NEIGHBORS_WITH_DIAGONALS.map { grid.at(_1 + coords) }.compact
+          if ch == '#'
+            after_step.set_at(coords, neighbors.count('#') >= 4 ? 'L' : '#')
+          elsif ch == 'L'
+            after_step.set_at(coords, neighbors.count('#') == 0 ? '#' : 'L')
           end
         end
 
         after_step
       end
 
-      def model_step_2(lines)
-        after_step = lines.deep_dup
-        directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
-        lines.each_with_index do |line, x|
-          line.chars.each_with_index do |ch, y|
-            next if ch == '.'
+      def model_step2(grid)
+        after_step = grid.deep_dup
+        grid.with_coords.each do |ch, coords|
+          next if ch == '.'
 
-            neighbors = directions.map { |dir| get_first_seat(lines, x, y, dir[0], dir[1]) }
-            if ch == '#'
-              after_step[x][y] = neighbors.count('#') >= 5 ? 'L' : '#'
-            elsif ch == 'L'
-              after_step[x][y] = neighbors.count('#') == 0 ? '#' : 'L'
-            end
+          neighbors = Grid2d::NEIGHBORS_WITH_DIAGONALS.map { |dir| first_seat(grid, coords, dir) }
+          if ch == '#'
+            after_step.set_at(coords, neighbors.count('#') >= 5 ? 'L' : '#')
+          elsif ch == 'L'
+            after_step.set_at(coords, neighbors.count('#') == 0 ? '#' : 'L')
           end
         end
 
         after_step
       end
 
-      def get_first_seat(lines, x, y, dirx, diry)
-        while true
-          x += dirx
-          y += diry
-          break if x < 0 || y < 0 || x >= lines.size || y >= lines[x].size
-          return lines[x][y] if lines[x][y] != '.'
+      def first_seat(grid, pos, dir)
+        loop do
+          pos += dir
+          break unless grid.in_bounds? pos
+          return lines.at(pos) if lines.at(pos) != '.'
         end
       end
 
       memoize def parse_input
-        get_input.split("\n")
+        Grid2d.from_string(get_input)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          L.LL.LL.LL
+          LLLLLLL.LL
+          L.L.L..L..
+          LLLL.LL.LL
+          L.LL.LL.LL
+          L.LLLLL.LL
+          ..L.L.....
+          LLLLLLLLLL
+          L.LLLLLL.L
+          L.LLLLL.LL
         TEST
       end
 

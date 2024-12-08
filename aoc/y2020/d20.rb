@@ -112,8 +112,9 @@ module AoC
       end
 
       memoize def find_corners(edges)
-        edge_pieces = edges.values.filter_map do | tiles|
+        edge_pieces = edges.values.filter_map do |tiles|
           raise 'ambiguous' if tiles.count >= 3
+
           tiles.count == 2 ? nil : tiles.map(&:first)
         end.compact.flatten
 
@@ -126,7 +127,7 @@ module AoC
         bottom_id = top_left_id
         bottom_edge = top_left.row(top_left.height - 1)
         c_bottom_edge = correct_edge(bottom_edge)
-        next_tile_id, next_rotation = edges[c_bottom_edge].filter do |tile, orientation|
+        next_tile_id, next_rotation = edges[c_bottom_edge].filter do |tile, _orientation|
           tile != bottom_id
         end.first
 
@@ -154,7 +155,7 @@ module AoC
           bottom_id = next_tile_id
           bottom_edge = next_tile.row(next_tile.height - 1)
           c_bottom_edge = correct_edge(bottom_edge)
-          next_tile_id, next_rotation = edges[c_bottom_edge].filter do |tile, orientation|
+          next_tile_id, next_rotation = edges[c_bottom_edge].filter do |tile, _orientation|
             tile != bottom_id
           end.first
         end
@@ -162,14 +163,13 @@ module AoC
         picture
       end
 
-
       def fill_picture_row(left_tile, left_tile_id, tiles, edges)
         picture = left_tile[1...-1].map { _1[1...-1] }
 
         right_id = left_tile_id
         right_edge = left_tile.column(left_tile.width - 1)
         c_right_edge = correct_edge(right_edge)
-        next_tile_id, next_rotation = edges[c_right_edge].filter do |tile, orientation|
+        next_tile_id, next_rotation = edges[c_right_edge].filter do |tile, _orientation|
           tile != right_id
         end.first
 
@@ -198,7 +198,7 @@ module AoC
           right_id = next_tile_id
           right_edge = next_tile.column(next_tile.width - 1)
           c_right_edge = correct_edge(right_edge)
-          next_tile_id, next_rotation = edges[c_right_edge].filter do |tile, orientation|
+          next_tile_id, next_rotation = edges[c_right_edge].filter do |tile, _orientation|
             tile != right_id
           end.first
         end
@@ -218,7 +218,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Tile 2311:
           ..##.#..#.

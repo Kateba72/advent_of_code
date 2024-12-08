@@ -17,7 +17,7 @@ module AoC
         input = parse_input
 
         input.count do |line|
-          (line[3][line[0]-1] == line[2]) ^ (line[3][line[1]-1] == line[2])
+          (line[3][line[0] - 1] == line[2]) ^ (line[3][line[1] - 1] == line[2])
         end
       end
 
@@ -30,13 +30,16 @@ module AoC
 
       memoize def parse_input
         get_input.split("\n").map do |line|
-          m = line.match /(\d+)-(\d+) (\w): (\w+)/
+          m = line.match(/(\d+)-(\d+) (\w): (\w+)/)
           [m.captures[0].to_i, m.captures[1].to_i, m.captures[2], m.captures[3]]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          1-3 a: abcde
+          1-3 b: cdefg
+          2-9 c: ccccccccc
         TEST
       end
 

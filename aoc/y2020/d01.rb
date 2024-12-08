@@ -20,7 +20,7 @@ module AoC
         numbers = input.to_set
 
         match1, match2 = input.product(input).find do |i, j|
-          numbers.include? (2020 - i - j)
+          numbers.include?(2020 - i - j)
         end
         match1 * match2 * (2020 - match1 - match2)
       end
@@ -36,8 +36,14 @@ module AoC
         get_input.split("\n").map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          1721
+          979
+          366
+          299
+          675
+          1456
         TEST
       end
 

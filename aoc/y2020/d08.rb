@@ -15,11 +15,12 @@ module AoC
 
         input.each_with_index do |instruction, index|
           next if instruction[0] == 'acc'
+
           result = run_program(input, index)
           next if result[1]
+
           break result[0]
         end
-
       end
 
       def run_program(input, switched = nil)
@@ -65,7 +66,7 @@ module AoC
         get_input.split("\n").map(&:split)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           nop +0
           acc +1

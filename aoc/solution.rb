@@ -66,7 +66,7 @@ module AoC
       day = self.class::AOC_DAY
       filename = File.join(File.dirname(__FILE__), "y#{year}/input-#{day}.txt")
 
-      if File.exists?(filename)
+      if File.exist?(filename)
         File.read(filename)
       else
         cookie = File.read(File.join(File.dirname(__FILE__), '../cookie.txt'))

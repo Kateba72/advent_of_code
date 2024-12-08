@@ -14,9 +14,9 @@ module AoC
       def part2
         parse_input => { rules:, your_ticket:, other_tickets: }
 
-        mapping_options = rules.keys.map do |key|
+        mapping_options = rules.keys.to_h do |key|
           [key, [true] * your_ticket.size]
-        end.to_h
+        end
 
         valid_values = calculate_valid_values
         other_tickets.each do |ticket|
@@ -37,7 +37,7 @@ module AoC
             index = allowed_indexes.index(true)
             map[rule_key] = index
             mapping_options.delete rule_key
-            mapping_options.keys.each do |other_rule_key|
+            mapping_options.each_key do |other_rule_key|
               mapping_options[other_rule_key][index] = false
             end
           end
@@ -45,7 +45,7 @@ module AoC
           break if mapping_options.blank?
         end
 
-        map.keys.filter { |key| key.start_with? 'departure' }.map { |key| your_ticket[map[key]]}.inject 1, &:*
+        map.keys.filter { |key| key.start_with? 'departure' }.map { |key| your_ticket[map[key]] }.inject 1, &:*
       end
 
       def initialize(test: false, test_input: nil)
@@ -65,10 +65,10 @@ module AoC
 
       memoize def parse_input
         rules, your_ticket, other_tickets = get_input.split("\n\n")
-        rules = rules.split("\n").map do |rule|
+        rules = rules.split("\n").to_h do |rule|
           match_data = rule.match(/^([\w ]+): (\d+)-(\d+) or (\d+)-(\d+)$/)
           [match_data[1], [(match_data[2].to_i)..(match_data[3].to_i), (match_data[4].to_i)..(match_data[5].to_i)]]
-        end.to_h
+        end
 
         your_ticket = your_ticket.split("\n")[1].split(',').map(&:to_i)
         other_tickets = other_tickets.split("\n")[1..].map do |ticket|
@@ -77,7 +77,7 @@ module AoC
         { rules:, your_ticket:, other_tickets: }
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           class: 1-3 or 5-7
           row: 6-11 or 33-44

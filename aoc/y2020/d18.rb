@@ -28,7 +28,7 @@ module AoC
       def evaluate_expression(calculation, evaluation_method)
         calculation = calculation.dup
         while calculation.include? '('
-          calculation.gsub!(/\(([0-9 +*]+)\)/) do |subexpr|
+          calculation.gsub!(/\(([0-9 +*]+)\)/) do |_subexpr|
             public_send(evaluation_method, Regexp.last_match[1])
           end
         end
@@ -36,7 +36,7 @@ module AoC
       end
 
       def evaluate_ltr(calculation)
-        parts = calculation.split(' ')
+        parts = calculation.split
         value = parts.shift.to_i
         parts.each_slice(2) do |expr, number|
           case expr
@@ -71,9 +71,9 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-5 + (8 * 3 + 9 + 3 * 4 * 3)
+          5 + (8 * 3 + 9 + 3 * 4 * 3)
         TEST
       end
 

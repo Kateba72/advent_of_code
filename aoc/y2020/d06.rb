@@ -10,7 +10,6 @@ module AoC
         input.sum do |lines|
           lines.gsub("\n", '').chars.uniq.size
         end
-
       end
 
       def part2
@@ -19,7 +18,7 @@ module AoC
         input.sum do |lines|
           psg = lines.split("\n")
           psg[0].chars.count do |c|
-            psg[1..].all? { _1.include? c}
+            psg[1..].all? { _1.include? c }
           end
         end
       end
@@ -35,8 +34,23 @@ module AoC
         get_input.split("\n\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          abc
+
+          a
+          b
+          c
+
+          ab
+          ac
+
+          a
+          a
+          a
+          a
+
+          b
         TEST
       end
 

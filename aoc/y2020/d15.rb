@@ -9,7 +9,7 @@ module AoC
       end
 
       def part2
-        nth_number(30000000, parse_input)
+        nth_number(30_000_000, parse_input)
       end
 
       def initialize(test: false, test_input: nil)
@@ -49,7 +49,7 @@ module AoC
         elsif @test
           [0, 3, 6]
         else
-          [9,3,1,0,8,4]
+          [9, 3, 1, 0, 8, 4]
         end
       end
 

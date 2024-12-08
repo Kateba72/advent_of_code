@@ -44,6 +44,12 @@ class Grid2d
     @width = width || grid[0].size
   end
 
+  def deep_dup
+    copy = dup
+    copy.instance_variable_set(:@grid, @grid.deep_dup)
+    copy
+  end
+
   def self.from_string(str)
     lines = str.split("\n")
     arr = lines.map do |line|

@@ -10,10 +10,10 @@ module AoC
         allergen_possibilities = {}
         input.each do |line|
           line[1].each do |allergen|
-            if allergen_possibilities.include? allergen
-              allergen_possibilities[allergen] = allergen_possibilities[allergen] & line[0]
+            allergen_possibilities[allergen] = if allergen_possibilities.include? allergen
+              allergen_possibilities[allergen] & line[0]
             else
-              allergen_possibilities[allergen] = line[0].to_set
+              line[0].to_set
             end
           end
         end
@@ -30,10 +30,10 @@ module AoC
         allergen_possibilities = {}
         input.each do |line|
           line[1].each do |allergen|
-            if allergen_possibilities.include? allergen
-              allergen_possibilities[allergen] = allergen_possibilities[allergen] & line[0]
+            allergen_possibilities[allergen] = if allergen_possibilities.include? allergen
+              allergen_possibilities[allergen] & line[0]
             else
-              allergen_possibilities[allergen] = line[0].to_set
+              line[0].to_set
             end
           end
         end
@@ -43,11 +43,11 @@ module AoC
         while allergen_possibilities.present?
           allergen_possibilities.each do |allergen, possibilities|
             possibilities -= fixed_allergens.keys
-            if possibilities.size == 1
-              ingredient = possibilities.first
-              fixed_allergens[ingredient] = allergen
-              allergen_possibilities.delete allergen
-            end
+            next unless possibilities.size == 1
+
+            ingredient = possibilities.first
+            fixed_allergens[ingredient] = allergen
+            allergen_possibilities.delete allergen
           end
         end
 
@@ -64,11 +64,11 @@ module AoC
       memoize def parse_input
         get_input.split("\n").map do |line|
           ingredients, allergens = line.split ' (contains '
-          [ingredients.split, allergens.delete_suffix(?)).split(', ')]
+          [ingredients.split, allergens.delete_suffix(')').split(', ')]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
           trh fvjkl sbzzf mxmxvkd (contains dairy)

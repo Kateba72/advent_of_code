@@ -19,8 +19,8 @@ module AoC
           binary = line.gsub('F', '0').gsub('B', '1').gsub('L', '0').gsub('R', '1')
           binary.to_i 2
         end
-        (seats.min .. seats.max).find do
-          seats.exclude? _1
+        (seats.min..seats.max).find do |seat|
+          seats.exclude? seat
         end
       end
 
@@ -35,9 +35,8 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
-        <<~TEST
-        TEST
+      def get_test_input(_number)
+        # There is no good test input
       end
 
       AOC_YEAR = 2020
