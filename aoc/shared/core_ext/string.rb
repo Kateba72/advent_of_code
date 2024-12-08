@@ -1,8 +1,8 @@
 module StringMixins
   def integers
-    self.scan(/\d+/).map(&:to_i)
+    scan(/\d+/).map(&:to_i)
   end
-  alias_method :ints, :integers
+  alias ints integers
 end
 
 class String

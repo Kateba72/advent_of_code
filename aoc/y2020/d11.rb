@@ -40,9 +40,9 @@ module AoC
         lines.each_with_index do |line, x|
           line.chars.each_with_index do |ch, y|
             if ch == '#'
-              after_step[x][y] = lines.neighbors(x,y, true).count('#') >= 4 ? 'L' : '#'
+              after_step[x][y] = lines.neighbors(x,y, include_diagonals: true).count('#') >= 4 ? 'L' : '#'
             elsif ch == 'L'
-              after_step[x][y] = lines.neighbors(x,y, true).count('#') == 0 ? '#' : 'L'
+              after_step[x][y] = lines.neighbors(x,y, include_diagonals: true).count('#') == 0 ? '#' : 'L'
             end
           end
         end

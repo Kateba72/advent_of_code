@@ -18,14 +18,14 @@ class Grid2d
     2 => LEFT = Vector[-1, 0],
     3 => RIGHT = Vector[1, 0],
     4 => DOWN = Vector[0, 1],
-  }
+  }.freeze
 
   NEIGHBORS = [
     Vector[-1, 0],
     Vector[0, -1],
     Vector[0, 1],
     Vector[1, 0],
-  ]
+  ].freeze
 
   NEIGHBORS_WITH_DIAGONALS = [
     Vector[-1, -1],
@@ -36,7 +36,7 @@ class Grid2d
     Vector[1, -1],
     Vector[1, 0],
     Vector[1, 1],
-  ]
+  ].freeze
 
   def initialize(grid, height: nil, width: nil)
     @grid = grid
@@ -49,6 +49,7 @@ class Grid2d
     arr = lines.map do |line|
       chars = line.chars
       next chars unless block_given?
+
       chars.map { yield _1 }
     end
     new(arr)
@@ -56,16 +57,19 @@ class Grid2d
 
   def at(vector, default = nil)
     return default unless in_bounds?(vector)
+
     @grid[vector[1]][vector[0]]
   end
 
   def at!(vector)
     raise OutOfBoundsError unless in_bounds?(vector)
+
     @grid[vector[1]][vector[0]]
   end
 
   def set_at(vector, value)
     raise OutOfBoundsError unless in_bounds?(vector)
+
     @grid[vector[1]][vector[0]] = value
   end
 
@@ -98,7 +102,7 @@ class Grid2d
     @grid.map { |row| row[x] }
   end
 
-  alias_method :rows, :grid
+  alias rows grid
 
   def columns
     Enumerator.new(width) do |enum|

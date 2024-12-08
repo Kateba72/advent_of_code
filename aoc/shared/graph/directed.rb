@@ -1,4 +1,4 @@
-require_relative('./base')
+require_relative('base')
 require_relative('../priority_queue')
 
 class DirectedGraph < Graph
@@ -14,12 +14,12 @@ class DirectedGraph < Graph
     shortest_paths = { start_node => 0 }
     confirmed_nodes = Set.new
 
-    nodes_left = self.nodes.size
+    nodes_left = nodes.size
 
-    while nodes_left > 0 do
+    while nodes_left > 0
       _, score_until_now, node = next_nodes.pop
 
-      break if _.nil? # We exhausted all paths, but there is no path to the remaining nodes
+      break if score_until_now.nil? # We exhausted all paths, but there is no path to the remaining nodes
 
       next if confirmed_nodes.include? node # if node was already visited, it was with lower costs
 
@@ -39,7 +39,7 @@ class DirectedGraph < Graph
     shortest_paths
   end
 
-  def shortest_path(start_node, target_node, distance_label, score_until_end_function = -> (_node) { 0 })
+  def shortest_path(start_node, target_node, distance_label, score_until_end_function = ->(_node) { 0 })
     start_node = get_node(start_node)
     target_node = get_node(target_node)
 
@@ -50,9 +50,7 @@ class DirectedGraph < Graph
     loop do
       _, score_until_now, node = next_nodes.pop
 
-      if node == target_node
-        return score_until_now, shortest_paths
-      end
+      return score_until_now, shortest_paths if node == target_node
 
       next if shortest_paths[node]&.< score_until_now # if node was already visited with lower costs
 
@@ -66,17 +64,16 @@ class DirectedGraph < Graph
         end
       end
     end
-
   end
 
   def simplify(start_nodes, &block)
     q = Queue.new
 
-    kept_nodes = start_nodes.map do |node|
+    kept_nodes = start_nodes.to_set do |node|
       node = get_node(node)
       q << node
       node
-    end.to_set
+    end
 
     new_edges = []
 
@@ -100,8 +97,8 @@ class DirectedGraph < Graph
       end
     end
 
-    new_nodes = kept_nodes.map do |node|
-      DirectedNode.new(node.label, node.data.dup)
+    new_nodes = kept_nodes.map do |kept_node|
+      DirectedNode.new(kept_node.label, kept_node.data.dup)
     end
 
     DirectedGraph.new(nodes: new_nodes, edges: new_edges)

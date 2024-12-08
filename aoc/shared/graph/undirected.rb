@@ -13,7 +13,7 @@ class UndirectedGraph < Graph
           DirectedEdge.new([directed_nodes[edge.nodes.first.label], directed_nodes[edge.nodes.last.label]], edge.data),
           DirectedEdge.new([directed_nodes[edge.nodes.last.label], directed_nodes[edge.nodes.first.label]], edge.data),
         ]
-      end.flatten
+      end.flatten,
     )
   end
 end

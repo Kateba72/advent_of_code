@@ -19,13 +19,15 @@ class Graph
 
   def get_node(node_or_label)
     return node_or_label if node_or_label.is_a? Node
+
     node = @nodes_by_label[node_or_label]
     raise "Could not map #{node_or_label} to a label" if node.blank?
+
     node
   end
 
   def inspect
-    "<#{self.class.name} nodes=(#{self.nodes.size} nodes) edges=(#{self.edges.size} edges)>"
+    "<#{self.class.name} nodes=(#{nodes.size} nodes) edges=(#{edges.size} edges)>"
   end
 end
 
@@ -52,13 +54,13 @@ class Node
 end
 
 class Edge
-  attr_accessor :data
-  attr_accessor :nodes
+  attr_accessor :data, :nodes
   attr_reader :graph
 
   def initialize(nodes, data = {}, graph = nil)
     @nodes = nodes
     raise "An edge needs exactly two nodes, #{nodes.size} given" unless nodes.size == 2
+
     @data = data
     assign_graph(graph)
   end
