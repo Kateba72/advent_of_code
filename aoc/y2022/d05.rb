@@ -5,8 +5,8 @@ module AoC
     class D05 < Solution
 
       def part1
-        _stacks, instructions = parse_input
-        stacks = _stacks.deep_dup
+        stacks, instructions = parse_input
+        stacks = stacks.deep_dup
         instructions.map do |instruction|
           stacks = apply_instruction_9000 stacks, instruction
         end
@@ -14,8 +14,8 @@ module AoC
       end
 
       def part2
-        _stacks, instructions = parse_input
-        stacks = _stacks.deep_dup
+        stacks, instructions = parse_input
+        stacks = stacks.deep_dup
         instructions.map do |instruction|
           stacks = apply_instruction_9001 stacks, instruction
         end
@@ -54,12 +54,12 @@ module AoC
         [stacks, instructions]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-              [D]    
-          [N] [C]    
+              [D]#{'    '}
+          [N] [C]#{'    '}
           [Z] [M] [P]
-           1   2   3 
+           1   2   3#{' '}
 
           move 1 from 2 to 1
           move 3 from 1 to 3

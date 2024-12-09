@@ -21,8 +21,8 @@ module AoC
       private
 
       def shared_item(line)
-        first_compartment = line[...line.size/2].chars.to_set
-        second_compartment = line[line.size/2..].chars.to_set
+        first_compartment = line[...line.size / 2].chars.to_set
+        second_compartment = line[line.size / 2..].chars.to_set
         (first_compartment & second_compartment).first
       end
 
@@ -40,7 +40,7 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           vJrwpWtwJgWrhcsFMMfFFhFp
           jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL

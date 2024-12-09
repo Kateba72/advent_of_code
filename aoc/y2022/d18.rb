@@ -28,8 +28,8 @@ module AoC
         mx = points.map { |point| point[0] }.max + 2
         my = points.map { |point| point[1] }.max + 2
         mz = points.map { |point| point[2] }.max + 2
-        matrix = (0..mx).map do |x|
-          (0..my).map do |y|
+        matrix = (0..mx).map do |_x|
+          (0..my).map do |_y|
             [0] * (mz + 1)
           end
         end
@@ -54,19 +54,20 @@ module AoC
             next if other_point[0] < 0 || other_point[0] > mx || other_point[1] < 0 || other_point[1] > my || other_point[2] < 0 || other_point[2] > mz
             next if matrix[other_point[0]][other_point[1]][other_point[2]] != 0
             next if queue.include? other_point
+
             matrix[other_point[0]][other_point[1]][other_point[2]] = points_set.include?(other_point + Vector[-1, -1, -1]) ? 1 : 2
             queue.append(other_point)
           end
         end
 
-        points.sum do |point|
+        points.sum do |p|
           [
-            point + Vector[1, 0, 0],
-            point + Vector[-1, 0, 0],
-            point + Vector[0, 1, 0],
-            point + Vector[0, -1, 0],
-            point + Vector[0, 0, 1],
-            point + Vector[0, 0, -1],
+            p + Vector[1, 0, 0],
+            p + Vector[-1, 0, 0],
+            p + Vector[0, 1, 0],
+            p + Vector[0, -1, 0],
+            p + Vector[0, 0, 1],
+            p + Vector[0, 0, -1],
           ].count do |other_point|
             matrix[other_point[0] + 1][other_point[1] + 1][other_point[2] + 1] == 2
           end
@@ -77,12 +78,25 @@ module AoC
 
       memoize def parse_input
         get_input.split("\n").map do |line|
-          Vector[*(line.split(',').map &:to_i)]
+          Vector[*line.split(',').map(&:to_i)]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          2,2,2
+          1,2,2
+          3,2,2
+          2,1,2
+          2,3,2
+          2,2,1
+          2,2,3
+          2,2,4
+          2,2,6
+          1,2,5
+          3,2,5
+          2,1,5
+          2,3,5
         TEST
       end
 

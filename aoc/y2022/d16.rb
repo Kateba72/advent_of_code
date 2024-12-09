@@ -8,19 +8,20 @@ module AoC
         valves = parse_input
 
         all_valves = valves.values.sum { |v| v[0] }
-        next_steps = {['AA', Set.new] => 0}
+        next_steps = { ['AA', Set.new] => 0 }
         max_pressure = 0
         (1..30).each do |minute|
           these_steps = next_steps
           next_steps = {}
           these_steps.each do |key, pressure_released|
             next if max_pressure > pressure_released + all_valves * (30 - minute)
+
             location, open_valves = key
 
             unless open_valves.include?(location) || valves[location][0] <= 0
               next_key = [location, open_valves | [location]]
               next_value = pressure_released + (30 - minute) * valves[location][0]
-              max_pressure = max_pressure > next_value ? max_pressure : next_value
+              max_pressure = next_value unless max_pressure > next_value
               next_steps[next_key] = next_value unless next_steps[next_key]&.>= next_value
             end
 
@@ -38,7 +39,7 @@ module AoC
         valves = parse_input
 
         valves_to_open = valves.values.count { |v| v[0] > 0 }
-        next_steps = {['AA', 'AA', Set.new] => 0}
+        next_steps = { ['AA', 'AA', Set.new] => 0 }
         old_steps = {}
         max_pressure = 0
         (5..30).each do |minute|
@@ -53,7 +54,7 @@ module AoC
               unless open_valves.include?(location) || valves[location][0] <= 0
                 next_key = [partner_location, location, open_valves | [location]]
                 next_value = pressure_released + (30 - minute) * valves[location][0]
-                max_pressure = max_pressure > next_value ? max_pressure : next_value
+                max_pressure = next_value unless max_pressure > next_value
                 if old_steps[next_key]&.at(0)&.>= next_value
                   old_steps[next_key][1] = minute - 3
                 else
@@ -82,19 +83,19 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split("\n").map do |line|
+        get_input.split("\n").to_h do |line|
           m = line.match(/^Valve (\w+) has flow rate=(\d+); tunnels? leads? to valves? (.+)*$/)
           [m[1], [m[2].to_i, m[3].split(', ')]]
-        end.to_h
+        end
       end
 
       memoize def unopened_valves(open_valves)
-        parse_input.sum(0) do |key, value|
+        parse_input.sum do |key, value|
           open_valves.include?(key) ? 0 : value[0]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
           Valve BB has flow rate=13; tunnels lead to valves CC, AA

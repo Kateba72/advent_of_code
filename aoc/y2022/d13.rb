@@ -37,7 +37,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           [1,1,3,1,1]
           [1,1,5,1,1]
@@ -74,8 +74,8 @@ module AoC
           @value = value
         end
 
-        def <=>( other)
-          compare(self.value, other.value)
+        def <=>(other)
+          compare(value, other.value)
         end
 
         def to_s
@@ -84,27 +84,26 @@ module AoC
 
         private
 
-        def compare(a, b)
-          if a.is_a? Integer
-            if b.is_a? Integer
-              a <=> b
+        def compare(left, right)
+          if left.is_a? Integer
+            if right.is_a? Integer
+              left <=> right
             else
-              compare([a], b)
+              compare([left], right)
             end
+          elsif right.is_a? Integer
+            compare(left, [right])
           else
-            if b.is_a? Integer
-              compare(a, [b])
-            else
-              a[b.size - 1] ||= nil unless b == []
-              ret = a.zip(b).each do |f, s|
-                break 0 if f.nil? && s.nil?
-                break -1 if f.nil?
-                break 1 if s.nil?
-                these = compare(f, s)
-                break these unless these == 0
-              end
-              ret.is_a?(Integer) ? ret : 0
+            left[right.size - 1] ||= nil unless right == []
+            ret = left.zip(right).each do |l, r|
+              break 0 if l.nil? && r.nil?
+              break -1 if l.nil?
+              break 1 if r.nil?
+
+              these = compare(l, r)
+              break these unless these == 0
             end
+            ret.is_a?(Integer) ? ret : 0
           end
         end
       end

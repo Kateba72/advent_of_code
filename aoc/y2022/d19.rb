@@ -15,14 +15,14 @@ module AoC
         blueprints = parse_input[0..2]
         blueprints.map do |blueprint|
           best_geode_number(blueprint, 32)
-        end.reduce(1) { |a, b| a * b }
+        end.multiply
       end
 
       private
 
       def best_geode_number(blueprint, minutes)
         states = [
-          { minute: minutes, ore: 0, clay: 0, obsidian: 0, geode: 0, ore_robot: 1, clay_robot: 0, obsidian_robot: 0 }
+          { minute: minutes, ore: 0, clay: 0, obsidian: 0, geode: 0, ore_robot: 1, clay_robot: 0, obsidian_robot: 0 },
         ]
         best_geodes = 0
         max_ore = [blueprint[:clay_ore], blueprint[:obsidian_ore], blueprint[:geode_ore]].max
@@ -43,17 +43,13 @@ module AoC
             # Case 1: Build an ore robot next
             if state[:ore_robot] < max_ore
               ore_build_minutes = [((blueprint[:ore_ore] - state[:ore]).to_f / state[:ore_robot]).ceil, 0].max + 1
-              if state[:minute] - ore_build_minutes > 2
-                states.append next_state(state, :ore_robot, ore_build_minutes, [blueprint[:ore_ore], 0, 0])
-              end
+              states.append next_state(state, :ore_robot, ore_build_minutes, [blueprint[:ore_ore], 0, 0]) if state[:minute] - ore_build_minutes > 2
             end
 
             # Case 2: Build a clay robot next
             if state[:clay_robot] * state[:minute] + state[:clay] < max_clay * state[:minute]
               clay_build_minutes = [((blueprint[:clay_ore] - state[:ore]).to_f / state[:ore_robot]).ceil, 0].max + 1
-              if state[:minute] - clay_build_minutes > 4
-                states.append next_state(state, :clay_robot, clay_build_minutes, [blueprint[:clay_ore], 0, 0])
-              end
+              states.append next_state(state, :clay_robot, clay_build_minutes, [blueprint[:clay_ore], 0, 0]) if state[:minute] - clay_build_minutes > 4
             end
 
             # Case 3: Build an obsidian robot next
@@ -63,30 +59,28 @@ module AoC
                 ((blueprint[:obsidian_clay] - state[:clay]).to_f / state[:clay_robot]).ceil,
                 0,
               ].max + 1
-              if state[:minute] - obsidian_build_minutes > 2
-                states.append next_state(state, :obsidian_robot, obsidian_build_minutes, [blueprint[:obsidian_ore], blueprint[:obsidian_clay], 0])
-              end
+              states.append next_state(state, :obsidian_robot, obsidian_build_minutes, [blueprint[:obsidian_ore], blueprint[:obsidian_clay], 0]) if state[:minute] - obsidian_build_minutes > 2
             end
           end
 
           # Case 4: Build a geode robot next
-          if state[:obsidian_robot] > 0
-            geode_build_minutes = [
-              ((blueprint[:geode_ore] - state[:ore]).to_f / state[:ore_robot]).ceil,
-              ((blueprint[:geode_obsidian] - state[:obsidian]).to_f / state[:obsidian_robot]).ceil,
-              0,
-            ].max + 1
-            if state[:minute] - geode_build_minutes > 0
-              new_state = state.dup
-              new_state[:minute] -= geode_build_minutes
-              new_state[:ore] += state[:ore_robot] * geode_build_minutes - blueprint[:geode_ore]
-              new_state[:clay] += state[:clay_robot] * geode_build_minutes
-              new_state[:obsidian] += state[:obsidian_robot] * geode_build_minutes - blueprint[:geode_obsidian]
-              new_state[:geode] += new_state[:minute]
-              best_geodes = new_state[:geode] if new_state[:geode] > best_geodes
-              states.append new_state
-            end
-          end
+          next unless state[:obsidian_robot] > 0
+
+          geode_build_minutes = [
+            ((blueprint[:geode_ore] - state[:ore]).to_f / state[:ore_robot]).ceil,
+            ((blueprint[:geode_obsidian] - state[:obsidian]).to_f / state[:obsidian_robot]).ceil,
+            0,
+          ].max + 1
+          next unless state[:minute] - geode_build_minutes > 0
+
+          new_state = state.dup
+          new_state[:minute] -= geode_build_minutes
+          new_state[:ore] += state[:ore_robot] * geode_build_minutes - blueprint[:geode_ore]
+          new_state[:clay] += state[:clay_robot] * geode_build_minutes
+          new_state[:obsidian] += state[:obsidian_robot] * geode_build_minutes - blueprint[:geode_obsidian]
+          new_state[:geode] += new_state[:minute]
+          best_geodes = new_state[:geode] if new_state[:geode] > best_geodes
+          states.append new_state
 
         end
 
@@ -113,12 +107,12 @@ module AoC
             obsidian_ore: m[4].to_i,
             obsidian_clay: m[5].to_i,
             geode_ore: m[6].to_i,
-            geode_obsidian: m[7].to_i
+            geode_obsidian: m[7].to_i,
           }
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Blueprint 1: Each ore robot costs 2 ore. Each clay robot costs 2 ore. Each obsidian robot costs 2 ore and 6 clay. Each geode robot costs 2 ore and 6 obsidian.
         TEST

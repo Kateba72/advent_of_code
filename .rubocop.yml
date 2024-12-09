@@ -82,6 +82,9 @@ Naming/MethodParameterName:
 Naming/PredicateName:
   Enabled: false
 
+Naming/VariableNumber:
+  Enabled: false
+
 Security/Eval:
   Enabled: false
 

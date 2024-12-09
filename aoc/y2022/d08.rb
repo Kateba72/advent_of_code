@@ -5,21 +5,21 @@ module AoC
     class D08 < Solution
 
       def part1
-        visibility.sum { |line| line.sum }
+        visibility.sum(&:sum)
       end
 
       def part2
         input = parse_input
 
         maximum = 0
-        input[1..-1].each_with_index do |line, input_index|
-          line[1..-1].each_with_index do |tree, line_index|
+        input[1..].each_with_index do |line, input_index|
+          line[1..].each_with_index do |tree, line_index|
             tree_score = score tree, line[(line_index + 2)..]
             tree_score *= score tree, line[..line_index].reverse
-            tree_score *= score tree, input[(input_index + 2)..].map { |l| l[line_index + 1] }
+            tree_score *= score(tree, input[(input_index + 2)..].map { |l| l[line_index + 1] })
             tree_score *= score tree, input[..input_index].map { |l| l[line_index + 1] }.reverse
 
-            maximum = tree_score > maximum ? tree_score : maximum
+            maximum = tree_score if tree_score > maximum
           end
         end
 
@@ -71,10 +71,10 @@ module AoC
       end
 
       memoize def parse_input
-        get_input.split("\n").map { |line| line.chars.map &:to_i }
+        get_input.split("\n").map { |line| line.chars.map(&:to_i) }
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           30373
           25512

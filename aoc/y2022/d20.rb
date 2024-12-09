@@ -17,7 +17,7 @@ module AoC
         linked_list = generate_linked_list(list)
 
         linked_list.each do |entry|
-          entry[:value] *= 811589153
+          entry[:value] *= 811_589_153
         end
         10.times do
           mix_list(linked_list)
@@ -42,6 +42,7 @@ module AoC
         linked_list.each do |entry|
           value = entry[:value] % (size - 1)
           next if value == 0
+
           if value >= size / 2
             value = size - 1 - value
             other_entry = entry
@@ -71,7 +72,7 @@ module AoC
 
       def linked_list_to_a(list)
         entry = list.first
-        a = [list.first[:value]] + (1...list.size).map do
+        [list.first[:value]] + (1...list.size).map do
           entry = entry[:next]
           entry[:value]
         end
@@ -85,7 +86,7 @@ module AoC
           this_entry = {
             value:,
             last:,
-            next: nil
+            next: nil,
           }
           last[:next] = this_entry if last
           last = this_entry
@@ -96,12 +97,11 @@ module AoC
         linked_list
       end
 
-
       memoize def parse_input
         get_input.split("\n").map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           1
           2

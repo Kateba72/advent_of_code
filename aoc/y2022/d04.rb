@@ -16,7 +16,7 @@ module AoC
         input = parse_input
         input.count do |line|
           intersection = line[0] & line[1]
-          intersection.size > 0
+          !intersection.empty?
         end
       end
 
@@ -29,7 +29,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           2-4,6-8
           2-3,4-5

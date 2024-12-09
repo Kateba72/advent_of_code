@@ -28,8 +28,7 @@ module AoC
           [0, 0, 1, 1, 0, 0, 0],
           [0, 0, 1, 1, 0, 0, 0],
         ],
-      ]
-
+      ].freeze
 
       def part1
         wind = parse_input
@@ -49,7 +48,7 @@ module AoC
             ROCKS[rock_index].each_with_index do |line, rock_line|
               tower[last_line + 4 + rock_line] = line.dup
             end
-            current_rock = last_line + 4 .. last_line + 3 + ROCKS[rock_index].size
+            current_rock = last_line + 4..last_line + 3 + ROCKS[rock_index].size
             rock_index = (rock_index + 1) % 5
           end
 
@@ -57,22 +56,24 @@ module AoC
           wind_index = (wind_index + 1) % wind.size
 
           wind_movable = current_rock.none? do |rock_line|
-            current_wind == '>' ?
-              tower[rock_line][6] == 1 || (0..5).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column+1] == 2 } :
-              tower[rock_line][0] == 1 || (1..6).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column-1] == 2 }
+            if current_wind == '>'
+              tower[rock_line][6] == 1 || (0..5).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column + 1] == 2 }
+            else
+              tower[rock_line][0] == 1 || (1..6).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column - 1] == 2 }
+            end
           end
           if wind_movable
             current_rock.each do |rock_line|
               if current_wind == '>'
                 (1..6).reverse_each do |column|
-                  last = tower[rock_line][column-1]
+                  last = tower[rock_line][column - 1]
                   tower[rock_line][column] = 0 if tower[rock_line][column] == 1
                   tower[rock_line][column] = 1 if last == 1
                 end
                 tower[rock_line][0] = 0 if tower[rock_line][0] == 1
               else
                 (0..5).each do |column|
-                  last = tower[rock_line][column+1]
+                  last = tower[rock_line][column + 1]
                   tower[rock_line][column] = 0 if tower[rock_line][column] == 1
                   tower[rock_line][column] = 1 if last == 1
                 end
@@ -81,7 +82,7 @@ module AoC
             end
           end
           fallable = current_rock.none? do |rock_line|
-            tower[rock_line].zip(tower[rock_line-1] || []).any? { |rock, below| rock == 1 && below == 2 }
+            tower[rock_line].zip(tower[rock_line - 1] || []).any? { |rock, below| rock == 1 && below == 2 }
           end
           if fallable
             current_rock.each do |rock_line|
@@ -91,7 +92,7 @@ module AoC
                 tower[rock_line - 1][column] = 1 if last == 1
               end
             end
-            current_rock = (current_rock.begin - 1 .. current_rock.end - 1)
+            current_rock = (current_rock.begin - 1..current_rock.end - 1)
           else
             current_rock.each do |line|
               tower[line].each_index { |column| tower[line][column] = tower[line][column] > 0 ? 2 : 0 }
@@ -127,17 +128,17 @@ module AoC
               tower[last_line + 4 + rock_line] = line.dup
             end
 
-            next_hash = [rock_index, wind_index, tower[last_line-7..last_line]].flatten.join(' ')
+            next_hash = [rock_index, wind_index, tower[last_line - 7..last_line]].flatten.join(' ')
             if rock_hash.include? next_hash
               old_stop_count, old_height = rock_hash[next_hash]
-              additional_loops = (1000000000000 - stop_count) / (stop_count - old_stop_count)
-              additional_steps = (1000000000000 - stop_count) % (stop_count - old_stop_count)
+              additional_loops = (1_000_000_000_000 - stop_count) / (stop_count - old_stop_count)
+              additional_steps = (1_000_000_000_000 - stop_count) % (stop_count - old_stop_count)
               return last_line + (last_line - old_height) * additional_loops + tower_heights[old_stop_count + additional_steps] - old_height
             end
             rock_hash[next_hash] = [stop_count, last_line]
             tower_heights[stop_count] = last_line
 
-            current_rock = last_line + 4 .. last_line + 3 + ROCKS[rock_index].size
+            current_rock = last_line + 4..last_line + 3 + ROCKS[rock_index].size
             rock_index = (rock_index + 1) % 5
           end
 
@@ -145,22 +146,24 @@ module AoC
           wind_index = (wind_index + 1) % wind.size
 
           wind_movable = current_rock.none? do |rock_line|
-            current_wind == '>' ?
-              tower[rock_line][6] == 1 || (0..5).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column+1] == 2 } :
-              tower[rock_line][0] == 1 || (1..6).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column-1] == 2 }
+            if current_wind == '>'
+              tower[rock_line][6] == 1 || (0..5).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column + 1] == 2 }
+            else
+              tower[rock_line][0] == 1 || (1..6).any? { |column| tower[rock_line][column] == 1 && tower[rock_line][column - 1] == 2 }
+            end
           end
           if wind_movable
             current_rock.each do |rock_line|
               if current_wind == '>'
                 (1..6).reverse_each do |column|
-                  last = tower[rock_line][column-1]
+                  last = tower[rock_line][column - 1]
                   tower[rock_line][column] = 0 if tower[rock_line][column] == 1
                   tower[rock_line][column] = 1 if last == 1
                 end
                 tower[rock_line][0] = 0 if tower[rock_line][0] == 1
               else
                 (0..5).each do |column|
-                  last = tower[rock_line][column+1]
+                  last = tower[rock_line][column + 1]
                   tower[rock_line][column] = 0 if tower[rock_line][column] == 1
                   tower[rock_line][column] = 1 if last == 1
                 end
@@ -169,7 +172,7 @@ module AoC
             end
           end
           fallable = current_rock.none? do |rock_line|
-            tower[rock_line].zip(tower[rock_line-1] || []).any? { |rock, below| rock == 1 && below == 2 }
+            tower[rock_line].zip(tower[rock_line - 1] || []).any? { |rock, below| rock == 1 && below == 2 }
           end
           if fallable
             current_rock.each do |rock_line|
@@ -179,14 +182,14 @@ module AoC
                 tower[rock_line - 1][column] = 1 if last == 1
               end
             end
-            current_rock = (current_rock.begin - 1 .. current_rock.end - 1)
+            current_rock = (current_rock.begin - 1..current_rock.end - 1)
           else
             current_rock.each do |line|
               tower[line].each_index { |column| tower[line][column] = tower[line][column] > 0 ? 2 : 0 }
             end
             current_rock = nil
             stop_count += 1
-            break if stop_count == 1000000000000
+            break if stop_count == 1_000_000_000_000
           end
 
         end
@@ -198,7 +201,7 @@ module AoC
         get_input.strip
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           >>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>
         TEST

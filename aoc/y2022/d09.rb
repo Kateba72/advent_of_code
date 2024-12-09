@@ -51,17 +51,15 @@ module AoC
         end
 
         (0...knots.size - 1).each do |index|
-          difference = knots[index].p_norm_to_p(knots[index+1], 2)
+          difference = knots[index].p_norm_to_p(knots[index + 1], 2)
 
-          if difference >= 4
-            knots[index+1] += (knots[index] - knots[index+1]).map do |element|
-              if element >= 1
-                1
-              elsif element <= -1
-                -1
-              else
-                element
-              end
+          next unless difference >= 4
+
+          knots[index + 1] += (knots[index] - knots[index + 1]).map do |element|
+            if element >= 1
+              1
+            else
+              [element, -1].max
             end
           end
         end
@@ -75,7 +73,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           R 4
           U 4

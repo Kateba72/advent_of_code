@@ -20,7 +20,7 @@ module AoC
 
       private
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           1000
           2000

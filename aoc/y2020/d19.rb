@@ -47,7 +47,6 @@ module AoC
       end
 
       def part2
-        # rubocop:disable Naming/VariableNumber
         texts = parse_input
         # Rule 8 and 11 are only used in rule 0, which is "8 11"
         # So a match now roughly equals 42 [42 ...] 42 31 [31 ...]
@@ -74,7 +73,6 @@ module AoC
             end
           end
         end
-        # rubocop:enable Naming/VariableNumber
       end
 
       def initialize(test: false, test_input: nil)

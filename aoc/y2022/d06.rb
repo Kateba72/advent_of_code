@@ -17,14 +17,19 @@ module AoC
       private
 
       def start_marker(input, marker_size)
-        ((marker_size-1)..).find do |i|
-          Set.new(input[(i-marker_size+1)..i].chars).size == marker_size
+        ((marker_size - 1)..).find do |i|
+          Set.new(input[(i - marker_size + 1)..i].chars).size == marker_size
         end + 1
       end
 
       def get_test_input(number)
-        <<~TEST
-        TEST
+        %w[
+          mjqjpqmgbljsphdztnvjfqwrcgsmlb
+          bvwbjplbgvbhsrlpgdmjqwftvncz
+          nppdvjthqldpwncqszvftbrmjlhg
+          nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg
+          zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw
+        ][number || 0]
       end
 
       AOC_YEAR = 2022

@@ -34,11 +34,11 @@ module AoC
       puts 'Part 1:'
       puts part1_solution
 
-      unless self.class::AOC_DAY == 25
-        puts
-        puts 'Part 2:'
-        puts part2_solution
-      end
+      return if self.class::AOC_DAY == 25
+
+      puts
+      puts 'Part 2:'
+      puts part2_solution
     end
 
     private
@@ -76,7 +76,6 @@ module AoC
         resp
       end
     end
-
 
   end
 end

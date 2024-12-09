@@ -14,13 +14,13 @@ module AoC
         LEFT => 1,
         DOWN => 1,
         UP => 0,
-      }
+      }.freeze
 
       FACES_MAP = <<~MAP.freeze
-       12
-       3
-      45
-      6
+         12
+         3
+        45
+        6
       MAP
       MAP_MULTIPLIER = 50
 
@@ -74,6 +74,7 @@ module AoC
             instruction.to_i.times do
               next_pos, next_direction = next_position(position, direction, map, true)
               break if next_pos == position
+
               position = next_pos
               direction = next_direction
             end
@@ -99,6 +100,7 @@ module AoC
             instruction.to_i.times do
               next_pos, next_direction = next_position(position, direction, map, false)
               break if next_pos == position
+
               position = next_pos
               direction = next_direction
             end
@@ -113,9 +115,9 @@ module AoC
 
         if testing?
           @faces_map = <<~MAP
-            1
-          234
-            56
+              1
+            234
+              56
           MAP
           @map_multiplier = 4
           @part_1_rules = {
@@ -161,9 +163,7 @@ module AoC
         @faces_reverse = {}
         @faces_map.each_with_index do |line, row_index|
           line.chars.each_with_index do |char, column_index|
-            if char.match?(/\d/)
-              @faces_reverse[char.to_i] = Vector[column_index, row_index]
-            end
+            @faces_reverse[char.to_i] = Vector[column_index, row_index] if char.match?(/\d/)
           end
         end
       end
@@ -216,7 +216,7 @@ module AoC
         [map, instructions]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
                   ...#
                   .#..

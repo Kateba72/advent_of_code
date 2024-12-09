@@ -6,6 +6,7 @@ module AoC
 
       def calculate
         return if @calculated
+
         input = parse_input
 
         cycle = 1
@@ -16,7 +17,7 @@ module AoC
 
         input.each do |line|
           case line
-          when'noop'
+          when 'noop'
             save_cycle(cycle, x)
             cycle += 1
           when /^addx (-?\d+)$/
@@ -37,27 +38,23 @@ module AoC
 
       def part2
         calculate
-        @display.each_slice(40).map do |line|
-          line.join('')
-        end.join "\n"
+        @display.each_slice(40).map(&:join).join "\n"
       end
 
       private
 
       def save_cycle(cycle, x)
-        if cycle % 40 == 20
-          @signal_strength += cycle * x
-        end
+        @signal_strength += cycle * x if cycle % 40 == 20
 
         column = (cycle - 1) % 40 + 1
-        @display[cycle - 1] = (column >= x && column <= x + 2) ? '█' : ' '
+        @display[cycle - 1] = column >= x && column <= x + 2 ? '█' : ' '
       end
 
       memoize def parse_input
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           addx 15
           addx -11

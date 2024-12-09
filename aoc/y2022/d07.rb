@@ -15,7 +15,7 @@ module AoC
       def part2
         directories = parse_input
 
-        total_size = directories['/'][3] - 40000000
+        total_size = directories['/'][3] - 40_000_000
         sizes = directories.map { |_name, directory| directory[3] }
         sizes.filter { |size| size >= total_size }.min
       end
@@ -53,12 +53,13 @@ module AoC
 
       def calculate_size(directory, directories)
         return directories[directory][3] if directories[directory][3]
+
         file_sizes = directories[directory][1].sum { |file| file[0] }
         directory_sizes = directories[directory][2].sum { |dir| calculate_size(dir, directories) }
         directories[directory][3] = file_sizes + directory_sizes
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           $ cd /
           $ ls

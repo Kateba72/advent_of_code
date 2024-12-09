@@ -8,7 +8,7 @@ module AoC
         rounds = parse_input
         points = { AX: 4, BX: 1, CX: 7, AY: 8, BY: 5, CY: 2, AZ: 3, BZ: 9, CZ: 6 }
         rounds.sum do |round|
-          points[round.join('').to_sym]
+          points[round.join.to_sym]
         end
       end
 
@@ -16,7 +16,7 @@ module AoC
         rounds = parse_input
         points = { AX: 3, BX: 1, CX: 2, AY: 4, BY: 5, CY: 6, AZ: 8, BZ: 9, CZ: 7 }
         rounds.sum do |round|
-          points[round.join('').to_sym]
+          points[round.join.to_sym]
         end
       end
 
@@ -26,7 +26,7 @@ module AoC
         get_input.split("\n").map(&:split)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           A Y
           B X

@@ -51,21 +51,21 @@ module AoC
             elves[position + Vector[-1, 1]],
             elves[position + Vector[-1, 0]],
           ]
-          if around_elves.all? { |elf| elf == nil }
+          if around_elves.all?(&:nil?)
             next_elves[position] = false
             next
           end
 
-          direction = (n...n+4).find do |direction_order|
+          direction = (n...n + 4).find do |direction_order|
             case direction_order % 4
             when 0
-              true if around_elves[0..2].all? { |elf| elf == nil }
+              true if around_elves[0..2].all?(&:nil?)
             when 1
-              true if around_elves[4..6].all? { |elf| elf == nil }
+              true if around_elves[4..6].all?(&:nil?)
             when 2
-              true if around_elves[6] == nil && around_elves[7] == nil && around_elves[0] == nil
+              true if around_elves[6].nil? && around_elves[7].nil? && around_elves[0].nil?
             when 3
-              true if around_elves[2..4].all? { |elf| elf == nil }
+              true if around_elves[2..4].all?(&:nil?)
             end
           end
 
@@ -79,8 +79,9 @@ module AoC
           proposed_places[position + direction] += 1
         end
 
-        elves.each do |position, _active|
-          next if next_elves[position] != nil
+        elves.each_key do |position|
+          next unless next_elves[position].nil?
+
           proposed_move = proposed_moves[position]
           if proposed_places[proposed_move] <= 1
             next_elves[proposed_move] = true
@@ -110,15 +111,13 @@ module AoC
         elves = {}
         parse_input.each_with_index do |line, y|
           line.chars.each_with_index do |char, x|
-            if char == '#'
-              elves[Vector[x, y]] = true
-            end
+            elves[Vector[x, y]] = true if char == '#'
           end
         end
         elves
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           ....#..
           ..###.#

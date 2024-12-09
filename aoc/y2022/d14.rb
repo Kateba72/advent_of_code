@@ -24,6 +24,7 @@ module AoC
               break false
             end
           end
+
           map[*grain_position] = 2
         end
       end
@@ -50,6 +51,7 @@ module AoC
             end
           end
           break i + 1 if grain_position == source
+
           map[*grain_position] = 2
         end
       end
@@ -64,16 +66,16 @@ module AoC
         dimensions = [[500, 500], [0, 0]]
         input.each do |line|
           line.each do |entry|
-            dimensions[0][0] = dimensions[0][0] < entry[0] ? dimensions[0][0] : entry[0]
-            dimensions[0][1] = dimensions[0][1] > entry[0] ? dimensions[0][1] : entry[0]
-            dimensions[1][0] = dimensions[1][0] < entry[1] ? dimensions[1][0] : entry[1]
-            dimensions[1][1] = dimensions[1][1] > entry[1] ? dimensions[1][1] : entry[1]
+            dimensions[0][0] = [dimensions[0][0], entry[0]].min
+            dimensions[0][1] = [dimensions[0][1], entry[0]].max
+            dimensions[1][0] = [dimensions[1][0], entry[1]].min
+            dimensions[1][1] = [dimensions[1][1], entry[1]].max
           end
         end
 
         dimensions[1][1] += 2
-        dimensions[0][0] = dimensions[0][0] < 500 - dimensions[1][1] - 1 ? dimensions[0][0] : 500 - dimensions[1][1] - 1
-        dimensions[0][1] = dimensions[0][1] > 500 + dimensions[1][1] + 1 ? dimensions[0][1] : 500 + dimensions[1][1] + 1
+        dimensions[0][0] = [dimensions[0][0], 500 - dimensions[1][1] - 1].min
+        dimensions[0][1] = [dimensions[0][1], 500 + dimensions[1][1] + 1].max
 
         offset = Vector[dimensions[0][0], dimensions[1][0]]
         maximum = Vector[dimensions[0][1], dimensions[1][1]] - offset
@@ -102,12 +104,12 @@ module AoC
       memoize def parse_input
         get_input.split("\n").map do |line|
           line.split(' -> ').map do |entry|
-            Vector[*entry.split(',').map { |coordinate| coordinate.to_i }]
+            Vector[*entry.split(',').map(&:to_i)]
           end
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           498,4 -> 498,6 -> 496,6
           503,4 -> 502,4 -> 502,9 -> 494,9

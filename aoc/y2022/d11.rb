@@ -11,12 +11,11 @@ module AoC
 
         20.times do
           monkeys.each_with_index do |monkey, index|
-            monkey[:items].each do |item|
+            monkey[:items].each do |_item|
               monkey_counts[index] += 1
-              old = item
               new_value = eval(monkey[:operation]) / 3
 
-              next_monkey = (new_value % monkey[:test] == 0) ? monkey[:if_true] : monkey[:if_false]
+              next_monkey = new_value % monkey[:test] == 0 ? monkey[:if_true] : monkey[:if_false]
               monkeys[next_monkey][:items].append new_value
             end
             monkey[:items] = []
@@ -34,12 +33,11 @@ module AoC
 
         10000.times do
           monkeys.each_with_index do |monkey, index|
-            monkey[:items].each do |item|
+            monkey[:items].each do |_item|
               monkey_counts[index] += 1
-              old = item
               new_value = eval(monkey[:operation]) % worry_level_factor
 
-              next_monkey = (new_value % monkey[:test] == 0) ? monkey[:if_true] : monkey[:if_false]
+              next_monkey = new_value % monkey[:test] == 0 ? monkey[:if_true] : monkey[:if_false]
               monkeys[next_monkey][:items].append new_value
             end
             monkey[:items] = []
@@ -54,7 +52,7 @@ module AoC
       memoize def parse_input
         monkeys = get_input.split("\n\n")
         monkeys.map do |monkey|
-          items = monkey.match(/Starting items: ([0-9 ,]+)$/)[1].split(', ').map &:to_i
+          items = monkey.match(/Starting items: ([0-9 ,]+)$/)[1].split(', ').map(&:to_i)
           operation = monkey.match(/Operation: new = (.+)$/)[1]
           test = monkey.match(/Test: divisible by (\d+)$/)[1].to_i
           if_true = monkey.match(/If true: throw to monkey (\d+)$/)[1].to_i
@@ -63,7 +61,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Monkey 0:
             Starting items: 79, 98

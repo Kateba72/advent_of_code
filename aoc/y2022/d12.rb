@@ -86,7 +86,7 @@ module AoC
         [map, start, target]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Sabqponm
           abcryxxl
