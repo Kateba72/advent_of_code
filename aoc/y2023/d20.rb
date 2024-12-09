@@ -11,7 +11,7 @@ module AoC
         state = initial_state
         low = high = 0
 
-        1000.times do |i|
+        1000.times do |_i|
           new_low, new_high = handle_push(state)
           low += new_low
           high += new_high
@@ -40,7 +40,7 @@ module AoC
       def handle_push(state)
         signals = {
           false => 1 + @broadcaster.reachable_nodes.size, # button -> broadcaster + broadcaster -> targets
-          true => 0
+          true => 0,
         }
 
         queue = Queue.new
@@ -62,7 +62,7 @@ module AoC
             end
           when '&'
             state[node.label][origin] = signal
-            out_signal = ! state[node.label].values.all?
+            out_signal = !state[node.label].values.all?
             signals[out_signal] += node.reachable_nodes.size
 
             node.reachable_nodes.each do |next_node|
@@ -99,7 +99,7 @@ module AoC
         edges = input.map do |node_label, node_info|
           _, connected_nodes = node_info
           connected_nodes.map do |connected|
-            nodes << DirectedNode.new(connected, { type: nil }) unless input.has_key? connected
+            nodes << DirectedNode.new(connected, { type: nil }) unless input.key? connected
             DirectedEdge.new([node_label, connected])
           end
         end.flatten
@@ -112,19 +112,19 @@ module AoC
         case number
         when 1
           <<~TEST
-broadcaster -> a, b, c
-%a -> b
-%b -> c
-%c -> inv
-&inv -> a
+            broadcaster -> a, b, c
+            %a -> b
+            %b -> c
+            %c -> inv
+            &inv -> a
           TEST
         when 2
           <<~TEST
-broadcaster -> a
-%a -> inv, con
-&inv -> b
-%b -> con
-&con -> output
+            broadcaster -> a
+            %a -> inv, con
+            &inv -> b
+            %b -> con
+            &con -> output
           TEST
         end
       end

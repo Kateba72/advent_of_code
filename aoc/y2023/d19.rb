@@ -94,7 +94,7 @@ module AoC
               exclusion_range = (val.to_i..4000)
             else
               range = (val.to_i + 1..4000)
-              exclusion_range = (1.. val.to_i)
+              exclusion_range = (1..val.to_i)
             end
             Rule.new(var.to_sym, range, wf, exclusion_range)
           end
@@ -103,7 +103,7 @@ module AoC
         parts.split("\n").map { |p| Part.new(*p.integers) }
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           px{a<2006:qkq,m>2090:A,rfg}
           pv{a>1716:R,A}

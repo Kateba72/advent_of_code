@@ -44,6 +44,7 @@ module AoC
 
         inside_area = lines.each_with_index.sum do |line, index|
           next 0 if index == 0 || index == lines.size - 1
+
           vector = line[0] * line[1]
           area = vector.cross_product.inner_product(pos)
           pos += vector
@@ -53,8 +54,8 @@ module AoC
         inside_area + (line_area / 2) + 1
       end
 
-      memoize def angle(v1, v2)
-        v1.cross_product.inner_product(v2)
+      memoize def angle(vector1, vector2)
+        vector1.cross_product.inner_product(vector2)
       end
 
       def initialize(test: false, test_input: nil)
@@ -68,7 +69,7 @@ module AoC
         super.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           R 6 (#70c710)
           D 5 (#0dc571)

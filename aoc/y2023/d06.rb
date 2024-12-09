@@ -6,15 +6,14 @@ module AoC
 
       def part1
         times, distances = parse_input
-        times = times.split(' ')[1..].map(&:to_i)
-        distances = distances.split(' ')[1..].map(&:to_i)
+        times = times.split[1..].map(&:to_i)
+        distances = distances.split[1..].map(&:to_i)
 
         times.zip(distances).map do |time, distance|
           (0..time).count do |t|
             t * (time - t) > distance
           end
         end.inject(:*)
-
       end
 
       def part2
@@ -22,7 +21,7 @@ module AoC
         time = times.split(':')[1].gsub(' ', '').to_i
         distance = distances.split(':')[1].gsub(' ', '').to_i
 
-        start_time = (0..(time/2)).bsearch do |t|
+        start_time = (0..(time / 2)).bsearch do |t|
           t * (time - t) > distance
         end
         end_time = time - start_time
@@ -36,7 +35,7 @@ module AoC
         get_input.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Time:      7  15   30
           Distance:  9  40  200

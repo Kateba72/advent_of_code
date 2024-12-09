@@ -11,6 +11,7 @@ module AoC
           rows = pattern.split("\n")
           row_mirror = find_p1_mirror(rows)
           next 100 * row_mirror if row_mirror
+
           cols = (0...rows[0].size).map do |i|
             rows.map { |r| r[i] }.join
           end
@@ -36,6 +37,7 @@ module AoC
           rows = pattern.split("\n")
           row_mirror = find_p2_mirror(rows)
           next 100 * row_mirror if row_mirror
+
           cols = (0...rows[0].size).map do |i|
             rows.map { |r| r[i] }.join
           end
@@ -54,9 +56,11 @@ module AoC
           top.zip(bottom).all? do |t, b|
             next true if t == b
             next false if smudge
+
             t.chars.zip(b.chars).all? do |tc, bc|
               next true if tc == bc
               next false if smudge
+
               smudge = true
               true
             end
@@ -76,7 +80,7 @@ module AoC
         super.split("\n\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           #.##..##.
           ..#.##.#.

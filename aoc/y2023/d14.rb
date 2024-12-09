@@ -9,7 +9,7 @@ module AoC
         rows = get_input
         cols = (0...rows[0].size).map do |i|
           line = rows.map { |r| r[i] }.join
-          line.gsub /\.+O[.O]*/ do |moving|
+          line.gsub(/\.+O[.O]*/) do |moving|
             rocks = moving.count 'O'
             'O' * rocks + '.' * (moving.size - rocks)
           end
@@ -42,10 +42,10 @@ module AoC
 
         final_arrangement = (1..).each do |i|
           new_arrangement = do_spin(arrangement)
-          if previous_spins.has_key? new_arrangement
+          if previous_spins.key? new_arrangement
             loop_start = previous_spins[new_arrangement]
             loop_size = i - loop_start
-            step = (1000000000 - loop_start) % loop_size + loop_start
+            step = (1_000_000_000 - loop_start) % loop_size + loop_start
             break spins_reverse[step]
           else
             previous_spins[new_arrangement] = i
@@ -60,7 +60,7 @@ module AoC
       def do_spin(arrangement)
         4.times do
           rows = arrangement.map do |line|
-            line.gsub /\.+O[.O]*/ do |moving|
+            line.gsub(/\.+O[.O]*/) do |moving|
               rocks = moving.count 'O'
               'O' * rocks + '.' * (moving.size - rocks)
             end
@@ -84,7 +84,7 @@ module AoC
         super.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           O....#....
           O.OO#....#

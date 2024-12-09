@@ -16,12 +16,12 @@ module AoC
         boxes = Array.new(256) { {} }
 
         input.each_with_index do |step, index|
-          match = step.match /[-=]/
+          match = step.match(/[-=]/)
           label = match.pre_match
           box = hash(label)
           if match.to_s == '='
             focal = match.post_match.to_i
-            if boxes[box].has_key? label
+            if boxes[box].key? label
               boxes[box][label].focal = focal
             else
               boxes[box][label] = Lens.new(focal, index)
@@ -32,9 +32,9 @@ module AoC
         end
 
         boxes.map.with_index do |box, box_index|
-          lenses = box.values.sort_by { |lens| lens.insertion_time }
+          lenses = box.values.sort_by(&:insertion_time)
           lenses.map.with_index do |lens, lens_index|
-            (box_index + 1) * (lens_index + 1) * (lens.focal)
+            (box_index + 1) * (lens_index + 1) * lens.focal
           end.sum
         end.sum
       end
@@ -62,8 +62,9 @@ module AoC
         super.strip.split(',')
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7
         TEST
       end
 

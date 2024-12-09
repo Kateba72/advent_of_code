@@ -18,7 +18,7 @@ module AoC
         edges << DirectedEdge.new([[target, true], [target, false]], { distance: 0 })
 
         graph = DirectedGraph.new(nodes:, edges:)
-        score, _paths = graph.shortest_path([start, true], [target, false], :distance, -> (x) { x.data[:left] } )
+        score, _paths = graph.shortest_path([start, true], [target, false], :distance, ->(x) { x.data[:left] })
 
         score
       end
@@ -36,7 +36,7 @@ module AoC
         edges << DirectedEdge.new([[target, true], [target, false]], { distance: 0 })
 
         graph = DirectedGraph.new(nodes:, edges:)
-        score, _paths = graph.shortest_path([start, true], [target, false], :distance, -> (x) { x.data[:left] } )
+        score, _paths = graph.shortest_path([start, true], [target, false], :distance, ->(x) { x.data[:left] })
 
         score
       end
@@ -44,10 +44,10 @@ module AoC
       def get_nodes
         input = get_input
         total_distance = input.width + input.height - 2
-        input.with_coords.map do |cell, vector|
+        input.with_coords.map do |_cell, vector|
           [
             DirectedNode.new([vector, true], { left: total_distance - vector[0] - vector[1] }),
-            DirectedNode.new([vector, false], { left: total_distance - vector[0] - vector[1] })
+            DirectedNode.new([vector, false], { left: total_distance - vector[0] - vector[1] }),
           ]
         end.flatten
       end
@@ -93,7 +93,7 @@ module AoC
         Grid2d.new(arr)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           2413432311323
           3215453535623

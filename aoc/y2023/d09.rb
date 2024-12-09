@@ -16,7 +16,7 @@ module AoC
 
       memoize def interpolate(line)
         interpolated = [line]
-        until line.all? { |x| x.zero? }
+        until line.all? { |x| x == 0 }
           interpolated << line[1..].map.with_index do |value, index|
             value - line[index]
           end
@@ -26,14 +26,12 @@ module AoC
       end
 
       def extrapolate_next(interpolated)
-        interpolated.sum do |line|
-          line.last
-        end
+        interpolated.sum(&:last)
       end
 
       def extrapolate_previous(interpolated)
         interpolated.map.with_index do |value, index|
-          value.first * (index % 2 == 0 ? 1 : -1)
+          value.first * (index.even? ? 1 : -1)
         end.sum
       end
 
@@ -55,11 +53,11 @@ module AoC
 
       def get_input
         super.split("\n").map do |line|
-          line.split(' ').map &:to_i
+          line.split.map(&:to_i)
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           10 13 16 21 30 45
         TEST

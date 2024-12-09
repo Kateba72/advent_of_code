@@ -13,8 +13,8 @@ module AoC
         'six' => 6,
         'seven' => 7,
         'eight' => 8,
-        'nine' => 9
-      }
+        'nine' => 9,
+      }.freeze
 
       def part1
         input = parse_input
@@ -24,7 +24,6 @@ module AoC
           last = line.reverse.match(/\d/).to_s.to_i
           first * 10 + last
         end
-
       end
 
       def part2

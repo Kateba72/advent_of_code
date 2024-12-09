@@ -11,6 +11,7 @@ module AoC
         point = start
         loop_size = (0..).each do |i|
           break i if point == start && i > 0
+
           point, direction = traverse(point, direction, input)
         end
         loop_size / 2
@@ -23,12 +24,13 @@ module AoC
 
         (0..).each do |i|
           break i if point == start && i > 0
+
           point, next_direction = traverse(point, direction, input)
 
-          if direction == 4 || next_direction == 1
-            input[point[0]][point[1]] = '!'
+          input[point[0]][point[1]] = if direction == 4 || next_direction == 1
+            '!'
           else
-            input[point[0]][point[1]] = '_'
+            '_'
           end
 
           direction = next_direction
@@ -46,6 +48,7 @@ module AoC
             end
           end
           raise "#{line.inspect} -> #{subbed.inspect} stays inside" if inside
+
           inside_count
         end
       end
@@ -119,8 +122,18 @@ module AoC
         super.split("\n")
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          .F----7F7F7F7F-7....
+          .|F--7||||||||FJ....
+          .||.FJ||||||||L7....
+          FJL7L7LJLJ||LJ.L-7..
+          L--J.L7...LJS7F-7L7.
+          ....F-J..F7FJ|L7L7L7
+          ....L7.F7||L7|.L7L7|
+          .....|FJLJ|FJ|F7|.LJ
+          ....FJL-7.||.||||...
+          ....L---J.LJ.LJLJ...
         TEST
       end
 

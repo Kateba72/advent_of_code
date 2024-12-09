@@ -9,18 +9,14 @@ module AoC
         parse_input
 
         nodes = @grid.with_coords.filter_map do |elem, coords|
-          if elem != '#'
-            DirectedNode.new(coords, { content: elem })
-          end
+          DirectedNode.new(coords, { content: elem }) if elem != '#'
         end
         edges = []
         nodes.each do |first_node|
           case first_node.data[:content]
           when '.'
             Grid2d::NEIGHBORS.each do |dir|
-              if @grid.at(first_node.label + dir).in? %w[. > v < ^]
-                edges << DirectedEdge.new([first_node, first_node.label + dir])
-              end
+              edges << DirectedEdge.new([first_node, first_node.label + dir]) if @grid.at(first_node.label + dir).in? %w[. > v < ^]
             end
           when '<'
             edges << DirectedEdge.new([first_node, first_node.label + Vector[-1, 0]])
@@ -35,25 +31,23 @@ module AoC
 
         complex_graph = DirectedGraph.new(nodes:, edges:)
         start = Vector[1, 0]
-        graph = complex_graph.simplify([start]) do |edges|
-          { distance: edges.size }
+        graph = complex_graph.simplify([start]) do |complex_edges|
+          { distance: complex_edges.size }
         end
         start = graph.get_node(start)
         traverse(graph, start, [])
       end
 
       def traverse(graph, node, visited, untilnow = 0)
-        if node.label[1] == @grid.height - 1
-          return 0
-        end
+        return 0 if node.label[1] == @grid.height - 1
+
         visited << node
         max = -100000
         node.outgoing_edges.each do |edge|
           next if visited.include? edge.nodes[1]
+
           distance = traverse(graph, edge.nodes[1], visited, untilnow + edge.data[:distance]) + edge.data[:distance]
-          if distance > max
-            max = distance
-          end
+          max = distance if distance > max
         end
         visited.pop
         max
@@ -63,23 +57,19 @@ module AoC
         parse_input
 
         nodes = @grid.with_coords.filter_map do |elem, coords|
-          if elem != '#'
-            DirectedNode.new(coords, { content: elem })
-          end
+          DirectedNode.new(coords, { content: elem }) if elem != '#'
         end
         edges = []
         nodes.each do |first_node|
           Grid2d::NEIGHBORS.each do |dir|
-            if @grid.at(first_node.label + dir).in? %w[. > v < ^]
-              edges << DirectedEdge.new([first_node, first_node.label + dir])
-            end
+            edges << DirectedEdge.new([first_node, first_node.label + dir]) if @grid.at(first_node.label + dir).in? %w[. > v < ^]
           end
         end
 
         complex_graph = DirectedGraph.new(nodes:, edges:)
         start = Vector[1, 0]
-        graph = complex_graph.simplify([start]) do |edges|
-          { distance: edges.size }
+        graph = complex_graph.simplify([start]) do |complex_edges|
+          { distance: complex_edges.size }
         end
         start = graph.get_node(start)
         traverse(graph, start, [])
@@ -96,31 +86,31 @@ module AoC
         @grid = Grid2d.from_string(get_input)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-#.#####################
-#.......#########...###
-#######.#########.#.###
-###.....#.>.>.###.#.###
-###v#####.#v#.###.#.###
-###.>...#.#.#.....#...#
-###v###.#.#.#########.#
-###...#.#.#.......#...#
-#####.#.#.#######.#.###
-#.....#.#.#.......#...#
-#.#####.#.#.#########v#
-#.#...#...#...###...>.#
-#.#.#v#######v###.###v#
-#...#.>.#...>.>.#.###.#
-#####v#.#.###v#.#.###.#
-#.....#...#...#.#.#...#
-#.#########.###.#.#.###
-#...###...#...#...#.###
-###.###.#.###v#####v###
-#...#...#.#.>.>.#.>.###
-#.###.###.#.###.#.#v###
-#.....###...###...#...#
-#####################.#
+          #.#####################
+          #.......#########...###
+          #######.#########.#.###
+          ###.....#.>.>.###.#.###
+          ###v#####.#v#.###.#.###
+          ###.>...#.#.#.....#...#
+          ###v###.#.#.#########.#
+          ###...#.#.#.......#...#
+          #####.#.#.#######.#.###
+          #.....#.#.#.......#...#
+          #.#####.#.#.#########v#
+          #.#...#...#...###...>.#
+          #.#.#v#######v###.###v#
+          #...#.>.#...>.>.#.###.#
+          #####v#.#.###v#.#.###.#
+          #.....#...#...#.#.#...#
+          #.#########.###.#.#.###
+          #...###...#...#...#.###
+          ###.###.#.###v#####v###
+          #...#...#.#.>.>.#.>.###
+          #.###.###.#.###.#.#v###
+          #.....###...###...#...#
+          #####################.#
         TEST
       end
 

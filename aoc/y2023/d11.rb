@@ -13,7 +13,6 @@ module AoC
             distance(gala, galb)
           end
         end / 2
-
       end
 
       def part2
@@ -21,7 +20,7 @@ module AoC
 
         galaxies.sum do |gala|
           galaxies.sum do |galb|
-            distance(gala, galb,999_999) # 999_999 additional rows plus the 1 row that already exists equals 1_000_000
+            distance(gala, galb, 999_999) # 999_999 additional rows plus the 1 row that already exists equals 1_000_000
           end
         end / 2
       end
@@ -54,26 +53,25 @@ module AoC
         @empty_columns = (0...input[0].size).filter do |column|
           input.all? { |row| row[column] == '.' }
         end
-        galaxies = input.map.with_index do |line, y|
+        input.map.with_index do |line, y|
           line.chars.filter_map.with_index do |char, x|
             char == '#' ? Vector[x, y] : nil
           end
         end.flatten
-        galaxies
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-...#......
-.......#..
-#.........
-..........
-......#...
-.#........
-.........#
-..........
-.......#..
-#...#.....
+          ...#......
+          .......#..
+          #.........
+          ..........
+          ......#...
+          .#........
+          .........#
+          ..........
+          .......#..
+          #...#.....
         TEST
       end
 

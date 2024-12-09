@@ -29,6 +29,7 @@ module AoC
         until locations.empty?
           pos, dir = locations.pop
           next if visited.include? [pos, dir]
+
           visited << [pos, dir]
           new_locations, new_energized = step(pos, dir)
           new_locations.each { |loc| locations << loc }
@@ -45,15 +46,16 @@ module AoC
         while @grid.at(position) == '.'
           position += DIRECTIONS[direction]
           return [[], energized] unless @grid.in_bounds? position
+
           energized << position
         end
 
         new_directions = case @grid.at(position)
         when '/'
-          new_direction = { 1 => 3, 2 => 4, 3 => 1, 4 => 2}[direction]
+          new_direction = { 1 => 3, 2 => 4, 3 => 1, 4 => 2 }[direction]
           [new_direction]
-        when "\\"
-          new_direction = { 1 => 2, 2 => 1, 3 => 4, 4 => 3}[direction]
+        when '\\'
+          new_direction = { 1 => 2, 2 => 1, 3 => 4, 4 => 3 }[direction]
           [new_direction]
         when '-'
           if [2, 3].include? direction
@@ -89,7 +91,7 @@ module AoC
         @grid = Grid2d.new(super.split("\n"))
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~'TEST'
           .|...\....
           |.-.\.....

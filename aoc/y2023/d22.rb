@@ -8,7 +8,7 @@ module AoC
       def part1
         process_bricks
 
-        @on_top_of.count do |lower, on_tops|
+        @on_top_of.count do |_lower, on_tops|
           on_tops.all? { |ot| @resting_on[ot].size > 1 }
         end
       end
@@ -20,9 +20,7 @@ module AoC
           on_top = recursive_on_top_of(disintegrated)
           disint_blocks = [disintegrated]
           on_top.to_a.sort.each do |block|
-            if @resting_on[block].all? { |ro| disint_blocks.include? ro }
-              disint_blocks << block
-            end
+            disint_blocks << block if @resting_on[block].all? { |ro| disint_blocks.include? ro }
           end
 
           disint_blocks.size - 1
@@ -57,11 +55,11 @@ module AoC
             heights[[x, y]] = fallen[0][2]
             bricks_by_position[Vector[x, y, fallen[0][2]]] = i
 
-            if (lower_brick = bricks_by_position[Vector[x, y, final_height - 1]])
-              unless @resting_on[i].include? lower_brick
-                @resting_on[i] << lower_brick
-                @on_top_of[lower_brick] << i
-              end
+            next unless (lower_brick = bricks_by_position[Vector[x, y, final_height - 1]])
+
+            unless @resting_on[i].include? lower_brick
+              @resting_on[i] << lower_brick
+              @on_top_of[lower_brick] << i
             end
 
           end
@@ -99,7 +97,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           1,0,1~1,2,1
           0,0,2~2,0,2

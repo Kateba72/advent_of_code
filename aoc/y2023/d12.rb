@@ -16,8 +16,9 @@ module AoC
         play = [springs.size - arr.sum - arr.size + 1, springs.index('#') || springs.size].min
         (0..play).sum do |offset|
           next 0 unless is_group(springs[offset..offset + arr[0]], arr[0])
+
           if arr.size == 1
-            springs[offset+arr[0]+1..]&.index('#') ? 0 : 1
+            springs[offset + arr[0] + 1..]&.index('#') ? 0 : 1
           else
             matches(springs[offset + arr[0] + 1..], arr[1..])
           end
@@ -25,7 +26,7 @@ module AoC
       end
 
       memoize def is_group(springs, size)
-        (springs[-1] == '.' || springs[-1] == '?' || springs.size == size) && springs[...size].chars.all? { |c| c == '#' || c == '?' }
+        (springs[-1] == '.' || springs[-1] == '?' || springs.size == size) && springs[...size].chars.all? { |c| ['#', '?'].include?(c) }
       end
 
       def part2
@@ -46,13 +47,19 @@ module AoC
 
       def get_input
         super.split("\n").map do |line|
-          springs, ints = line.split(' ')
+          springs, ints = line.split
           [springs, ints.integers]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          ???.### 1,1,3
+          .??..??...?##. 1,1,3
+          ?#?#?#?#?#?#?#? 1,3,1,6
+          ????.#...#... 4,1,1
+          ????.######..#####. 1,6,5
+          ?###???????? 3,2,1
         TEST
       end
 

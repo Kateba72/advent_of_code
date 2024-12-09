@@ -23,7 +23,7 @@ module AoC
 
         @active_nodes = Set.new
 
-        (0..).each do |i|
+        (0..).each do |_i|
           source_set << @sink
 
           @working_nodes.each do |n|
@@ -85,7 +85,7 @@ module AoC
       end
 
       def node_active?(node)
-       !node.data.in_cut && node != @sink && node.data.excess > 0
+        !node.data.in_cut && node != @sink && node.data.excess > 0
       end
 
       def has_falling_residual_edges?(node)
@@ -119,9 +119,9 @@ module AoC
         edge.nodes.second.data.excess += push_amount
         edge.data.flow += push_amount
 
-        if node_active?(end_node)
-          @active_nodes << end_node
-        end
+        return unless node_active?(end_node)
+
+        @active_nodes << end_node
       end
 
       def relabel(node)
@@ -138,11 +138,11 @@ module AoC
         else
           @lowest_height_in_cut = node.data.height
           @working_nodes.each do |n|
-            if n.data.height >= @lowest_height_in_cut
-              unless n.data.in_cut
-                n.data.in_cut = true
-                @active_nodes.delete n
-              end
+            next unless n.data.height >= @lowest_height_in_cut
+
+            unless n.data.in_cut
+              n.data.in_cut = true
+              @active_nodes.delete n
             end
           end
           true
@@ -156,6 +156,7 @@ module AoC
           result = nil
           @layers[@lowest_height_in_cut].each do |node|
             next unless node.data.in_cut
+
             result = relabel(node)
             break if result
           end
@@ -170,7 +171,7 @@ module AoC
         node_labels = Set.new
         edges = []
         lines.map do |line|
-          node, connected = line.split(": ")
+          node, connected = line.split(': ')
           connected = connected.split
           node_labels << node
           connected.each do |conn|
@@ -188,21 +189,21 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-jqt: rhn xhk nvd
-rsh: frs pzl lsr
-xhk: hfx
-cmg: qnr nvd lhk bvb
-rhn: xhk bvb hfx
-bvb: xhk hfx
-pzl: lsr hfx nvd
-qnr: nvd
-ntq: jqt hfx bvb xhk
-nvd: lhk
-lsr: lhk
-rzs: qnr cmg lsr rsh
-frs: qnr lhk lsr
+          jqt: rhn xhk nvd
+          rsh: frs pzl lsr
+          xhk: hfx
+          cmg: qnr nvd lhk bvb
+          rhn: xhk bvb hfx
+          bvb: xhk hfx
+          pzl: lsr hfx nvd
+          qnr: nvd
+          ntq: jqt hfx bvb xhk
+          nvd: lhk
+          lsr: lhk
+          rzs: qnr cmg lsr rsh
+          frs: qnr lhk lsr
         TEST
       end
 

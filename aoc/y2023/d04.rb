@@ -8,9 +8,9 @@ module AoC
         input = parse_input
         input.sum do |line|
           _cardno, numbers = line.split(': ')
-          winning, having = numbers.split(' | ').map { |n| Set.new(n.split(' ')) }
+          winning, having = numbers.split(' | ').map { |n| Set.new(n.split) }
           winning_size = (winning & having).size
-          winning_size > 0 ? 2 ** (winning_size - 1) : 0
+          winning_size > 0 ? 2**(winning_size - 1) : 0
         end
       end
 
@@ -19,8 +19,8 @@ module AoC
         extra_copies = {}
         input.sum do |line|
           cardno, numbers = line.split(': ')
-          cardno = cardno.split(' ')[1].to_i
-          winning, having = numbers.split(' | ').map { |n| Set.new(n.split(' ')) }
+          cardno = cardno.split[1].to_i
+          winning, having = numbers.split(' | ').map { |n| Set.new(n.split) }
           winning_size = (winning & having).size
           these_copies = extra_copies[cardno] || 1
           if winning_size > 0
@@ -33,13 +33,13 @@ module AoC
         end
       end
 
-          private
+      private
 
-          memoize def parse_input
-            get_input.split("\n")
-          end
+      memoize def parse_input
+        get_input.split("\n")
+      end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
           Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19

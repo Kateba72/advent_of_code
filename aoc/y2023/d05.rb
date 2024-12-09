@@ -17,7 +17,7 @@ module AoC
 
       def part2
         ids, rules = parse_input
-        ids = RangeGroup.new(*ids.each_slice(2).map { |x, y| x .. x + y - 1 })
+        ids = RangeGroup.new(*ids.each_slice(2).map { |x, y| x..x + y - 1 })
 
         rules.each do |rule|
           ids = apply_map(rule, ids)
@@ -31,7 +31,7 @@ module AoC
         rules.each do |rule|
           matching_ids = input.intersection(rule[1])
           new_matching_ids = matching_ids.ranges.map do |range|
-            range.first + rule[0] .. range.last + rule[0]
+            range.first + rule[0]..range.last + rule[0]
           end
           new_ranges += new_matching_ids
         end
@@ -42,15 +42,15 @@ module AoC
 
       memoize def parse_input
         seeds, *rules = get_input.split("\n\n")
-        seeds = seeds.split(": ")[1].split(' ').map(&:to_i)
+        seeds = seeds.split(': ')[1].split.map(&:to_i)
         max_value = seeds.sum
         rules = rules.map do |rule|
           ruleparts = rule.split("\n")[1..]
           null_range = RangeGroup.new(0..max_value)
           ruleparts = ruleparts.map do |rulepart|
-            dest, source, len = rulepart.split(' ').map(&:to_i)
+            dest, source, len = rulepart.split.map(&:to_i)
             null_range.intersection!([0..source - 1, source + len..max_value])
-            [dest - source, source .. source + len - 1]
+            [dest - source, source..source + len - 1]
           end
           ruleparts << [0, null_range]
           ruleparts
@@ -58,7 +58,7 @@ module AoC
         [seeds, rules]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           seeds: 79 14 55 13
 

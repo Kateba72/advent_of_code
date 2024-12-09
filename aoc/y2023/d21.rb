@@ -11,11 +11,11 @@ module AoC
         steps = testing? ? 6 : 64
 
         distances = @graph.single_source_shortest_path(@start, :distance).values
-        distances.count { |v| (v - steps) % 2 == 0 && v <= steps }
+        distances.count { |v| (v - steps).even? && v <= steps }
       end
 
       def part2
-        steps = testing? ? 17 : 26501365
+        steps = testing? ? 17 : 26_501_365
         half_size = (@grid.width - 1) / 2
 
         corner_distances = @grid.corners.map do |corner|
@@ -58,11 +58,10 @@ module AoC
 
         # We call a block "mostly reachable" if we can reach the midpoints of all edges. We may miss a corner, though
         # (the heavy boxes in the graphic above)
-        mostly_reachable_blocks_even = 4 * ((block_steps / 2) ** 2)
+        mostly_reachable_blocks_even = 4 * ((block_steps / 2)**2)
         mostly_reachable_blocks_odd = 4 * (block_steps / 2) * (block_steps / 2 + 1) + 1
-        reachable_gardens_odd = mostly_reachable_blocks_odd * corner_distances[0].count { |v| v % 2 == 1 }
-        reachable_gardens_even = mostly_reachable_blocks_even * corner_distances[0].count { |v| v % 2 == 0 }
-
+        reachable_gardens_odd = mostly_reachable_blocks_odd * corner_distances[0].count(&:odd?)
+        reachable_gardens_even = mostly_reachable_blocks_even * corner_distances[0].count(&:even?)
 
         # for each corner, we miss that corner (n+1) times
         # blocks without corners have the same parity as the last block in a straight line
@@ -90,6 +89,7 @@ module AoC
 
       def assert_sssp(sssp, corners, max)
         raise unless max == sssp.values.max
+
         sssp.each do |node, distance|
           raise [node, distance, corners].inspect if distance == max && !corners.include?(node.label)
         end
@@ -112,6 +112,7 @@ module AoC
         edges = []
         @grid.with_coords.each do |elem, vector|
           next if elem == '#'
+
           nodes << UndirectedNode.new(vector)
           edges << UndirectedEdge.new([vector, vector + Vector[1, 0]], { distance: 1 }) if @grid.at(vector + Vector[1, 0]) == '.'
           edges << UndirectedEdge.new([vector, vector + Vector[0, 1]], { distance: 1 }) if @grid.at(vector + Vector[0, 1]) == '.'
@@ -123,19 +124,19 @@ module AoC
       def get_test_input(number)
         case number
         when 1
-        <<~TEST
-          ...........
-          .....###.#.
-          .###.##..#.
-          ..#.#...#..
-          ....#.#....
-          .##..S####.
-          .##..#...#.
-          .......##..
-          .##.#.####.
-          .##..##.##.
-          ...........
-        TEST
+          <<~TEST
+            ...........
+            .....###.#.
+            .###.##..#.
+            ..#.#...#..
+            ....#.#....
+            .##..S####.
+            .##..#...#.
+            .......##..
+            .##.#.####.
+            .##..##.##.
+            ...........
+          TEST
         when 2
           <<~TEST
             .......
