@@ -15,8 +15,8 @@ module AoC
         input = parse_input
         optimal_position = (input.sum / input.size).round
 
-        input.sum do
-          distance = (_1 - optimal_position).abs
+        input.sum do |crab|
+          distance = (crab - optimal_position).abs
           distance * (distance + 1) / 2
         end
       end
@@ -29,11 +29,12 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split(",").map(&:to_i)
+        get_input.split(',').map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          16,1,2,0,4,2,7,1,2,14
         TEST
       end
 

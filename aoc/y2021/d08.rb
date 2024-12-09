@@ -45,6 +45,7 @@ module AoC
         line.each do |part|
           part = part.chars.sort
           next if decryption.include? part
+
           chars = part.to_set
           intersect_one = (chars & one).size
           intersect_four = (chars & four).size
@@ -79,12 +80,13 @@ module AoC
 
       memoize def parse_input
         get_input.split("\n").map do |line|
-          line.split(" | ").map(&:split)
+          line.split(' | ').map(&:split)
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
         TEST
       end
 

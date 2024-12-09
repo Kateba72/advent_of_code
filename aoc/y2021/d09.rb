@@ -12,6 +12,7 @@ module AoC
           next 0 unless Grid2d::NEIGHBORS.all? do |neighbor|
             input.at(position + neighbor, 10) > risk
           end
+
           risk + 1
         end
       end
@@ -49,10 +50,10 @@ module AoC
       private
 
       memoize def parse_input
-        Grid2d.from_string(get_input) { _1.to_i }
+        Grid2d.from_string(get_input, &:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           2199943210
           3987894921

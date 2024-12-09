@@ -13,7 +13,7 @@ module AoC
       def part2
         input = parse_input
 
-        parse_alu_multiverse(input, false)
+        parse_alu_multiverse(input, max: false)
       end
 
       def initialize(test: false, test_input: nil)
@@ -24,9 +24,9 @@ module AoC
       private
 
       def parse_alu(program, input)
-        variables = {w: 0, x: 0, y: 0, z: 0}.with_indifferent_access
+        variables = { w: 0, x: 0, y: 0, z: 0 }.with_indifferent_access
         program.each do |line|
-          parts = line.split(' ')
+          parts = line.split
           case parts[0]
           when 'inp'
             variables[parts[1]] = input.pop(0).to_i
@@ -36,9 +36,11 @@ module AoC
             variables[parts[1]] *= variables[parts[2] || parts[2].to_i]
           when 'div'
             return nil if variables[parts[2]] == 0
+
             variables[parts[1]] /= variables[parts[2] || parts[2].to_i]
           when 'mod'
             return nil if variables[parts[1]] < 0 || variables[parts[2]] <= 0
+
             variables[parts[1]] %= variables[parts[2] || parts[2].to_i]
           when 'eql'
             variables[parts[1]] = variables[parts[1]] == (variables[parts[2]] || parts[2].to_i) ? 1 : 0
@@ -48,10 +50,10 @@ module AoC
         variables
       end
 
-      def parse_alu_multiverse(program, max=true)
-        multiverses = {0 => 0}
+      def parse_alu_multiverse(program, max: true)
+        multiverses = { 0 => 0 }
         program.each do |part|
-          m = part.match /mul x 0\nadd x z\nmod x 26\ndiv z (1|26)\nadd x (-?\d+)\neql x w\neql x 0\nmul y 0\nadd y 25\nmul y x\nadd y 1\nmul z y\nmul y 0\nadd y w\nadd y (\d+)\nmul y x\nadd z y/
+          m = part.match(/mul x 0\nadd x z\nmod x 26\ndiv z (1|26)\nadd x (-?\d+)\neql x w\neql x 0\nmul y 0\nadd y 25\nmul y x\nadd y 1\nmul z y\nmul y 0\nadd y w\nadd y (\d+)\nmul y x\nadd z y/)
           new_multiverses = {}
           multiverses.each do |z, max_input|
             (1..9).each do |w|
@@ -64,9 +66,7 @@ module AoC
 
               next if z > 26**5
 
-              unless (max && new_multiverses[new_z]&.>=(max_input * 10 + w)) || (!max && new_multiverses[new_z]&.<=(max_input * 10 + w))
-                new_multiverses[new_z] = max_input * 10 + w
-              end
+              new_multiverses[new_z] = max_input * 10 + w unless (max && new_multiverses[new_z]&.>=(max_input * 10 + w)) || (!max && new_multiverses[new_z]&.<=(max_input * 10 + w))
             end
           end
           multiverses = new_multiverses
@@ -79,9 +79,8 @@ module AoC
         get_input.split("\ninp w\n")
       end
 
-      def get_test_input(number)
-        <<~TEST
-        TEST
+      def get_test_input(_number)
+        raise StandardError('This does not have a good example input')
       end
 
       AOC_YEAR = 2021

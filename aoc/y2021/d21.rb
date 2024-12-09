@@ -57,6 +57,7 @@ module AoC
           end
 
           break if new_scores.blank?
+
           round += 1
           player_states[player_index] = new_scores
           last_player_mverses = this_player_mverses
@@ -79,10 +80,10 @@ module AoC
         [p1, p2]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-Player 1 starting position: 4
-Player 2 starting position: 8
+          Player 1 starting position: 4
+          Player 2 starting position: 8
         TEST
       end
 

@@ -7,7 +7,7 @@ module AoC
       def part1
         input = parse_input
 
-        binary = input.pack('H*').unpack('B*').first
+        binary = input.pack('H*').unpack1('B*')
         packet = parse_packet(binary)
 
         packet[:sum_subpacket_versions] || packet[:version]
@@ -16,7 +16,7 @@ module AoC
       def part2
         input = parse_input
 
-        binary = input.pack('H*').unpack('B*').first
+        binary = input.pack('H*').unpack1('B*')
         packet = parse_packet(binary)
 
         packet[:value]
@@ -35,15 +35,15 @@ module AoC
         packet[:version] = version = binary[0..2].to_i 2
         packet[:type] = type = binary[3..5].to_i 2
 
-
         if type == 4
           value_binary = ''
           start_index = 6
           loop do
-            bits = binary[start_index .. start_index+4]
+            bits = binary[start_index..start_index + 4]
             value_binary << bits[1..4]
 
             break if bits[0] == '0'
+
             start_index += 5
           end
           packet[:value] = value_binary.to_i 2

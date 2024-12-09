@@ -42,7 +42,7 @@ module AoC
 
       memoize def parse_input
         numbers, *boards = get_input.split("\n\n")
-        @numbers = numbers.split(?,).map(&:to_i)
+        @numbers = numbers.split(',').map(&:to_i)
         @numbers_reversed = []
         @numbers.each_with_index { |number, order| @numbers_reversed[number] = order }
 
@@ -51,7 +51,7 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 

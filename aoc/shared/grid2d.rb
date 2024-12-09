@@ -61,6 +61,10 @@ class Grid2d
     new(arr)
   end
 
+  def to_s
+    grid.map { |line| line.map(&:to_s).join }.join("\n")
+  end
+
   def at(vector, default = nil)
     return default unless in_bounds?(vector)
 

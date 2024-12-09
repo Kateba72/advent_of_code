@@ -49,7 +49,7 @@ class Node
   end
 
   def inspect
-    "<#{self.class.name} @label=#{label.inspect}>"
+    "<#{self.class.name} @label=#{label.inspect} @data=#{data.inspect}>"
   end
 end
 

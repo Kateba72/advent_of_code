@@ -9,8 +9,8 @@ module AoC
 
         pairs = Hash.new(0)
         template.each_with_index do |ch, i|
-          if template[i+1]
-            pair = ch + template[i+1]
+          if template[i + 1]
+            pair = ch + template[i + 1]
             pairs[pair] += 1
           end
         end
@@ -33,8 +33,8 @@ module AoC
 
         pairs = Hash.new(0)
         template.each_with_index do |ch, i|
-          if template[i+1]
-            pair = ch + template[i+1]
+          if template[i + 1]
+            pair = ch + template[i + 1]
             pairs[pair] += 1
           end
         end
@@ -72,36 +72,36 @@ module AoC
       def parse_input
         template, rules = get_input.split("\n\n")
 
-        rules = rules.split("\n").map do |rule|
-          if m = rule.match(/([A-Z][A-Z]) -> ([A-Z])/)
+        rules = rules.split("\n").to_h do |rule|
+          if (m = rule.match(/([A-Z][A-Z]) -> ([A-Z])/))
             [m[1], m[2]]
           else
             throw "Invalid rule #{rule}"
           end
-        end.to_h
+        end
         [template.chars, rules]
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
-  NNCB
+          NNCB
 
-  CH -> B
-  HH -> N
-  CB -> H
-  NH -> C
-  HB -> C
-  HC -> B
-  HN -> C
-  NN -> C
-  BH -> H
-  NC -> B
-  NB -> B
-  BN -> B
-  BB -> N
-  BC -> B
-  CC -> N
-  CN -> C
+          CH -> B
+          HH -> N
+          CB -> H
+          NH -> C
+          HB -> C
+          HC -> B
+          HN -> C
+          NN -> C
+          BH -> H
+          NC -> B
+          NB -> B
+          BN -> B
+          BB -> N
+          BC -> B
+          CC -> N
+          CN -> C
         TEST
       end
 

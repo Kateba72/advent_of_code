@@ -8,11 +8,11 @@ module AoC
         input = parse_input
         pos = input.sum(Vector[0, 0]) do |type, count|
           case type[0]
-          when ?f
+          when 'f'
             Vector[count, 0]
-          when ?d
+          when 'd'
             Vector[0, count]
-          when ?u
+          when 'u'
             Vector[0, -count]
           end
         end
@@ -25,11 +25,11 @@ module AoC
         aim = 0
         input.each do |type, count|
           case type[0]
-          when ?f
+          when 'f'
             pos += Vector[count, count * aim]
-          when ?d
+          when 'd'
             aim += count
-          when ?u
+          when 'u'
             aim -= count
           end
         end
@@ -50,8 +50,14 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          forward 5
+          down 5
+          forward 8
+          up 3
+          down 8
+          forward 2
         TEST
       end
 

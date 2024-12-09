@@ -20,9 +20,9 @@ module AoC
         reactor = {
           -100000..100000 => {
             -100000..100000 => {
-              -100000..100000 => false
-            }
-          }
+              -100000..100000 => false,
+            },
+          },
         }
         input.each do |line|
           apply_line(reactor, line)
@@ -76,14 +76,15 @@ module AoC
         remove_keys = []
         reactor.each do |reactor_range, value|
           next if reactor_range.end < range.begin || reactor_range.begin > range.end
+
           apply_range = reactor_range
           if apply_range.begin < range.begin
-            new_entries[(apply_range.begin .. range.begin - 1)] = value.deep_dup
-            apply_range = range.begin .. apply_range.end
+            new_entries[(apply_range.begin..range.begin - 1)] = value.deep_dup
+            apply_range = range.begin..apply_range.end
           end
           if apply_range.end > range.end
-            new_entries[range.end + 1 .. apply_range.end] = value.deep_dup
-            apply_range = apply_range.begin .. range.end
+            new_entries[range.end + 1..apply_range.end] = value.deep_dup
+            apply_range = apply_range.begin..range.end
           end
           if reactor_range == apply_range
             reactor[reactor_range] = yield value
@@ -101,12 +102,12 @@ module AoC
 
       def parse_input
         get_input.split("\n").map do |line|
-          if m = line.match(/(on|off) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)/)
+          if (m = line.match(/(on|off) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)/))
             {
               status: m[1] == 'on',
-              x_range: (m[2].to_i .. m[3].to_i),
-              y_range: (m[4].to_i .. m[5].to_i),
-              z_range: (m[6].to_i .. m[7].to_i),
+              x_range: (m[2].to_i..m[3].to_i),
+              y_range: (m[4].to_i..m[5].to_i),
+              z_range: (m[6].to_i..m[7].to_i),
             }
           else
             throw "Unparsed line #{line}"
@@ -114,8 +115,12 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          on x=10..12,y=10..12,z=10..12
+          on x=11..13,y=11..13,z=11..13
+          off x=9..11,y=9..11,z=9..11
+          on x=10..10,y=10..10,z=10..10
         TEST
       end
 

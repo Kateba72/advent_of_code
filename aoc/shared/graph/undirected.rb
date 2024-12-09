@@ -1,5 +1,5 @@
-require_relative('./base')
-require_relative('./directed')
+require_relative('base')
+require_relative('directed')
 
 class UndirectedGraph < Graph
   def to_directed_graph

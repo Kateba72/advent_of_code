@@ -29,7 +29,7 @@ module AoC
         get_input.split("\n").map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
           199
           200

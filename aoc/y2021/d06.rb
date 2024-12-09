@@ -33,11 +33,12 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split(",").map(&:to_i)
+        get_input.split(',').map(&:to_i)
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          3,4,3,1,2
         TEST
       end
 

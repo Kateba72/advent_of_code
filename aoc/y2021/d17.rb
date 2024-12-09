@@ -22,8 +22,8 @@ module AoC
       def part2
         x_range, y_range = parse_input
 
-        x_initial = get_min_x_initial(x_range) .. x_range.end
-        y_initial = y_range.begin .. -y_range.begin-1
+        x_initial = get_min_x_initial(x_range)..x_range.end
+        y_initial = y_range.begin..-y_range.begin - 1
 
         x_initial.to_a.product(y_initial.to_a).filter { |x, y| velocity_covers?(x_range, y_range, Vector[x, y]) }.count
       end
@@ -37,9 +37,7 @@ module AoC
 
       def get_min_x_initial(x_range)
         start = Math.sqrt(x_range.begin * 2).ceil
-        until x_range.begin <= start * (start + 1) / 2
-          start += 1
-        end
+        start += 1 until x_range.begin <= start * (start + 1) / 2
         start
       end
 
@@ -59,15 +57,16 @@ module AoC
       def parse_input
         input = get_input
 
-        input.match /^target area: x=(-?\d+)\.\.(=?\d+), y=(-?\d+)\.\.(-?\d+)$/ do |match|
-          x_range = match[1].to_i .. match[2].to_i
-          y_range = match[3].to_i .. match[4].to_i
+        input.match(/^target area: x=(-?\d+)\.\.(=?\d+), y=(-?\d+)\.\.(-?\d+)$/) do |match|
+          x_range = match[1].to_i..match[2].to_i
+          y_range = match[3].to_i..match[4].to_i
           [x_range, y_range]
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          target area: x=20..30, y=-10..-5
         TEST
       end
 

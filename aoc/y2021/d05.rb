@@ -38,7 +38,7 @@ module AoC
             end
           else
             Range.reversible(line[0], line[2]).zip(
-              Range.reversible(line[1], line[3])
+              Range.reversible(line[1], line[3]),
             ).each do |x, y|
               increment(grid, x, y)
             end
@@ -68,8 +68,18 @@ module AoC
         end
       end
 
-      def get_test_input(number)
+      def get_test_input(_number)
         <<~TEST
+          0,9 -> 5,9
+          8,0 -> 0,8
+          9,4 -> 3,4
+          2,2 -> 2,1
+          7,0 -> 7,4
+          6,4 -> 2,0
+          0,9 -> 2,9
+          3,4 -> 1,4
+          0,0 -> 8,8
+          5,5 -> 8,2
         TEST
       end
 
