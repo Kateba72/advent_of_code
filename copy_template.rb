@@ -16,6 +16,7 @@ filename = "aoc/y#{year}/d#{day.to_s.rjust(2, '0')}.rb"
 if File.exist? filename
   puts "File #{filename} already exists. Visit https://adventofcode.com/#{year}/day/#{day} for the task"
 else
+  Dir.mkdir "aoc/y#{year}"
   File.write(filename, template_subbed)
   puts "Template copied. Visit https://adventofcode.com/#{year}/day/#{day} for the task, solve the task at #{filename}"
   `git add #{filename}`
