@@ -6,6 +6,17 @@ class DirectedGraph < Graph
     self
   end
 
+  def reverse
+    DirectedGraph.new(
+      nodes: nodes.map do |node|
+        DirectedNode.new(node.label, node.data)
+      end,
+      edges: edges.map do |edge|
+        DirectedEdge.new([edge.nodes.last.label, edge.nodes.first.label], edge.data)
+      end,
+    )
+  end
+
   def single_source_shortest_path(start_node, distance_label)
     start_node = get_node(start_node)
 
