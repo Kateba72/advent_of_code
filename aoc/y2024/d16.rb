@@ -58,9 +58,9 @@ module AoC
 
         complex_graph = DirectedGraph.new(nodes:, edges:)
         start = [start_tile, Grid2d::RIGHT]
-        #graph = complex_graph.simplify([start]) do |complex_edges|
+        # graph = complex_graph.simplify([start]) do |complex_edges|
         #  { score: complex_edges.sum { _1.data[:score] } }
-        #end
+        # end
 
         [complex_graph, start]
       end

@@ -57,20 +57,23 @@ class DirectedGraph < Graph
     next_nodes = PriorityQueue.new # [-cost until now, cost until now, node]
     next_nodes << [0, 0, start_node]
     shortest_paths = { start_node => 0 }
+    visited_from = {}
 
     loop do
-      _, score_until_now, node = next_nodes.pop
-
-      return score_until_now, shortest_paths if node == target_node
+      _, score_until_now, node, visited_by = next_nodes.pop
 
       next if shortest_paths[node]&.< score_until_now # if node was already visited with lower costs
+
+      visited_from[node] = visited_by
+
+      return score_until_now, shortest_paths, visited_from if node == target_node
 
       node.outgoing_edges.each do |edge|
         score_until_next = score_until_now + edge.data[distance_label]
         edge_node = edge.nodes[1]
         score_min_until_end = score_until_next + score_until_end_function.call(edge_node)
         unless shortest_paths[edge_node]&.<= score_until_next
-          next_nodes << [-score_min_until_end, score_until_next, edge_node]
+          next_nodes << [-score_min_until_end, score_until_next, edge_node, node]
           shortest_paths[edge_node] = score_until_next
         end
       end
