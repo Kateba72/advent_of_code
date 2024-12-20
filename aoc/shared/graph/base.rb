@@ -1,6 +1,8 @@
 class Graph
   attr_reader :nodes, :edges, :nodes_by_label
 
+  class NoSuchNodeError < StandardError; end
+
   def initialize(nodes:, edges:)
     @nodes = nodes
     @edges = edges
@@ -21,7 +23,7 @@ class Graph
     return node_or_label if node_or_label.is_a? Node
 
     node = @nodes_by_label[node_or_label]
-    raise "Could not map #{node_or_label} to a label" if node.blank?
+    raise NoSuchNodeError, "Could not map #{node_or_label} to a label" if node.blank?
 
     node
   end
