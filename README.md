@@ -4,10 +4,10 @@ I'm Niklas, a rubyist, and I solve Advent of Code each december. Here are my sol
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  Advent of Code - 250/498 ⭐
+  Advent of Code - 252/500 ⭐
 </h1>
 <h1 align="center">
-  2024 - 48 ⭐ - Ruby
+  2024 - 50 ⭐ - Ruby
 </h1>
 <a href="aoc/y2024/d01.rb">
   <img src=".aoc_tiles/tiles/2024/01.png" width="161px">
@@ -80,6 +80,9 @@ I'm Niklas, a rubyist, and I solve Advent of Code each december. Here are my sol
 </a>
 <a href="aoc/y2024/d24.rb">
   <img src=".aoc_tiles/tiles/2024/24.png" width="161px">
+</a>
+<a href="aoc/y2024/d25.rb">
+  <img src=".aoc_tiles/tiles/2024/25.png" width="161px">
 </a>
 <h1 align="center">
   2023 - 50 ⭐ - Ruby
