@@ -27,8 +27,12 @@ module AoC
       puts "Day #{self.class::AOC_DAY}"
       Benchmark.bm(13) do |benchmark|
         benchmark.report('Input parsing') { get_input }
-        benchmark.report('Part 1') { part1_solution = part1 }
-        benchmark.report('Part 2') { part2_solution = part2 } unless self.class::AOC_DAY == 25
+        if respond_to? :both_parts
+          benchmark.report('Both parts') { part1_solution, part2_solution = both_parts }
+        else
+          benchmark.report('Part 1') { part1_solution = part1 }
+          benchmark.report('Part 2') { part2_solution = part2 } unless self.class::AOC_DAY == 25
+        end
       end
       puts
       puts 'Part 1:'
@@ -72,6 +76,9 @@ module AoC
         cookie = File.read(File.join(File.dirname(__FILE__), '../cookie.txt'))
         uri = URI.parse("https://adventofcode.com/#{year}/day/#{day}/input")
         resp = Net::HTTP.get(uri, { 'Cookie' => cookie, 'User-Agent' => 'kateba@posteo.de (github.com/Kateba72/advent_of_code)' })
+
+        raise "Your session cookie is invalid or expired. Please write a current session cookie to cookie.txt" if resp.start_with? 'Puzzle inputs differ by user.'
+
         File.write(filename, resp)
         resp
       end

@@ -17,7 +17,7 @@ class RangeGroup
   end
 
   def cover?(value)
-    index = (0...@ranges.size).bsearch { |i| @ranges[i].begin >= value }
+    index = (0...@ranges.size).bsearch { |i| @ranges[i].begin <= value }
     index && @ranges[index].cover?(value)
   end
 
