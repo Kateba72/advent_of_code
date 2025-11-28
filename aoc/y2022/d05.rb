@@ -43,7 +43,7 @@ module AoC
         stack_lines = stack_text.split("\n").reverse
         stacks_count = stack_lines.first.scan(/\d+/).last.to_i
         stacks = (0...stacks_count).map do |i|
-          stack = stack_lines[1..].map { _1[i * 4 + 1] }.compact
+          stack = stack_lines[1..].map { it[i * 4 + 1] }.compact
           stack.delete ' '
           stack
         end

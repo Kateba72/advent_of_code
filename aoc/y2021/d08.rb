@@ -19,7 +19,7 @@ module AoC
 
         lines.sum do |line|
           decryption = decrypt(line[0])
-          line[1].map { decryption.fetch(_1.chars.sort) }.join.to_i
+          line[1].map { decryption.fetch(it.chars.sort) }.join.to_i
         end
       end
 

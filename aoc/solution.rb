@@ -77,7 +77,7 @@ module AoC
         uri = URI.parse("https://adventofcode.com/#{year}/day/#{day}/input")
         resp = Net::HTTP.get(uri, { 'Cookie' => cookie, 'User-Agent' => 'kateba@posteo.de (github.com/Kateba72/advent_of_code)' })
 
-        raise "Your session cookie is invalid or expired. Please write a current session cookie to cookie.txt" if resp.start_with? 'Puzzle inputs differ by user.'
+        raise 'Your session cookie is invalid or expired. Please write a current session cookie to cookie.txt' if resp.start_with? 'Puzzle inputs differ by user.'
 
         File.write(filename, resp)
         resp

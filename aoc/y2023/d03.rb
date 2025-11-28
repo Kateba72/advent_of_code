@@ -15,7 +15,7 @@ module AoC
           line.enum_for(:scan, /\d+/).sum do
             offset_range = (Regexp.last_match.offset(0).first - 1)..(Regexp.last_match.offset(0).last)
             if (index > 0 && symbols[index - 1].any? { |x| offset_range.include? x }) ||
-                (symbols[index].any? { |x| offset_range.include? x }) ||
+                symbols[index].any? { |x| offset_range.include? x } ||
                 (index < lines.size - 1 && symbols[index + 1].any? { |x| offset_range.include? x })
               Regexp.last_match.to_s.to_i
             else

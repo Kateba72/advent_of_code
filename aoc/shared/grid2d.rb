@@ -56,7 +56,7 @@ class Grid2d
       chars = line.chars
       next chars unless block_given?
 
-      chars.map { yield _1 }
+      chars.map { yield it }
     end
     new(arr)
   end

@@ -15,18 +15,18 @@ module AoC
       memoize def matches(springs, arr)
         play = [springs.size - arr.sum - arr.size + 1, springs.index('#') || springs.size].min
         (0..play).sum do |offset|
-          next 0 unless is_group(springs[offset..offset + arr[0]], arr[0])
+          next 0 unless group?(springs[offset..(offset + arr[0])], arr[0])
 
           if arr.size == 1
-            springs[offset + arr[0] + 1..]&.index('#') ? 0 : 1
+            springs[(offset + arr[0] + 1)..]&.index('#') ? 0 : 1
           else
-            matches(springs[offset + arr[0] + 1..], arr[1..])
+            matches(springs[(offset + arr[0] + 1)..], arr[1..])
           end
         end
       end
 
-      memoize def is_group(springs, size)
-        (springs[-1] == '.' || springs[-1] == '?' || springs.size == size) && springs[...size].chars.all? { |c| ['#', '?'].include?(c) }
+      memoize def group?(springs, size)
+        (['.', '?'].include?(springs[-1]) || springs.size == size) && springs[...size].chars.all? { |c| ['#', '?'].include?(c) }
       end
 
       def part2

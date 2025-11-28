@@ -47,7 +47,7 @@ module AoC
         @signal_strength += cycle * x if cycle % 40 == 20
 
         column = (cycle - 1) % 40 + 1
-        @display[cycle - 1] = column >= x && column <= x + 2 ? '█' : ' '
+        @display[cycle - 1] = column.between?(x, x + 2) ? '█' : ' '
       end
 
       memoize def parse_input

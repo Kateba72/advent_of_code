@@ -79,11 +79,11 @@ Naming/MethodParameterName:
     - y
   AllowNamesEndingInNumbers: true
 
-Naming/PredicateName:
-  Enabled: false
-
 Naming/VariableNumber:
   Enabled: false
+
+Naming/PredicateMethod:
+  AllowBangMethods: true
 
 Security/Eval:
   Enabled: false
@@ -122,4 +122,7 @@ Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
 Layout/LineLength:
+  Enabled: false
+
+Lint/UselessConstantScoping:
   Enabled: false

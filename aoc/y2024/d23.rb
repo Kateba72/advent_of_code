@@ -84,7 +84,7 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split("\n").map { _1.split('-') }
+        get_input.split("\n").map { it.split('-') }
       end
 
       def get_test_input(_number)

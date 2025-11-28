@@ -10,7 +10,7 @@ module AoC
 
         input.sum do |line|
           line = dechunkify(line)
-          corrupted = line.chars.find { _1.in? ')]>}' }
+          corrupted = line.chars.find { it.in? ')]>}' }
           points[corrupted]
         end
       end
@@ -21,7 +21,7 @@ module AoC
 
         scores = input.filter_map do |line|
           line = dechunkify(line)
-          corrupted = line.chars.find { _1.in? ')]>}' }
+          corrupted = line.chars.find { it.in? ')]>}' }
           next if corrupted
 
           score = 0

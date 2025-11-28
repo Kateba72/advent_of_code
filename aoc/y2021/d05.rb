@@ -20,7 +20,7 @@ module AoC
           end
         end
 
-        grid.flatten.count { _1 && _1 >= 2 }
+        grid.flatten.count { it && it >= 2 }
       end
 
       def part2
@@ -45,7 +45,7 @@ module AoC
           end
         end
 
-        grid.flatten.count { _1 && _1 >= 2 }
+        grid.flatten.count { it && it >= 2 }
       end
 
       def increment(grid, x, y)

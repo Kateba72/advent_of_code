@@ -90,10 +90,10 @@ module AoC
           rules = rule_parts.map do |rule|
             var, comp, val, wf = rule.match(/^([xmas])([<>])(\d+):(\w+)$/).captures
             if comp == '<'
-              range = (1..val.to_i - 1)
+              range = (1..(val.to_i - 1))
               exclusion_range = (val.to_i..4000)
             else
-              range = (val.to_i + 1..4000)
+              range = ((val.to_i + 1)..4000)
               exclusion_range = (1..val.to_i)
             end
             Rule.new(var.to_sym, range, wf, exclusion_range)

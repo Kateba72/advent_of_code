@@ -8,7 +8,7 @@ module AoC
         input = parse_input.sort
         optimal_position = input[(input.size / 2).to_i]
 
-        input.sum { (_1 - optimal_position).abs }
+        input.sum { (it - optimal_position).abs }
       end
 
       def part2

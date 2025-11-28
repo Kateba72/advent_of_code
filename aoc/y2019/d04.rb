@@ -28,15 +28,15 @@ module AoC
         return 1 if remaining_digits == 0
         return 1 if remaining_digits == 1 && !doubled
 
-        min_digit = min / 10 ** (remaining_digits - 1) if min
-        max_digit = max / 10 ** (remaining_digits - 1) if max
+        min_digit = min / 10**(remaining_digits - 1) if min
+        max_digit = max / 10**(remaining_digits - 1) if max
 
         lowest = [min_digit, last_digit].compact.max
         highest = [max_digit, 9].compact.min
 
         (lowest..highest).sum do |digit|
-          next_min = min % (10 ** (remaining_digits - 1)) if digit == min_digit
-          next_max = max % (10 ** (remaining_digits - 1)) if max && digit == highest
+          next_min = min % (10**(remaining_digits - 1)) if digit == min_digit
+          next_max = max % (10**(remaining_digits - 1)) if max && digit == highest
           count_possible_passwords(
             remaining_digits: remaining_digits - 1,
             min: next_min,
@@ -48,17 +48,17 @@ module AoC
       end
 
       memoize def count_possible_passwords_2(remaining_digits:, min:, max:, doubled:, last_digit: -1)
-        return (doubled == true || doubled == :last_digit) ? 1 : 0 if remaining_digits == 0
+        return [true, :last_digit].include?(doubled) ? 1 : 0 if remaining_digits == 0
 
-        min_digit = min / 10 ** (remaining_digits - 1) if min
-        max_digit = max / 10 ** (remaining_digits - 1) if max
+        min_digit = min / 10**(remaining_digits - 1) if min
+        max_digit = max / 10**(remaining_digits - 1) if max
 
         lowest = [min_digit, last_digit].compact.max
         highest = [max_digit, 9].compact.min
 
         (lowest..highest).sum do |digit|
-          next_min = min % (10 ** (remaining_digits - 1)) if digit == min_digit
-          next_max = max % (10 ** (remaining_digits - 1)) if max && digit == highest
+          next_min = min % (10**(remaining_digits - 1)) if digit == min_digit
+          next_max = max % (10**(remaining_digits - 1)) if max && digit == highest
           next_doubled = case doubled
           when true
             true
@@ -75,18 +75,13 @@ module AoC
             min: next_min,
             max: next_max,
             doubled: next_doubled,
-            last_digit: digit
+            last_digit: digit,
           )
         end
       end
 
       memoize def parse_input
-        get_input.split("-")
-      end
-
-      def get_test_input(_number)
-        <<~TEST
-        TEST
+        get_input.split('-')
       end
 
       AOC_YEAR = 2019

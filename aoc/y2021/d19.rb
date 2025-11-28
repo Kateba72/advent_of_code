@@ -41,7 +41,7 @@ module AoC
           scanners.each_with_index do |scanner1, index1|
             next if scanner1[:merged]
 
-            scanners[index1 + 1..].each_with_index do |scanner2, index2|
+            scanners[(index1 + 1)..].each_with_index do |scanner2, index2|
               next if scanner2[:merged]
 
               index2 += index1 + 1

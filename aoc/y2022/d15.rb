@@ -39,7 +39,7 @@ module AoC
           forward_lines << sensor[0] + sensor[1] + distance + 1
           forward_lines << sensor[0] + sensor[1] + distance + 2
         end
-        forward_lines = forward_lines.filter { |a| a >= 0 && a <= max_coordinate * 2 }.sort.uniq
+        forward_lines = forward_lines.filter { |a| a.between?(0, max_coordinate * 2) }.sort.uniq
 
         allowed_places = forward_lines.to_h do |a|
           max_b = [a, 2 * max_coordinate - a].min

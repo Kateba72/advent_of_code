@@ -59,7 +59,7 @@ module AoC
             other = cell_v + Vector[step, 0]
             next unless input.in_bounds? other
 
-            distance = input.row(cell_v[1])[cell_v[0] + 1...other[0]].sum
+            distance = input.row(cell_v[1])[(cell_v[0] + 1)...other[0]].sum
             [
               DirectedEdge.new([[cell_v, true], [other, false]], { distance: distance + input.at(other) }),
               DirectedEdge.new([[other, true], [cell_v, false]], { distance: distance + cell }),
@@ -69,7 +69,7 @@ module AoC
             other = cell_v + Vector[0, step]
             next unless input.in_bounds? other
 
-            distance = input.column(cell_v[0])[cell_v[1] + 1...other[1]].sum
+            distance = input.column(cell_v[0])[(cell_v[1] + 1)...other[1]].sum
             [
               DirectedEdge.new([[cell_v, false], [other, true]], { distance: distance + input.at(other) }),
               DirectedEdge.new([[other, false], [cell_v, true]], { distance: distance + cell }),

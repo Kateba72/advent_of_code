@@ -39,7 +39,7 @@ module AoC
           value_binary = ''
           start_index = 6
           loop do
-            bits = binary[start_index..start_index + 4]
+            bits = binary[start_index..(start_index + 4)]
             value_binary << bits[1..4]
 
             break if bits[0] == '0'

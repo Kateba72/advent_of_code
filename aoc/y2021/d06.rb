@@ -14,7 +14,7 @@ module AoC
 
       def solve(days)
         input = parse_input
-        state = (0..8).map { input.count(_1) }
+        state = (0..8).map { input.count(it) }
 
         days.times do
           zeros = state.shift

@@ -15,7 +15,7 @@ module AoC
         map.each do |line|
           original_size = line.size
           (0..3).each do |increase|
-            (0..original_size - 1).each do |y|
+            (0..(original_size - 1)).each do |y|
               line << (line[y] + increase) % 9 + 1
             end
           end
@@ -23,7 +23,7 @@ module AoC
 
         original_size = map.size
         (0..3).each do |increase|
-          (0..original_size - 1).each do |x|
+          (0..(original_size - 1)).each do |x|
             line = map[x].map do |entry|
               (entry + increase) % 9 + 1
             end
@@ -76,7 +76,7 @@ module AoC
         end
         @distance_estimates[last_row][last_column] = map[last_row][last_column]
 
-        (0..last_diagonal - 1).reverse_each do |diagonal|
+        (0..(last_diagonal - 1)).reverse_each do |diagonal|
           diagonal_value = Float::INFINITY
           column_range = [0, diagonal - last_row].max..[last_column, diagonal].min
 

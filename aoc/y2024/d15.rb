@@ -59,9 +59,9 @@ module AoC
             if dir[0] == 0
               next unless move_possible_vert?(grid, box, dir)
 
-              move_p2_vert(grid, box, dir)
+              move_p2_vert!(grid, box, dir)
             else
-              next unless move_p2_right(grid, box)
+              next unless move_p2_right!(grid, box)
 
               grid.set_at(box, '.')
             end
@@ -71,10 +71,10 @@ module AoC
               box = robot + dir + Vector[-1, 0]
               next unless move_possible_vert?(grid, box, dir)
 
-              move_p2_vert(grid, box, dir)
+              move_p2_vert!(grid, box, dir)
             else
               box = robot + dir
-              next unless move_p2_left(grid, box)
+              next unless move_p2_left!(grid, box)
 
               grid.set_at(box, '.')
             end
@@ -130,7 +130,7 @@ module AoC
         end
       end
 
-      def move_p2_vert(grid, box, dir)
+      def move_p2_vert!(grid, box, dir)
         box_right = box + Vector[1, 0]
         grid.set_at(box, '.')
         grid.set_at(box + Vector[1, 0], '.')
@@ -138,18 +138,18 @@ module AoC
         left = box + dir
         case grid.at(left)
         when '['
-          move_p2_vert(grid, left, dir)
+          move_p2_vert!(grid, left, dir)
         when ']'
-          move_p2_vert(grid, left + Vector[-1, 0], dir)
+          move_p2_vert!(grid, left + Vector[-1, 0], dir)
         end
         grid.set_at(left, '[')
 
         right = box_right + dir
-        move_p2_vert(grid, right, dir) if grid.at(right) == '['
+        move_p2_vert!(grid, right, dir) if grid.at(right) == '['
         grid.set_at(right, ']')
       end
 
-      def move_p2_right(grid, box)
+      def move_p2_right!(grid, box)
         next_space = box + Vector[2, 0]
 
         can_move = case grid.at(next_space)
@@ -158,7 +158,7 @@ module AoC
         when '.'
           true
         when '['
-          move_p2_right(grid, next_space)
+          move_p2_right!(grid, next_space)
         end
         return false unless can_move
 
@@ -168,7 +168,7 @@ module AoC
         true
       end
 
-      def move_p2_left(grid, box)
+      def move_p2_left!(grid, box)
         next_space = box + Vector[-2, 0]
 
         can_move = case grid.at(next_space)
@@ -177,7 +177,7 @@ module AoC
         when '.'
           true
         when ']'
-          move_p2_left(grid, next_space)
+          move_p2_left!(grid, next_space)
         end
         return false unless can_move
 

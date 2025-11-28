@@ -56,7 +56,7 @@ module AoC
             next
           end
 
-          direction = (n...n + 4).find do |direction_order|
+          direction = (n...(n + 4)).find do |direction_order|
             case direction_order % 4
             when 0
               true if around_elves[0..2].all?(&:nil?)

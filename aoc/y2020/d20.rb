@@ -164,7 +164,7 @@ module AoC
       end
 
       def fill_picture_row(left_tile, left_tile_id, tiles, edges)
-        picture = left_tile[1...-1].map { _1[1...-1] }
+        picture = left_tile[1...-1].map { it[1...-1] }
 
         right_id = left_tile_id
         right_edge = left_tile.column(left_tile.width - 1)

@@ -6,11 +6,11 @@ module AoC
     class D13 < Solution
 
       def part1
-        parse_input.sum { cost(_1) || 0 }
+        parse_input.sum { cost(it) || 0 }
       end
 
       def part2
-        parse_input.sum { cost(_1, part2: true) || 0 }
+        parse_input.sum { cost(it, part2: true) || 0 }
       end
 
       def cost(machine, part2: false)

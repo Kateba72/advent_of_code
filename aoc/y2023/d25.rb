@@ -58,12 +58,12 @@ module AoC
             end
             next if node.data.excess == 0
 
-            if has_falling_residual_edges?(node)
+            if falling_residual_edges?(node)
               fix_safe_nodes(node)
               next if node.data.in_cut
             end
 
-            relabel(node)
+            relabel!(node)
           end
 
           cut_size = @sink.data.excess
@@ -88,7 +88,7 @@ module AoC
         !node.data.in_cut && node != @sink && node.data.excess > 0
       end
 
-      def has_falling_residual_edges?(node)
+      def falling_residual_edges?(node)
         node.edges.any? do |edge|
           if edge.nodes.first == node
             end_node = edge.nodes.second
@@ -124,7 +124,7 @@ module AoC
         @active_nodes << end_node
       end
 
-      def relabel(node)
+      def relabel!(node)
         # Precondition: node is active, has no residual falling edge to V \ X
         #  or node is safe
         # Returns whether a transfer to the cut occurred (true) or a node's height was increased (false)
@@ -157,7 +157,7 @@ module AoC
           @layers[@lowest_height_in_cut].each do |node|
             next unless node.data.in_cut
 
-            result = relabel(node)
+            result = relabel!(node)
             break if result
           end
           @lowest_height_in_cut += 1 unless result

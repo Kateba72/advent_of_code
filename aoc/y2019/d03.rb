@@ -31,22 +31,17 @@ module AoC
             pos += direction
             wire_length += 1
 
-            if wire_a_visited[pos] && pos != origin
-              distance = pos.manhattan(origin)
-              nearest = distance if distance < nearest
+            next if !wire_a_visited[pos] || pos == origin
 
-              combined_length = wire_length + wire_a_visited[pos]
-              least_combined_length = combined_length if combined_length < least_combined_length
-            end
+            distance = pos.manhattan(origin)
+            nearest = distance if distance < nearest
+
+            combined_length = wire_length + wire_a_visited[pos]
+            least_combined_length = combined_length if combined_length < least_combined_length
           end
         end
 
         [nearest, least_combined_length]
-      end
-
-      def part2
-        input = parse_input
-        'Not Implemented'
       end
 
       def initialize(test: false, test_input: nil)

@@ -7,7 +7,7 @@ module AoC
       def part1
         input = parse_input
 
-        input.keys.count { contains?(_1, 'shiny gold', input) }
+        input.keys.count { contains?(it, 'shiny gold', input) }
       end
 
       def part2

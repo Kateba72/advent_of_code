@@ -35,13 +35,13 @@ module AoC
 
           if file
             debug_print_disk(position, file, size)
-            result += (position...position + size).sum * file
+            result += (position...(position + size)).sum * file
             position += size
           else
             while size > 0
               cf_replacement_size = [size, current_file[1]].min
               debug_print_disk(position, current_file[0], cf_replacement_size)
-              result += (position...position + cf_replacement_size).sum * current_file[0]
+              result += (position...(position + cf_replacement_size)).sum * current_file[0]
               position += cf_replacement_size
               size -= cf_replacement_size
               current_file[1] -= cf_replacement_size
@@ -55,13 +55,13 @@ module AoC
         end
         reset_debug
 
-        result += (position...position + current_file[1]).sum * current_file[0]
+        result += (position...(position + current_file[1])).sum * current_file[0]
 
         result
       end
 
       def defragmented_score(filesystem)
-        next_possible_replacement = (1..9).to_h { [_1, filesystem.size - 1] }
+        next_possible_replacement = (1..9).to_h { [it, filesystem.size - 1] }
         result = 0
         position = 0
 
@@ -71,7 +71,7 @@ module AoC
           if file
             debug_print_disk(position, file, size)
 
-            result += (position...position + size).sum * file
+            result += (position...(position + size)).sum * file
           else
             while size > 0
               search = next_possible_replacement[size]
@@ -82,11 +82,11 @@ module AoC
               end
               break if search <= index
 
-              (1..size).each { next_possible_replacement[_1] = search - 1 }
+              (1..size).each { next_possible_replacement[it] = search - 1 }
 
               file_search, size_search = filesystem[search]
               debug_print_disk(position, file_search, size_search)
-              result += (position...position + size_search).sum * file_search
+              result += (position...(position + size_search)).sum * file_search
               position += size_search
               size -= size_search
 

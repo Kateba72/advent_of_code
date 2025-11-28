@@ -20,7 +20,7 @@ module AoC
           quadrant_counts[quadrant] += 1
         end
 
-        [[-1, -1], [-1, 1], [1, -1], [1, 1]].map { quadrant_counts[_1] }.multiply
+        [[-1, -1], [-1, 1], [1, -1], [1, 1]].map { quadrant_counts[it] }.multiply
       end
 
       def part2

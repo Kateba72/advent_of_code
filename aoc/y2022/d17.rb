@@ -48,7 +48,7 @@ module AoC
             ROCKS[rock_index].each_with_index do |line, rock_line|
               tower[last_line + 4 + rock_line] = line.dup
             end
-            current_rock = last_line + 4..last_line + 3 + ROCKS[rock_index].size
+            current_rock = (last_line + 4)..(last_line + 3 + ROCKS[rock_index].size)
             rock_index = (rock_index + 1) % 5
           end
 
@@ -92,7 +92,7 @@ module AoC
                 tower[rock_line - 1][column] = 1 if last == 1
               end
             end
-            current_rock = (current_rock.begin - 1..current_rock.end - 1)
+            current_rock = ((current_rock.begin - 1)..(current_rock.end - 1))
           else
             current_rock.each do |line|
               tower[line].each_index { |column| tower[line][column] = tower[line][column] > 0 ? 2 : 0 }
@@ -128,7 +128,7 @@ module AoC
               tower[last_line + 4 + rock_line] = line.dup
             end
 
-            next_hash = [rock_index, wind_index, tower[last_line - 7..last_line]].flatten.join(' ')
+            next_hash = [rock_index, wind_index, tower[(last_line - 7)..last_line]].flatten.join(' ')
             if rock_hash.include? next_hash
               old_stop_count, old_height = rock_hash[next_hash]
               additional_loops = (1_000_000_000_000 - stop_count) / (stop_count - old_stop_count)
@@ -138,7 +138,7 @@ module AoC
             rock_hash[next_hash] = [stop_count, last_line]
             tower_heights[stop_count] = last_line
 
-            current_rock = last_line + 4..last_line + 3 + ROCKS[rock_index].size
+            current_rock = (last_line + 4)..(last_line + 3 + ROCKS[rock_index].size)
             rock_index = (rock_index + 1) % 5
           end
 
@@ -182,7 +182,7 @@ module AoC
                 tower[rock_line - 1][column] = 1 if last == 1
               end
             end
-            current_rock = (current_rock.begin - 1..current_rock.end - 1)
+            current_rock = ((current_rock.begin - 1)..(current_rock.end - 1))
           else
             current_rock.each do |line|
               tower[line].each_index { |column| tower[line][column] = tower[line][column] > 0 ? 2 : 0 }

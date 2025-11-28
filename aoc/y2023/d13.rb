@@ -23,7 +23,7 @@ module AoC
         mirror = arr[...-1].find_index.with_index do |line, index|
           if line == arr[index + 1]
             top = arr[...index]
-            bottom = arr[index + 2..].reverse
+            bottom = arr[(index + 2)..].reverse
             size = [top.size, bottom.size].min
             top.last(size) == bottom.last(size)
           end
@@ -48,7 +48,7 @@ module AoC
       def find_p2_mirror(arr)
         mirror = arr[0...-1].find_index.with_index do |_, index|
           top = arr[..index]
-          bottom = arr[index + 1..].reverse
+          bottom = arr[(index + 1)..].reverse
           size = [top.size, bottom.size].min
           top = top.last(size)
           bottom = bottom.last(size)

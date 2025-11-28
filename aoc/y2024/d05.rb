@@ -59,8 +59,8 @@ module AoC
 
       memoize def parse_input
         rules, lines = get_input.split("\n\n")
-        rules = rules.split("\n").to_set { _1.split('|') }
-        lines = lines.split("\n").map { _1.split ',' }
+        rules = rules.split("\n").to_set { it.split('|') }
+        lines = lines.split("\n").map { it.split ',' }
         [rules, lines]
       end
 

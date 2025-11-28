@@ -27,7 +27,7 @@ module AoC
 
         parts = differences.split(3)
 
-        parts.map { calculate_options(_1) }.multiply
+        parts.map { calculate_options(it) }.multiply
       end
 
       def initialize(test: false, test_input: nil)
@@ -45,11 +45,11 @@ module AoC
         real.sort!
         max = real.pop
 
-        combinations = (0..real.length).map { real.combination(_1).to_a }.flatten(1)
+        combinations = (0..real.length).map { real.combination(it).to_a }.flatten(1)
         combinations.filter do |comb|
           comb << max
           next if comb.min > 3
-          next if comb.zip(comb[1..]).map { |a, b| b && b - a }.compact.any? { _1 > 3 }
+          next if comb.zip(comb[1..]).map { |a, b| b && b - a }.compact.any? { it > 3 }
 
           true
         end.count

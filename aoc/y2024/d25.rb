@@ -36,7 +36,7 @@ module AoC
       private
 
       memoize def parse_input
-        get_input.split("\n\n").map { Grid2d.from_string(_1) }
+        get_input.split("\n\n").map { Grid2d.from_string(it) }
       end
 
       def get_test_input(_number)

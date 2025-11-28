@@ -8,8 +8,8 @@ module AoC
         input = parse_input
 
         input[@length..].each_with_index.find do |sum, is|
-          input[is...is + @length].each_with_index.none? do |s1, i1|
-            input[is + i1...is + @length].any? { |s2| s1 + s2 == sum }
+          input[is...(is + @length)].each_with_index.none? do |s1, i1|
+            input[(is + i1)...(is + @length)].any? { |s2| s1 + s2 == sum }
           end
         end[0]
       end
@@ -20,7 +20,7 @@ module AoC
 
         range = input.each_index.each do |i_start|
           sum = input[i_start]
-          i_end = (i_start + 1..).each do |i_next|
+          i_end = ((i_start + 1)..).each do |i_next|
             sum += input[i_next]
             break i_next if sum >= invalid
           end

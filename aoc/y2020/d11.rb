@@ -40,7 +40,7 @@ module AoC
       def model_step1(grid)
         after_step = grid.deep_dup
         grid.with_coords.each do |ch, coords|
-          neighbors = Grid2d::NEIGHBORS_WITH_DIAGONALS.map { grid.at(_1 + coords) }.compact
+          neighbors = Grid2d::NEIGHBORS_WITH_DIAGONALS.map { grid.at(it + coords) }.compact
           if ch == '#'
             after_step.set_at(coords, neighbors.count('#') >= 4 ? 'L' : '#')
           elsif ch == 'L'

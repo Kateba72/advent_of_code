@@ -9,7 +9,7 @@ module AoC
         required = %w[byr iyr eyr hgt hcl ecl pid]
 
         input.count do |passport|
-          required.all? { passport.include? _1 }
+          required.all? { passport.include? it }
         end
       end
 
@@ -18,7 +18,7 @@ module AoC
         required = %w[byr iyr eyr hgt hcl ecl pid]
 
         input.count do |passport|
-          next unless required.all? { passport.include? _1 }
+          next unless required.all? { passport.include? it }
           next unless passport['byr'] =~ /^\d{4}$/ && Regexp.last_match[0].to_i.in?(1920..2002)
           next unless passport['iyr'] =~ /^\d{4}$/ && Regexp.last_match[0].to_i.in?(2010..2020)
           next unless passport['eyr'] =~ /^\d{4}$/ && Regexp.last_match[0].to_i.in?(2020..2030)

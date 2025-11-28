@@ -9,13 +9,13 @@ module AoC
         towels, patterns = parse_input
 
         regexp = Regexp.new("^(#{towels.join('|')})+$")
-        patterns.count { regexp.match? _1 }
+        patterns.count { regexp.match? it }
       end
 
       def part2
         towels, patterns = parse_input
 
-        patterns.sum { count_arrangements(_1, towels) }
+        patterns.sum { count_arrangements(it, towels) }
       end
 
       memoize def count_arrangements(pattern, towels)

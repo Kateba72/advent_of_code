@@ -41,7 +41,7 @@ module AoC
 
       def build_cups(part2: false)
         cup_order = parse_input
-        cups = cup_order.to_h { [_1, Cup.new(_1, nil, nil)] }
+        cups = cup_order.to_h { [it, Cup.new(it, nil, nil)] }
         cup_order[1..].zip(cup_order[...-1]).each do |n, p|
           connect(cups[p], cups[n])
         end

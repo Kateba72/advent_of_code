@@ -20,7 +20,7 @@ module AoC
 
         possibly_allergen = allergen_possibilities.values.map(&:to_a).flatten.to_set
         input.sum do |line|
-          line[0].count { possibly_allergen.exclude? _1 }
+          line[0].count { possibly_allergen.exclude? it }
         end
       end
 

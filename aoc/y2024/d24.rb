@@ -8,7 +8,7 @@ module AoC
       def part1
         input = parse_input
 
-        z = input.keys.filter_map { Regexp.last_match[1].to_i if _1.match(/^z0*(\d+)$/) }.max
+        z = input.keys.filter_map { Regexp.last_match[1].to_i if it.match(/^z0*(\d+)$/) }.max
         out = 0
         while z >= 0
           out <<= 1
@@ -32,7 +32,7 @@ module AoC
           input[key1], input[key2] = input[key2], input[key1]
         end
 
-        max_z = input.keys.filter_map { Regexp.last_match[1].to_i if _1.match(/^z0*(\d+)$/) }.max
+        max_z = input.keys.filter_map { Regexp.last_match[1].to_i if it.match(/^z0*(\d+)$/) }.max
 
         input.each do |key, wire|
           next unless wire.is_a?(Wire)

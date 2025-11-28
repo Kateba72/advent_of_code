@@ -18,7 +18,7 @@ module AoC
         input.sum do |lines|
           psg = lines.split("\n")
           psg[0].chars.count do |c|
-            psg[1..].all? { _1.include? c }
+            psg[1..].all? { it.include? c }
           end
         end
       end

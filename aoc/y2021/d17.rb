@@ -23,7 +23,7 @@ module AoC
         x_range, y_range = parse_input
 
         x_initial = get_min_x_initial(x_range)..x_range.end
-        y_initial = y_range.begin..-y_range.begin - 1
+        y_initial = y_range.begin..(-y_range.begin - 1)
 
         x_initial.to_a.product(y_initial.to_a).filter { |x, y| velocity_covers?(x_range, y_range, Vector[x, y]) }.count
       end

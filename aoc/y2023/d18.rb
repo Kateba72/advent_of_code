@@ -40,7 +40,7 @@ module AoC
       end
 
       def calculate_area(lines)
-        pos = lines[0][0] * (lines[0][1])
+        pos = lines[0][0] * lines[0][1]
 
         inside_area = lines.each_with_index.sum do |line, index|
           next 0 if index == 0 || index == lines.size - 1

@@ -76,7 +76,7 @@ module AoC
       end
 
       def apply_floating_bitmask(int, mask)
-        values = [(int | mask[:ones])]
+        values = [int | mask[:ones]]
         mask[:floating].each do |floating|
           values += values.map do |value|
             value & floating == 0 ? value + floating : value - floating

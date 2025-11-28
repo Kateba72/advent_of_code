@@ -39,12 +39,12 @@ module AoC
           occupied[0][11] = nil
           next_distances = estimate_distance(positions, count)
           next_distances_sum = next_distances.sum
-          (0...positions.size / 2).each do |amphipod|
+          (0...(positions.size / 2)).each do |amphipod|
             x = positions[2 * amphipod]
             y = positions[2 * amphipod + 1]
             occupied[x][y] = amphipod / count
           end
-          (0...positions.size / 2).each do |amphipod|
+          (0...(positions.size / 2)).each do |amphipod|
             amphitype = amphipod / count
             x = positions[2 * amphipod]
             y = positions[2 * amphipod + 1]
@@ -56,7 +56,7 @@ module AoC
 
             energy_per_move = 10**amphitype
             if x == 0
-              hallway = wants_y > y ? (y + 1...wants_y) : (wants_y + 1...y)
+              hallway = wants_y > y ? ((y + 1)...wants_y) : ((wants_y + 1)...y)
               next if hallway.to_a.any? { |hallway_y| occupied[0][hallway_y] }
 
               room = (2..count).to_a.map { |room_x| occupied[room_x][wants_y] }
@@ -67,7 +67,7 @@ module AoC
               energy = energy_per_move * (hallway.size + 1 + wants_x)
               insert_next_point(amphipod, wants_x, wants_y, positions, score_until_now + energy, next_distances_sum - next_distances[amphipod])
             else
-              (y + 1..8).each do |hallway_y|
+              ((y + 1)..8).each do |hallway_y|
                 next unless hallway_y.odd? || hallway_y == 8
                 break if occupied[0][hallway_y]
 
@@ -116,7 +116,7 @@ module AoC
             #.#.#.#.#
             #########
         HOUSE
-        (0...positions.size / 2).each do |a|
+        (0...(positions.size / 2)).each do |a|
           x = positions[2 * a]
           y = positions[2 * a + 1]
           str[x + 1][y + 3] = (65 + a / 4).chr
@@ -126,7 +126,7 @@ module AoC
       end
 
       def estimate_distance(positions, count)
-        (0...positions.size / 2).map do |a|
+        (0...(positions.size / 2)).map do |a|
           moves_y = positions[2 * a + 1] - a / count * 2
           next 0 if moves_y == 0
 

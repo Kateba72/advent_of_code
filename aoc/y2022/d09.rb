@@ -50,7 +50,7 @@ module AoC
           knots[0] += Vector[1, 0]
         end
 
-        (0...knots.size - 1).each do |index|
+        (0...(knots.size - 1)).each do |index|
           difference = knots[index].p_norm_to_p(knots[index + 1], 2)
 
           next unless difference >= 4

@@ -16,7 +16,7 @@ module AoC
           end
         end
 
-        borders = [0..input.split("\n").size - 1, 0..input.index("\n") - 1, 0..0]
+        borders = [0..(input.split("\n").size - 1), 0..(input.index("\n") - 1), 0..0]
 
         6.times do
           active, borders = do_3d_conway(active, borders)
@@ -37,7 +37,7 @@ module AoC
           end
         end
 
-        borders = [(0..input.split("\n").size - 1).to_a, (0..input.index("\n") - 1).to_a, [0], [0]]
+        borders = [(0..(input.split("\n").size - 1)).to_a, (0..(input.index("\n") - 1)).to_a, [0], [0]]
 
         6.times do
           active, borders = do_4d_conway(active, borders)

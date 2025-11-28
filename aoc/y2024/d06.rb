@@ -7,7 +7,7 @@ module AoC
       def part1
         input = parse_input
 
-        pos = (input.with_coords.find { _1[0] == '^' })[1]
+        pos = input.with_coords.find { it[0] == '^' }[1]
         direction = Vector[0, -1]
         visited = Set.new
 
@@ -24,7 +24,7 @@ module AoC
       def part2
         input = parse_input
 
-        pos = (input.with_coords.find { _1[0] == '^' })[1]
+        pos = input.with_coords.find { it[0] == '^' }[1]
         direction = Vector[0, -1]
         seen = Set.new
         visited = Set.new

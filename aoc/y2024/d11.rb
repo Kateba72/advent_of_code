@@ -27,7 +27,7 @@ module AoC
         elsif stone == 0
           blink_count(1, times - 1)
         elsif (str = stone.to_s).size.even?
-          blink_count(str[0...str.size / 2].to_i, times - 1) + blink_count(str[str.size / 2..].to_i, times - 1)
+          blink_count(str[0...(str.size / 2)].to_i, times - 1) + blink_count(str[(str.size / 2)..].to_i, times - 1)
         else
           blink_count(stone * 2024, times - 1)
         end

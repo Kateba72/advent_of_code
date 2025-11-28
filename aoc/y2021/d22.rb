@@ -79,11 +79,11 @@ module AoC
 
           apply_range = reactor_range
           if apply_range.begin < range.begin
-            new_entries[(apply_range.begin..range.begin - 1)] = value.deep_dup
+            new_entries[(apply_range.begin..(range.begin - 1))] = value.deep_dup
             apply_range = range.begin..apply_range.end
           end
           if apply_range.end > range.end
-            new_entries[range.end + 1..apply_range.end] = value.deep_dup
+            new_entries[(range.end + 1)..apply_range.end] = value.deep_dup
             apply_range = apply_range.begin..range.end
           end
           if reactor_range == apply_range

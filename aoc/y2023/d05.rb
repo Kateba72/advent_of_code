@@ -17,7 +17,7 @@ module AoC
 
       def part2
         ids, rules = parse_input
-        ids = RangeGroup.new(*ids.each_slice(2).map { |x, y| x..x + y - 1 })
+        ids = RangeGroup.new(*ids.each_slice(2).map { |x, y| x..(x + y - 1) })
 
         rules.each do |rule|
           ids = apply_map(rule, ids)
@@ -31,7 +31,7 @@ module AoC
         rules.each do |rule|
           matching_ids = input.intersection(rule[1])
           new_matching_ids = matching_ids.ranges.map do |range|
-            range.first + rule[0]..range.last + rule[0]
+            (range.first + rule[0])..(range.last + rule[0])
           end
           new_ranges += new_matching_ids
         end
@@ -49,8 +49,8 @@ module AoC
           null_range = RangeGroup.new(0..max_value)
           ruleparts = ruleparts.map do |rulepart|
             dest, source, len = rulepart.split.map(&:to_i)
-            null_range.intersection!([0..source - 1, source + len..max_value])
-            [dest - source, source..source + len - 1]
+            null_range.intersection!([0..(source - 1), (source + len)..max_value])
+            [dest - source, source..(source + len - 1)]
           end
           ruleparts << [0, null_range]
           ruleparts
